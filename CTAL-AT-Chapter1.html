@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISTQB CTAL-AT Study Guide — Chapters 1–2</title>
+<link rel="stylesheet" href="study-common.css">
+<style>
+  /* Loading state */
+  .loading { text-align:center; padding:2rem; color:#666; font-style:italic; }
+  .error   { text-align:center; padding:2rem; color:#c0392b; font-weight:bold; }
+
+  /* Highlight tool */
+  mark.hl-yellow { background-color: #ffe066; }
+  mark.hl-green  { background-color: #90ee90; }
+  mark.hl-blue   { background-color: #87ceeb; }
+  mark.hl-pink   { background-color: #ffb6c1; }
+  mark { cursor: pointer; border-radius: 2px; }
+  #highlight-toolbar {
+    position: fixed; display: none; gap: 6px;
+    padding: 6px 10px; background: #fff;
+    border: 1px solid #ddd; border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000; align-items: center;
+  }
+  #highlight-toolbar .hl-btn {
+    width: 24px; height: 24px;
+    border: 2px solid transparent; border-radius: 50%;
+    cursor: pointer; padding: 0;
+  }
+  #highlight-toolbar .hl-btn:hover { border-color: #333; transform: scale(1.1); }
+  #highlight-toolbar .hl-btn-remove {
+    margin-left: 4px; padding: 2px 8px;
+    border: 1px solid #ccc; background: #f5f5f5;
+    border-radius: 4px; cursor: pointer;
+    font-size: 12px; font-weight: bold;
+  }
+  #highlight-toolbar .hl-btn-remove:hover { background: #e0e0e0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>ISTQB® CTAL-AT Study Guide</h1>
+  <p class="subtitle">Advanced Level Agile Tester (v2.0) — Chapter-by-Chapter Review</p>
+</header>
+
+<div class="toc">
+  <h2>Syllabus Chapters</h2>
+  <ol id="toc-list">
+    <!-- Populated from XML -->
+  </ol>
+</div>
+
+<div id="content-area">
+  <p class="loading">Loading study content…</p>
+</div>
+
+<footer id="page-footer">
+  <!-- Populated from XML -->
+</footer>
+
+</div>
+
+<script>
+(function() {
+  const xmlUrl = 'CTAL-AT-Chapters1-2.xml';
+
+  async function loadContent() {
+    const container = document.getElementById('content-area');
+    try {
+      const response = await fetch(xmlUrl);
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'application/xml');
+      const parserError = xml.querySelector('parsererror');
+      if (parserError) throw new Error('XML parse error');
+
+      render(xml);
+      if (window.StarStudy && window.StarStudy.initStarButtons) {
+        window.StarStudy.initStarButtons();
+      }
+      if (window.HighlightTool && window.HighlightTool.init) {
+        window.HighlightTool.init();
+      }
+    } catch (err) {
+      container.innerHTML = '<p class="error">Failed to load content: ' + err.message + '</p>';
+      console.error(err);
+    }
+  }
+
+  function render(xml) {
+    const chaptersRoot = xml.querySelector('chapters');
+    const tocRoot = xml.querySelector('toc');
+    const footerText = xml.querySelector('footer-text')?.textContent || '';
+
+    // --- Render TOC ---
+    const tocOl = document.getElementById('toc-list');
+    tocOl.innerHTML = '';
+    if (tocRoot) {
+      tocRoot.querySelectorAll('item').forEach(item => {
+        const li = document.createElement('li');
+        li.className = item.getAttribute('status') || '';
+        const id = item.getAttribute('id');
+        if (id && li.className === 'active') {
+          const a = document.createElement('a');
+          a.href = '#' + id;
+          a.textContent = item.textContent;
+          li.appendChild(a);
+        } else {
+          li.textContent = item.textContent;
+        }
+        tocOl.appendChild(li);
+      });
+    }
+
+    // --- Render chapters ---
+    const contentArea = document.getElementById('content-area');
+    contentArea.innerHTML = '';
+    if (chaptersRoot) {
+      chaptersRoot.querySelectorAll('chapter').forEach(ch => {
+        const article = document.createElement('article');
+        article.id = ch.getAttribute('id') || '';
+
+        ch.childNodes.forEach(node => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+          const el = renderNode(node);
+          if (el) article.appendChild(el);
+        });
+
+        contentArea.appendChild(article);
+      });
+    }
+
+    // --- Footer ---
+    document.getElementById('page-footer').textContent = footerText;
+  }
+
+  function renderNode(node) {
+    const tag = node.tagName;
+
+    if (tag === 'meta') {
+      const div = document.createElement('div');
+      div.className = 'meta';
+      node.querySelectorAll('badge').forEach(b => {
+        const span = document.createElement('span');
+        span.className = 'badge';
+        span.textContent = b.textContent;
+        div.appendChild(span);
+      });
+      return div;
+    }
+
+    if (tag === 'title') {
+      const h2 = document.createElement('h2');
+      h2.textContent = node.textContent;
+      return h2;
+    }
+
+    if (tag === 'section') {
+      const section = document.createElement('section');
+      section.id = node.getAttribute('id') || '';
+      node.childNodes.forEach(child => {
+        if (child.nodeType !== Node.ELEMENT_NODE) return;
+        const el = renderNode(child);
+        if (el) section.appendChild(el);
+      });
+      return section;
+    }
+
+    if (tag === 'paragraph') {
+      const p = document.createElement('p');
+      p.innerHTML = innerHtmlFromNode(node);
+      return p;
+    }
+
+    if (tag === 'h3') {
+      const h3 = document.createElement('h3');
+      h3.textContent = node.textContent;
+      return h3;
+    }
+
+    if (tag === 'h4') {
+      const h4 = document.createElement('h4');
+      h4.textContent = node.textContent;
+      return h4;
+    }
+
+    if (tag === 'h2') {
+      const h2 = document.createElement('h2');
+      h2.textContent = node.textContent;
+      return h2;
+    }
+
+    if (tag === 'heading') {
+      // Headings inside key-box or cards — use h4 by default
+      const h4 = document.createElement('h4');
+      h4.textContent = node.textContent;
+      return h4;
+    }
+
+    if (tag === 'list') {
+      const type = node.getAttribute('type') || 'ul';
+      const list = document.createElement(type === 'ol' ? 'ol' : 'ul');
+      if (type === 'check') list.className = 'check';
+      node.querySelectorAll(':scope > item').forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = innerHtmlFromNode(item);
+        // Handle colspan in tables wrapped inside list items (rare, but used for exploratory row)
+        if (item.getAttribute('span')) {
+          li.setAttribute('colspan', item.getAttribute('span'));
+        }
+        list.appendChild(li);
+      });
+      return list;
+    }
+
+    if (tag === 'table') {
+      const table = document.createElement('table');
+      node.querySelectorAll(':scope > row').forEach((row, idx) => {
+        const tr = document.createElement('tr');
+        row.querySelectorAll(':scope > cell').forEach(cell => {
+          const cellEl = document.createElement(idx === 0 ? 'th' : 'td');
+          const span = cell.getAttribute('span');
+          if (span) cellEl.setAttribute('colspan', span);
+          cellEl.innerHTML = innerHtmlFromNode(cell);
+          tr.appendChild(cellEl);
+        });
+        table.appendChild(tr);
+      });
+      return table;
+    }
+
+    if (tag === 'key-box') {
+      const div = document.createElement('div');
+      div.className = 'key-box';
+      node.childNodes.forEach(child => {
+        if (child.nodeType !== Node.ELEMENT_NODE) return;
+        const el = renderNode(child);
+        if (el) div.appendChild(el);
+      });
+      // Remove default margin from paragraph inside key-box to match original inline style
+      const p = div.querySelector('p');
+      if (p) p.style.margin = '0';
+      return div;
+    }
+
+    if (tag === 'compare') {
+      const div = document.createElement('div');
+      div.className = 'compare';
+      node.querySelectorAll(':scope > card').forEach(card => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'compare-card ' + (card.getAttribute('type') || '');
+        card.childNodes.forEach(child => {
+          if (child.nodeType !== Node.ELEMENT_NODE) return;
+          const el = renderNode(child);
+          if (el) cardDiv.appendChild(el);
+        });
+        div.appendChild(cardDiv);
+      });
+      return div;
+    }
+
+    if (tag === 'glossary') {
+      const dl = document.createElement('dl');
+      dl.className = 'glossary';
+      const terms = node.querySelectorAll(':scope > term');
+      const defs = node.querySelectorAll(':scope > definition');
+      terms.forEach((term, i) => {
+        const dt = document.createElement('dt');
+        dt.textContent = term.textContent;
+        dl.appendChild(dt);
+        if (defs[i]) {
+          const dd = document.createElement('dd');
+          dd.textContent = defs[i].textContent;
+          dl.appendChild(dd);
+        }
+      });
+      return dl;
+    }
+
+    // Fallback: create element with same tag if known HTML tag, else div
+    if (['div','span','strong','em','p','ul','ol','li','dl','dt','dd'].includes(tag)) {
+      const el = document.createElement(tag);
+      el.innerHTML = innerHtmlFromNode(node);
+      return el;
+    }
+
+    // Unknown element: recurse children into a div
+    const fallback = document.createElement('div');
+    node.childNodes.forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        const el = renderNode(child);
+        if (el) fallback.appendChild(el);
+      } else if (child.nodeType === Node.TEXT_NODE) {
+        fallback.appendChild(document.createTextNode(child.textContent));
+      }
+    });
+    return fallback;
+  }
+
+  // Build inner HTML string from a node's children, preserving <strong>, <em>, etc.
+  function innerHtmlFromNode(node) {
+    const wrapper = document.createElement('div');
+    node.childNodes.forEach(child => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        wrapper.appendChild(document.createTextNode(child.textContent));
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        // Map common inline tags directly; strip unknown wrapper tags but keep their children
+        const tag = child.tagName.toLowerCase();
+        if (['strong','em','b','i','code','a','span','br'].includes(tag)) {
+          const clone = child.cloneNode(true);
+          wrapper.appendChild(clone);
+        } else {
+          // For structural tags inside a paragraph/table cell, recursively convert
+          const converted = renderNode(child);
+          if (converted) wrapper.appendChild(converted);
+        }
+      }
+    });
+    return wrapper.innerHTML;
+  }
+
+  loadContent();
+})();
+</script>
+<script>
+(function() {
+  const STORAGE_KEY = 'ctal-at-highlights-ch1';
+
+  let toolbar = null;
+
+  function storageAvailable() {
+    try {
+      const storage = window.localStorage;
+      const x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function storageGet() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    } catch (e) {
+      console.error('[Highlight] Failed to read localStorage:', e);
+      return [];
+    }
+  }
+
+  function storageSet(items) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.error('[Highlight] Failed to write localStorage:', e);
+      alert('Could not save highlight. localStorage may be disabled in your browser (e.g. file:// protocol or private mode).');
+    }
+  }
+
+  function getHighlightId() {
+    return 'hl-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  }
+
+  function getBlockParent(node) {
+    const blocks = ['P','LI','TD','TH','H2','H3','H4','DT','DD'];
+    let el = node.nodeType === 3 ? node.parentElement : node;
+    while (el) {
+      if (blocks.includes(el.tagName)) return el;
+      if (el.id === 'content-area') return null;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function getElementPath(el) {
+    const parts = [];
+    const contentArea = document.getElementById('content-area');
+    let current = el;
+    while (current && current !== contentArea) {
+      if (current.id) {
+        parts.unshift('#' + current.id);
+        break;
+      }
+      const parent = current.parentElement;
+      if (!parent) break;
+      const tag = current.tagName.toLowerCase();
+      const sameTag = Array.from(parent.children).filter(c => c.tagName.toLowerCase() === tag);
+      const index = sameTag.indexOf(current);
+      parts.unshift(tag + ':' + index);
+      current = parent;
+    }
+    return parts;
+  }
+
+  function findElementByPath(path) {
+    const contentArea = document.getElementById('content-area');
+    let el = contentArea;
+    for (const part of path) {
+      if (!el) return null;
+      if (part.startsWith('#')) {
+        el = document.getElementById(part.slice(1));
+      } else {
+        const [tag, idx] = part.split(':');
+        const children = Array.from(el.children).filter(c => c.tagName.toLowerCase() === tag);
+        el = children[parseInt(idx)];
+      }
+    }
+    return el;
+  }
+
+  // Convert element-container + child-offset to text-node + text-offset
+  function normalizeToText(container, offset) {
+    if (container.nodeType === Node.TEXT_NODE) {
+      return { node: container, offset: offset };
+    }
+    // container is an element; offset is child-node index
+    let child = container.childNodes[offset];
+    if (!child) {
+      // Beyond last child – return end of last text node
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+      let lastText = null, n;
+      while (n = walker.nextNode()) lastText = n;
+      if (lastText) return { node: lastText, offset: lastText.length };
+      return { node: container, offset: container.childNodes.length };
+    }
+    if (child.nodeType === Node.TEXT_NODE) {
+      return { node: child, offset: 0 };
+    }
+    // Element child – find first text node inside it
+    const walker = document.createTreeWalker(child, NodeFilter.SHOW_TEXT, null, false);
+    const firstText = walker.nextNode();
+    if (firstText) return { node: firstText, offset: 0 };
+    // No text in this child, look at following siblings
+    let next = child.nextSibling;
+    while (next) {
+      if (next.nodeType === Node.TEXT_NODE) return { node: next, offset: 0 };
+      const w = document.createTreeWalker(next, NodeFilter.SHOW_TEXT, null, false);
+      const t = w.nextNode();
+      if (t) return { node: t, offset: 0 };
+      next = next.nextSibling;
+    }
+    return { node: container, offset: offset };
+  }
+
+  function getTextOffset(el, node, offset) {
+    const normalized = normalizeToText(node, offset);
+    node = normalized.node;
+    offset = normalized.offset;
+    if (node.nodeType !== Node.TEXT_NODE) return 0;
+
+    let count = 0;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    let n;
+    while (n = walker.nextNode()) {
+      if (n === node) return count + offset;
+      count += n.length;
+    }
+    return count;
+  }
+
+  function getNodeAndOffset(el, offset, skipInsideMarks) {
+    let count = 0;
+    let lastText = null;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    let n;
+    while (n = walker.nextNode()) {
+      if (skipInsideMarks && n.parentElement && n.parentElement.closest('mark[data-highlight-id]')) continue;
+      lastText = n;
+      if (count + n.length >= offset) {
+        return { node: n, offset: offset - count };
+      }
+      count += n.length;
+    }
+    if (lastText) {
+      return { node: lastText, offset: lastText.length };
+    }
+    return { node: el, offset: el.childNodes.length };
+  }
+
+  function saveHighlight(data) {
+    const items = storageGet();
+    items.push(data);
+    storageSet(items);
+    console.log('[Highlight] Saved', data.id, 'Total:', items.length);
+  }
+
+  function deleteHighlight(id) {
+    const items = storageGet().filter(h => h.id !== id);
+    storageSet(items);
+    console.log('[Highlight] Deleted', id, 'Remaining:', items.length);
+  }
+
+  function createToolbar() {
+    if (toolbar) return;
+    toolbar = document.createElement('div');
+    toolbar.id = 'highlight-toolbar';
+    toolbar.innerHTML = `
+      <button class="hl-btn" data-color="yellow" style="background:#ffe066" title="Yellow"></button>
+      <button class="hl-btn" data-color="green"  style="background:#90ee90" title="Green"></button>
+      <button class="hl-btn" data-color="blue"   style="background:#87ceeb" title="Blue"></button>
+      <button class="hl-btn" data-color="pink"   style="background:#ffb6c1" title="Pink"></button>
+      <button class="hl-btn-remove" title="Remove highlight">X</button>
+    `;
+    document.body.appendChild(toolbar);
+
+    toolbar.addEventListener('click', function(e) {
+      const btn = e.target.closest('.hl-btn');
+      const removeBtn = e.target.closest('.hl-btn-remove');
+      if (btn) {
+        applyHighlight(btn.dataset.color);
+        hideToolbar();
+      } else if (removeBtn) {
+        removeFromSelection();
+        hideToolbar();
+      }
+    });
+  }
+
+  function showToolbar(rect) {
+    if (!toolbar) createToolbar();
+    toolbar.style.display = 'flex';
+    requestAnimationFrame(() => {
+      let top = rect.top - toolbar.offsetHeight - 8;
+      let left = rect.left + rect.width / 2 - toolbar.offsetWidth / 2;
+      if (top < 8) top = rect.bottom + 8;
+      if (left < 8) left = 8;
+      toolbar.style.top = top + 'px';
+      toolbar.style.left = left + 'px';
+    });
+  }
+
+  function hideToolbar() {
+    if (toolbar) toolbar.style.display = 'none';
+  }
+
+  function applyHighlight(color) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const range = sel.getRangeAt(0);
+    const text = sel.toString();
+    if (!text.trim()) return;
+
+    const startBlock = getBlockParent(range.startContainer);
+    const endBlock = getBlockParent(range.endContainer);
+    if (!startBlock || !endBlock) return;
+
+    const data = {
+      id: getHighlightId(),
+      color: color,
+      text: text,
+      startPath: getElementPath(startBlock),
+      startOffset: getTextOffset(startBlock, range.startContainer, range.startOffset),
+      endPath: getElementPath(endBlock),
+      endOffset: getTextOffset(endBlock, range.endContainer, range.endOffset)
+    };
+
+    const mark = document.createElement('mark');
+    mark.className = 'hl-' + color;
+    mark.dataset.highlightId = data.id;
+
+    try {
+      range.surroundContents(mark);
+    } catch (e) {
+      const frag = range.extractContents();
+      mark.appendChild(frag);
+      range.insertNode(mark);
+    }
+
+    saveHighlight(data);
+    sel.removeAllRanges();
+  }
+
+  function removeFromSelection() {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const node = sel.getRangeAt(0).commonAncestorContainer;
+    const mark = node.nodeType === 3 ? node.parentElement.closest('mark[data-highlight-id]') : node.closest('mark[data-highlight-id]');
+    if (mark) removeHighlight(mark);
+  }
+
+  function removeHighlight(mark) {
+    const id = mark.dataset.highlightId;
+    if (id) deleteHighlight(id);
+    const parent = mark.parentNode;
+    while (mark.firstChild) {
+      parent.insertBefore(mark.firstChild, mark);
+    }
+    parent.removeChild(mark);
+    parent.normalize();
+  }
+
+  function restoreHighlights() {
+    const items = storageGet();
+    if (!items.length) {
+      console.log('[Highlight] No saved highlights to restore');
+      return;
+    }
+
+    console.log('[Highlight] Restoring', items.length, 'highlights');
+
+    items.sort((a, b) => {
+      const pathCmp = a.startPath.join('/').localeCompare(b.startPath.join('/'));
+      if (pathCmp !== 0) return pathCmp;
+      return b.startOffset - a.startOffset;
+    });
+
+    let restored = 0;
+    items.forEach(item => {
+      try {
+        const startEl = findElementByPath(item.startPath);
+        const endEl = findElementByPath(item.endPath);
+        if (!startEl || !endEl) {
+          console.warn('[Highlight] Could not find element for', item.id);
+          return;
+        }
+
+        const start = getNodeAndOffset(startEl, item.startOffset, true);
+        const end = getNodeAndOffset(endEl, item.endOffset, true);
+
+        const range = document.createRange();
+        range.setStart(start.node, start.offset);
+        range.setEnd(end.node, end.offset);
+
+        const mark = document.createElement('mark');
+        mark.className = 'hl-' + item.color;
+        mark.dataset.highlightId = item.id;
+
+        try {
+          range.surroundContents(mark);
+        } catch (e) {
+          const frag = range.extractContents();
+          mark.appendChild(frag);
+          range.insertNode(mark);
+        }
+        restored++;
+      } catch (e) {
+        console.warn('[Highlight] Failed to restore', item.id, e);
+      }
+    });
+    console.log('[Highlight] Restored', restored, 'of', items.length);
+  }
+
+  document.addEventListener('mouseup', function(e) {
+    if (toolbar && toolbar.contains(e.target)) return;
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+    const contentArea = document.getElementById('content-area');
+    if (text.length > 0 && contentArea) {
+      const range = sel.getRangeAt(0);
+      if (!contentArea.contains(range.commonAncestorContainer)) {
+        hideToolbar();
+        return;
+      }
+      const rect = range.getBoundingClientRect();
+      showToolbar(rect);
+    } else {
+      hideToolbar();
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    const mark = e.target.closest('mark[data-highlight-id]');
+    if (mark) {
+      removeHighlight(mark);
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'h' && e.key !== 'H') return;
+    if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) return;
+
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const text = sel.toString().trim();
+    if (!text) return;
+
+    const range = sel.getRangeAt(0);
+    const contentArea = document.getElementById('content-area');
+    if (!contentArea || !contentArea.contains(range.commonAncestorContainer)) return;
+
+    e.preventDefault();
+
+    const container = range.commonAncestorContainer;
+    const existingMark = container.nodeType === 3
+      ? container.parentElement.closest('mark[data-highlight-id]')
+      : container.closest('mark[data-highlight-id]');
+
+    if (existingMark) {
+      removeHighlight(existingMark);
+    } else {
+      applyHighlight('yellow');
+    }
+    hideToolbar();
+  });
+
+  window.HighlightTool = {
+    init: function() {
+      if (!storageAvailable()) {
+        console.warn('[Highlight] localStorage is not available. Highlights will not persist after refresh.');
+      }
+      createToolbar();
+      restoreHighlights();
+    }
+  };
+})();
+</script>
+<script src="study-common.js"></script>
+</body>
+</html>
