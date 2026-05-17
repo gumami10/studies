@@ -1,0 +1,1338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <chapters>
+    <chapter id="ch1">
+      <meta>
+        <badge>Chapter 1</badge>
+        <badge>60 minutes</badge>
+        <badge>K2 Focus: Understand</badge>
+      </meta>
+      <title>Test Strategy and Test Approach Challenges</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Compare test types to be performed during and after an iteration</item>
+          <item>Explain when end-to-end testing should be performed</item>
+          <item>Compare the benefits and drawbacks of formal testing and holistic testing</item>
+          <item>Differentiate among regression test approaches</item>
+        </list>
+      </key-box>
+
+      <section id="ch1-intro">
+        <h3>Introduction to Agile</h3>
+        <paragraph>Agile testing is not a phase — it is a collaborative, integrated method that embeds quality throughout the development process and highlights the whole team’s responsibility for quality.</paragraph>
+
+        <key-box>
+          <heading>Agile Manifesto Values (2001)</heading>
+          <list type="check">
+            <item><strong>Individuals and interactions</strong> over processes and tools</item>
+            <item><strong>Working software</strong> over comprehensive documentation</item>
+            <item><strong>Customer collaboration</strong> over contract negotiation</item>
+            <item><strong>Responding to change</strong> over following a plan</item>
+          </list>
+        </key-box>
+
+        <h4>Key Agile Principles</h4>
+        <list type="ul">
+          <item>Deliver valuable software early and often</item>
+          <item>Embrace changing requirements, even late in development</item>
+          <item>Frequent releases with short cycles</item>
+          <item>Daily collaboration between business and developers</item>
+          <item>Motivated individuals with proper support and trust</item>
+          <item>Face-to-face conversation is most efficient</item>
+          <item>Working software is the primary measure of progress</item>
+          <item>Sustainable development at a constant pace</item>
+          <item>Technical excellence and good design enhance agility</item>
+          <item>Simplicity — maximize work not done</item>
+          <item>Self-organizing teams produce best work</item>
+          <item>Regular reflection and adjustment</item>
+        </list>
+
+        <h4>Common Agile Methodologies</h4>
+        <table>
+          <row><cell>Methodology</cell><cell>Focus</cell></row>
+          <row><cell><strong>Scrum</strong></cell><cell>Fixed-length sprints, defined roles, ceremonies, prioritized backlog</cell></row>
+          <row><cell><strong>Extreme Programming (XP)</strong></cell><cell>TDD, continuous integration, close collaboration</cell></row>
+          <row><cell><strong>Kanban</strong></cell><cell>Visual workflow, WIP limits, continuous delivery, flow optimization</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Definition of Agile Testing (Gregory &amp; Crispin)</heading>
+          <paragraph>“Collaborative testing practices that occur from <strong>inception to delivery</strong>, supporting frequent delivery of quality products that add business value. Testing activities focus on <strong>defect prevention</strong> rather than defect detection, and work to strengthen whole team responsibility for quality.”</paragraph>
+        </key-box>
+
+        <h4>The Agile Testing Manifesto (Greaves &amp; Laing)</h4>
+        <list type="check">
+          <item><strong>Testing throughout</strong> over testing at the end</item>
+          <item><strong>Preventing defects</strong> over finding defects</item>
+          <item><strong>Testing understanding</strong> over checking functionality</item>
+          <item><strong>Building the best system</strong> over breaking the system</item>
+          <item><strong>Team responsibility for quality</strong> over tester responsibility</item>
+        </list>
+
+        <h4>Impact of Agile Testing</h4>
+        <list type="ul">
+          <item>Testing is integrated into the workflow, not a final gate</item>
+          <item>Strengthens collaboration and communication</item>
+          <item>Testing roles clarify requirements and identify defects early</item>
+          <item>Quality is a collective team goal — anyone can test at any time</item>
+          <item>Mindset shift from techniques-only to customer value + adaptability</item>
+        </list>
+      </section>
+
+      <section id="s1-1">
+        <h2>1.1 Test Types</h2>
+        <paragraph>Test types are selected based on test objectives, iteration context, user story acceptance criteria, quality risks, and feedback needs. Decisions should be reflected in the <strong>Definition of Done</strong> and the test approach.</paragraph>
+
+        <table>
+          <row><cell>Test Type</cell><cell>During the Iteration</cell><cell>After the Iteration</cell></row>
+          <row><cell><strong>Functional</strong></cell><cell>Verifies implemented features meet requirements and acceptance criteria</cell><cell>Expanded integration of features (including cross-team)</cell></row>
+          <row><cell><strong>Non-functional</strong></cell><cell>Basic performance, usability, or security on new features</cell><cell>Full non-functional testing on integrated / staging environments; broader exploratory and usability testing</cell></row>
+          <row><cell><strong>White-box</strong></cell><cell>Used before/during coding (e.g., TDD); early defect detection</cell><cell>Rarely a separate activity; code coverage may be measured during black-box testing</cell></row>
+          <row><cell><strong>Black-box</strong></cell><cell>Verifies new/modified features against user story acceptance criteria (ATDD)</cell><cell>Broader system-level testing, regression, end-to-end</cell></row>
+          <row><cell><strong>Exploratory</strong></cell><cell span="2">Critical throughout; during iteration it uncovers unknown risks and emergent behavior via structured, time-boxed sessions</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>All test types can be used at any stage, but <em>how</em> they are used differs during vs. after an iteration. Exploratory testing is especially important to fill gaps between white-box and black-box coverage.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s1-2">
+        <h2>1.2 End-to-End Testing</h2>
+        <paragraph>End-to-end (E2E) testing verifies integration across systems and user workflows. It is valuable but costly to maintain and slow to run, so it should be used with intention.</paragraph>
+
+        <h4>When to Perform E2E Testing</h4>
+        <list type="check">
+          <item>Closer to a release or during hardening iterations</item>
+          <item>When system-wide integration points are newly introduced</item>
+          <item>When integration points carry high risk of failure</item>
+          <item>In distributed systems with complex user journeys</item>
+          <item>When third-party dependencies cannot be reliably tested in isolation</item>
+        </list>
+
+        <h4>Factors Influencing E2E Decisions</h4>
+        <list type="ul">
+          <item><strong>Risk</strong> — impact and likelihood of system-level failure</item>
+          <item><strong>Feedback time</strong> — heavy E2E suites slow delivery; favor faster lower-level tests</item>
+          <item><strong>CI/CD maturity</strong> — automation, observability, monitoring, feature toggles, and A/B testing can reduce reliance on extensive E2E</item>
+        </list>
+
+        <key-box>
+          <heading>Test Pyramid Reminder</heading>
+          <paragraph>Broad, fast feedback at the base (component tests) → fewer service-level tests → minimal end-to-end tests at the top. Deviating increases cost and risk.</paragraph>
+        </key-box>
+
+        <h4>Alternatives / Complements</h4>
+        <list type="ul">
+          <item><strong>Contract testing</strong> — validates service interfaces independently; consumer-driven contract testing is effective in Agile environments where services evolve independently</item>
+          <item><strong>Holistic testing &amp; exploratory testing</strong> — uncover unexpected behaviors, usability defects, and edge cases that scripts miss</item>
+        </list>
+      </section>
+
+      <section id="s1-3">
+        <h2>1.3 Formal Testing and Holistic Testing</h2>
+
+        <compare>
+          <card type="pos">
+            <heading>Formal Testing</heading>
+            <paragraph><em>Precision and formalization; derives test cases from explicitly defined requirements.</em></paragraph>
+            <list type="ul">
+              <item>Traceability between requirements and test cases</item>
+              <item>Aligned with coverage metrics</item>
+              <item>Assists verification (built right)</item>
+              <item>Conformance to standards</item>
+              <item>Repeatability</item>
+              <item>Eases test automation translation</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Formal Testing — Challenges</heading>
+            <list type="ul">
+              <item>Excessive rigidity; restricts exploration</item>
+              <item>Over-reliance on documented requirements (often incomplete/incorrect)</item>
+              <item>Misses unexpected and emergent risks</item>
+              <item>Often executed late → delayed feedback</item>
+              <item>Low cognitive engagement; mechanical execution</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Holistic Testing</heading>
+            <paragraph><em>System-wide view of quality; continuous testing across customer, team, and organizational perspectives.</em></paragraph>
+            <list type="ul">
+              <item>Combines process, product, and user viewpoints</item>
+              <item>First Time Right — quality built in, not tested after</item>
+              <item>Continuous verification + validation</item>
+              <item>Collaboration, context awareness, systems thinking, exploration</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Holistic Testing — Challenges</heading>
+            <list type="ul">
+              <item>Lack of focus without disciplined structure</item>
+              <item>Difficult to measure; context-sensitive</item>
+              <item>Requires culture change and leadership support</item>
+              <item>“Whole team” ownership can dilute accountability</item>
+              <item>May not satisfy regulatory / contractual constraints</item>
+              <item>Lack of formality endangers test automation</item>
+            </list>
+          </card>
+        </compare>
+
+        <key-box>
+          <heading>Complementary Use</heading>
+          <paragraph>Use <strong>formal testing</strong> for critical components, high-risk areas, and regulatory requirements — automate where possible. Use <strong>holistic testing</strong> for general quality control, early feedback, and exploring complex scenarios with highest user impact.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s1-4">
+        <h2>1.4 Regression Test Approaches</h2>
+        <paragraph>In Agile, regression testing must support continuous delivery and rapid change. Different approaches can be used individually or combined, depending on context, capabilities, risk profile, and automation maturity.</paragraph>
+
+        <table>
+          <row><cell>Approach</cell><cell>What it is</cell></row>
+          <row><cell><strong>Incremental regression testing</strong></cell><cell>Automated suite maintained continuously; subset of regression tests triggered per commit/integration based on risk, location, and dependencies. Enables early defect detection.</cell></row>
+          <row><cell><strong>Risk-based regression testing</strong></cell><cell>Frequent risk assessments guide automated and manual regression. Helps decide where automation is unnecessary and human investigation adds more value.</cell></row>
+          <row><cell><strong>DevOps-oriented regression testing</strong></cell><cell>Woven into CI/CD; smoke tests as quality gates, high-priority tests post-deployment in pre-prod or prod. Feature toggles, canary releases, and observability may replace traditional regression in some cases.</cell></row>
+          <row><cell><strong>Exploratory regression testing</strong></cell><cell>Applied continuously or at intervals; supplements automation with tester insights to explore interactions and unexpected defects.</cell></row>
+          <row><cell><strong>Collaborative regression testing</strong></cell><cell>Bug bashes or whole-team walkthroughs of critical flows. Builds awareness of product state and risk areas; useful when automation is immature or as a learning exercise.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Traceability</heading>
+          <paragraph>Traceability between user stories, requirements, acceptance criteria, and test cases is key. Lightweight traceability (e.g., tagging tests to user stories) helps maintain confidence in frequent releases without slowing delivery.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s1-glossary">
+        <h2>Chapter 1 Glossary</h2>
+        <glossary>
+          <term>Acceptance Test-Driven Development (ATDD)</term>
+          <definition>A collaborative approach where acceptance criteria are defined as tests before implementation, helping ensure delivered functionality meets stakeholder expectations.</definition>
+
+          <term>Bug Bash</term>
+          <definition>A time-boxed, collaborative test activity where the whole team explores the product to find defects and increase awareness of risk areas.</definition>
+
+          <term>Edge Case</term>
+          <definition>A scenario that occurs at an extreme operating parameter; often uncovered by exploratory or holistic testing rather than predefined scripts.</definition>
+
+          <term>End-to-End Testing (E2E)</term>
+          <definition>Testing that verifies integration across the entire application and, if relevant, multiple systems or services, typically focused on critical user flows.</definition>
+
+          <term>Feature Toggle</term>
+          <definition>A technique allowing features to be turned on or off in production without redeployment; supports selective exposure and canary releases.</definition>
+
+          <term>Formal Testing</term>
+          <definition>Testing that emphasizes precision and formalization, deriving test cases from explicitly defined requirements; useful for compliance and risk control.</definition>
+
+          <term>Hardening Iteration</term>
+          <definition>An iteration focused on stabilization and system-wide testing before release. May indicate insufficient attention to quality during regular iterations.</definition>
+
+          <term>Holistic Testing</term>
+          <definition>An approach that extends beyond planned test activities to encompass a system-wide view of quality, incorporating continuous testing and multiple perspectives (customer, team, organizational).</definition>
+
+          <term>Iteration</term>
+          <definition>A fixed timebox in Agile development during which a usable and potentially releasable product increment is created.</definition>
+
+          <term>Regression Testing</term>
+          <definition>Testing of a previously tested program following modification to ensure that defects have not been introduced or uncovered in unchanged areas.</definition>
+
+          <term>Test-Driven Development (TDD)</term>
+          <definition>A development practice where tests are written before code, supporting early defect detection and a stable codebase.</definition>
+
+          <term>Test Type</term>
+          <definition>A group of test activities aimed at testing specific characteristics of a component or system (e.g., functional, non-functional, white-box, black-box).</definition>
+
+          <term>User Journey</term>
+          <definition>The path a user takes through an application or across systems to achieve a goal; often the focus of end-to-end testing.</definition>
+        </glossary>
+      </section>
+    </chapter>
+
+    <chapter id="ch2">
+      <meta>
+        <badge>Chapter 2</badge>
+        <badge>60 minutes</badge>
+        <badge>K2 Focus: Understand</badge>
+      </meta>
+      <title>People and Teams</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Compare generalization and specialization within a team</item>
+          <item>Give examples of how to motivate business representatives to perform test activities</item>
+          <item>Summarize how the whole team approach can assist the development team</item>
+          <item>Explain how and when to use tissue testers</item>
+        </list>
+      </key-box>
+
+      <section id="ch2-intro">
+        <h3>Introduction</h3>
+        <paragraph>In Agile software development projects, people and tools form the foundation for delivering quality at speed. The whole team approach emphasizes that quality is a shared responsibility among developers, testers, and business representatives who collaborate closely. Teams are typically composed of multi-disciplinary or cross-functional members. While specialists bring deep expertise, generalists adapt across roles, enabling greater flexibility and shared workload. Activating and motivating business representatives to contribute to testing through early involvement in defining acceptance criteria, reviewing test results, and participating in exploratory testing enhances product quality and alignment with business goals. This collaboration also benefits developers because sharing testing insights reduces defects and accelerates feedback. Agile teams may also engage tissue testers — external testers who provide a "fresh eyes" perspective to uncover defects early.</paragraph>
+      </section>
+
+      <section id="s2-1">
+        <h2>2.1 Whole Team Approach</h2>
+        <paragraph>The essence of the whole team approach lies in testers, developers, and business representatives working together as an Agile team in every step of the development process. Generalization and specialization of roles directly impact how test activities are distributed, owned, and improved. Agile promotes a whole team approach to quality, where everyone owns quality regardless of title or position.</paragraph>
+
+        <h3>2.1.1 Generalization and Specialization within a Team</h3>
+        <paragraph>Agile testers are typically <strong>generalizing T-shaped specialists</strong>. They maintain deep expertise in testing and broad knowledge across multiple disciplines like coding, business analysis, and DevOps. This supports cross-functional collaboration and enables flexibility in team composition.</paragraph>
+
+        <compare>
+          <card type="pos">
+            <heading>Generalization</heading>
+            <list type="ul">
+              <item>Multiple team members can perform a certain activity</item>
+              <item>Supports a sustainable pace and reduces bottlenecks</item>
+              <item>Enhances team resilience</item>
+              <item>Encourages shared ownership of quality</item>
+              <item>Essential in continuous delivery environments</item>
+            </list>
+          </card>
+          <card type="pos">
+            <heading>Specialization</heading>
+            <list type="ul">
+              <item>Deep expertise in specific test tasks</item>
+              <item>Required for test techniques, exploratory testing, test automation, usability testing</item>
+              <item>Testers preserve specialization while developing broader skills</item>
+              <item>Context-driven balance (complex/regulated domains may need more specialists; lean startups may prefer generalists)</item>
+            </list>
+          </card>
+        </compare>
+
+        <paragraph>Agile teams strive to <strong>minimize silos</strong> by encouraging knowledge sharing and pairing. <strong>Mob programming and mob testing</strong> blur roles by bringing the whole team (business reps, developers, testers) together to work on a single task simultaneously.</paragraph>
+
+        <key-box>
+          <heading>Testers' Role in Generalization</heading>
+          <paragraph>Testers often take the lead in helping others apply quality-focused practices such as <strong>BDD</strong>, <strong>exploratory testing</strong>, and <strong>test automation</strong>. They learn from developers about implementation details to better assess risks and design tests, preserving their specialization while contributing to generalization.</paragraph>
+        </key-box>
+
+        <paragraph>In multi-team Agile environments (e.g., SAFe, LeSS), the whole team approach extends beyond individual teams. Cross-team coordination on quality standards, integration testing, and defect ownership at team boundaries becomes essential. Testers often participate in <strong>communities of practice</strong> to share knowledge across teams.</paragraph>
+      </section>
+
+      <section id="s2-1-2">
+        <h3>2.1.2 Motivating Business Representatives to Participate in Testing</h3>
+        <paragraph>Quality is a shared responsibility across the whole team. Business representatives define product quality and should participate in test activities. Motivating them begins by involving them early in the test process, especially in defining acceptance criteria and formulating business-facing tests.</paragraph>
+
+        <h4>Key Practices to Motivate Business Representatives</h4>
+        <list type="check">
+          <item><strong>ATDD, BDD, and Specification by Example</strong> — anchor the business representative's role in clarifying behavior through concrete, testable examples</item>
+          <item><strong>Embedding testability into user stories</strong> during backlog refinement ensures acceptance criteria are concrete and tied to verifiable test results</item>
+          <item><strong>Visibility via dashboards</strong> — coverage, defect trends, and quality-risk metrics help business representatives understand product quality and where testing adds value</item>
+          <item><strong>Business metrics</strong> — customer satisfaction, support costs, feature adoption link testing to product validation</item>
+          <item><strong>Shared ownership in daily collaboration</strong> — actively shaping "done" during iteration planning and refinement; presence during bug bashes or usability testing</item>
+          <item><strong>Recognition during retrospectives and demos</strong> — reinforces their role in quality and keeps them engaged</item>
+        </list>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>With clear expectations, access to relevant information, and continuous opportunities to influence outcomes, business representatives are more likely to see testing as a core part of their responsibilities and a powerful lever for delivering successful products.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s2-1-3">
+        <h3>2.1.3 Supporting the Developers</h3>
+        <paragraph>The whole team approach assists developers by embedding quality-focused collaboration throughout the software development lifecycle. Continuous interaction between developers, testers, and business representatives builds a shared understanding of quality goals and potential risks, leading to better technical and business decisions.</paragraph>
+
+        <h4>How Testers Support Developers</h4>
+        <list type="ul">
+          <item><strong>Early test feedback</strong> reduces defect costs and supports rapid corrective action (ATDD, BDD)</item>
+          <item><strong>Clarifying acceptance criteria</strong> through examples improves specification by example and alignment between code and business expectations</item>
+          <item><strong>Coaching developers</strong> to write better component and component-integration tests for higher code coverage</item>
+          <item><strong>Enabling safe refactoring</strong> — continuous testing gives developers confidence to evolve the codebase</item>
+          <item><strong>Automating tests early</strong> enables faster detection of integration defects and facilitates CI/CD pipelines</item>
+          <item><strong>Contributing to code reviews</strong> from a quality and risk perspective</item>
+          <item><strong>Participating in exploratory test sessions</strong> together — mutual learning elevates overall competence</item>
+          <item><strong>Insights into real user behavior</strong> through usability sessions and production analytics help build user-aligned software</item>
+          <item><strong>Early involvement of operations, security, and testers</strong> helps design solutions that are easier to deploy, observe, and secure in production</item>
+        </list>
+
+        <key-box>
+          <heading>Result</heading>
+          <paragraph>By embedding these perspectives from the start, developers can make architectural choices that balance functionality with quality characteristics, ultimately speeding up delivery while increasing confidence in the system's readiness for real-world use.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s2-2">
+        <h2>2.2 Tissue Testers</h2>
+        <paragraph><strong>Tissue testers</strong> (also known as fresh-eyes testers) are temporary testers, external to the team, who provide fast, informal feedback on a product or feature in development. They are most effective when used in early phases of design or feature implementation, before teams commit to expensive development or infrastructure decisions. The idea is to briefly expose a new idea, interface, or interaction to someone unfamiliar with it to detect usability defects, confusing behavior, or misleading flows.</paragraph>
+
+        <h4>Characteristics</h4>
+        <list type="ul">
+          <item>Typically people from outside the team or project (e.g., a colleague from another team)</item>
+          <item>Short-term involvement — after they have seen the product once, they are no longer unbiased</item>
+          <item>Their special value as "fresh eyes" diminishes after first exposure</item>
+          <item>Lightweight, transient nature — like a tissue, use once and discard for that purpose</item>
+        </list>
+
+        <h4>When to Use</h4>
+        <list type="check">
+          <item>Early phases of design or feature implementation</item>
+          <item>Exploratory testing, usability testing, or assumption-checking where quick feedback is valuable but too early for rigorous validation</item>
+          <item>Before refining an interaction or screen flow to identify potential issues</item>
+        </list>
+
+        <h4>Important Considerations</h4>
+        <list type="ul">
+          <item><strong>Do not over-explain</strong> — introducing bias destroys their fresh-eyed view</item>
+          <item><strong>Does not replace structured testing</strong> — it should precede or complement it</item>
+          <item><strong>Primary value</strong> is revealing early misalignments between design intent and actual user comprehension</item>
+          <item>Quick to run and do not require recruiting external users, making them useful in Agile and DevOps contexts</item>
+        </list>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Tissue testers provide a lightweight, transient source of unbiased feedback early in development. Use them once for fresh perspective, then move to structured testing for rigorous validation.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s2-glossary">
+        <h2>Chapter 2 Glossary</h2>
+        <glossary>
+          <term>Acceptance Test-Driven Development (ATDD)</term>
+          <definition>A collaborative approach where acceptance criteria are defined as tests before implementation, inviting business representatives into meaningful dialogue with the team.</definition>
+
+          <term>Behavior-Driven Development (BDD)</term>
+          <definition>A collaborative approach that uses concrete, testable examples to clarify behavior and align business expectations with development.</definition>
+
+          <term>Community of Practice</term>
+          <definition>A group of people who share a concern or passion for something they do and learn how to do it better as they interact regularly; used in multi-team Agile to share quality knowledge.</definition>
+
+          <term>Generalizing Specialist (T-Shaped)</term>
+          <definition>A team member with deep expertise in one area (the vertical bar of the T) and broad knowledge across multiple disciplines (the horizontal bar), enabling flexibility and cross-functional collaboration.</definition>
+
+          <term>Mob Programming / Mob Testing</term>
+          <definition>An approach where the whole team works together simultaneously on a single task, blurring traditional role boundaries.</definition>
+
+          <term>Tissue Tester (Fresh-Eyes Tester)</term>
+          <definition>A temporary, external tester who provides fast, informal feedback early in development. Their unbiased perspective is valuable only for a single exposure.</definition>
+
+          <term>Whole Team Approach</term>
+          <definition>An Agile principle where everyone — developers, testers, and business representatives — shares responsibility for quality throughout the development process.</definition>
+        </glossary>
+      </section>
+    </chapter>
+
+    <chapter id="ch3">
+      <meta>
+        <badge>Chapter 3</badge>
+        <badge>210 minutes</badge>
+        <badge>K2 / K4 Focus</badge>
+      </meta>
+      <title>Test Management and Test Process Improvement</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Summarize how to perform test planning in Agile software development</item>
+          <item>Outline a project test strategy using testing quadrants</item>
+          <item>Explain how to perform test monitoring and test control in Agile software development</item>
+          <item>Compare the different types of coverage that can be used for test reporting in Agile software development</item>
+          <item>Select appropriate test process improvement measures based on metrics in Agile software development (K4)</item>
+          <item>Explain how to perform test process improvement in Agile software development</item>
+        </list>
+      </key-box>
+
+      <section id="ch3-intro">
+        <h3>Introduction</h3>
+        <paragraph>In Agile software development, test activities are integrated into short, iterative test cycles, requiring adaptive test planning that evolves with the product and team priorities. A project's test strategy is supported by the <strong>testing quadrants</strong> (Gregory &amp; Crispin, 2019), which select appropriate test types, test levels, test approaches, and test techniques to achieve balanced coverage of business-facing and technology-facing needs.</paragraph>
+
+        <key-box>
+          <heading>Testing Quadrants Model</heading>
+          <table>
+            <row><cell>Quadrant</cell><cell>Type</cell><cell>Purpose</cell><cell>Examples</cell></row>
+            <row><cell><strong>Q1</strong></cell><cell>Technology-facing, guide development</cell><cell>Verify small pieces of code</cell><cell>Component tests, unit tests, TDD</cell></row>
+            <row><cell><strong>Q2</strong></cell><cell>Business-facing, guide development</cell><cell>Validate product behaves as business expects</cell><cell>Functional tests, ATDD, BDD, prototypes, simulations</cell></row>
+            <row><cell><strong>Q3</strong></cell><cell>Business-facing, critique product</cell><cell>Validate how well the product works for users</cell><cell>Exploratory testing, usability testing, UAT</cell></row>
+            <row><cell><strong>Q4</strong></cell><cell>Technology-facing, critique product</cell><cell>Verify quality characteristics</cell><cell>Performance testing, security testing, compatibility, reliability</cell></row>
+          </table>
+        </key-box>
+
+        <paragraph>Agile principles further shape the test strategy by promoting adaptive planning, early feedback, and continuous risk-based prioritization to align testing with business value. Test monitoring and test control are ongoing, using lightweight, real-time metrics. Test reporting delivers context-driven coverage metrics. Continuous test process improvement is embedded in Agile, leveraging metrics to identify bottlenecks, refine practices, and enhance efficiency.</paragraph>
+      </section>
+
+      <section id="s3-1">
+        <h2>3.1 Test Planning</h2>
+
+        <h3>3.1.1 Test Planning in Agile Software Development</h3>
+        <paragraph>In Agile, test planning typically happens at two main levels: <strong>iteration planning</strong> and <strong>release planning</strong>. The project test strategy impacts both.</paragraph>
+
+        <h4>Iteration Planning</h4>
+        <list type="ul">
+          <item>Team reviews the product backlog and selects user stories for the iteration</item>
+          <item>Testers contribute by facilitating <strong>risk-storming sessions</strong> with business representatives and developers to identify risks and prioritize test activities</item>
+          <item>Define high-level test conditions and refine acceptance criteria</item>
+          <item>Select appropriate test types, test levels, test approaches, and test techniques (test quadrants can support this task)</item>
+          <item>Ensure <strong>iteration readiness</strong>: test environments and test data must be stable and available from the start of the iteration</item>
+          <item>Include continuous integration and continuous testing practices</item>
+          <item>Manual testing complements automation for areas requiring human judgment (usability, exploratory)</item>
+          <item>Agree on or revisit the team-level <strong>Definition of Done</strong>, detailing exit criteria for stories and backlog items</item>
+          <item>Clarify how test execution, test results, and coverage information contribute to meeting the Definition of Done</item>
+        </list>
+
+        <h4>Release Planning</h4>
+        <list type="ul">
+          <item>Operates at a broader level than iteration planning</item>
+          <item>Identify high-level business objectives and evaluate the product backlog for scope and sequencing</item>
+          <item>Assess quality risks across the release scope and define release-level test objectives</item>
+          <item>Determine appropriate test levels, test types, test approaches, and test techniques needed</item>
+          <item>Identify dependencies between features, constraints on test environments and data, and integration points</item>
+          <item>Help estimate overall test effort using <strong>metrics-based</strong> and <strong>expert-based</strong> techniques</item>
+          <item>Outline a release-level test strategy covering both functional and non-functional testing, how they are incorporated across iterations, and how regression testing is managed</item>
+          <item>Ensure early planning for experience-based testing and identify where external stakeholders need to be involved</item>
+          <item>Agreement on <strong>Definition of Done at the release level</strong>, including acceptance criteria for the integrated product</item>
+          <item>Define how test results (e.g., coverage) will be reviewed and communicated to support release readiness assessments</item>
+        </list>
+      </section>
+
+      <section id="s3-1-2">
+        <h3>3.1.2 Project Test Strategy</h3>
+        <paragraph>A project test strategy is shaped by several contextual factors, each influencing how test techniques, test levels, test approaches, and test types are assigned to the testing quadrants.</paragraph>
+
+        <table>
+          <row><cell>Contextual Factor</cell><cell>Influence on Test Strategy</cell></row>
+          <row><cell><strong>Product domain complexity &amp; business criticality</strong></cell><cell>High-risk domains (finance, healthcare, aviation) emphasize Q2 and Q4 — traceable, structured approaches for compliance and coverage evidence</cell></row>
+          <row><cell><strong>Organizational structure &amp; team composition</strong></cell><cell>Cross-functional teams with embedded test specialties enable deeper testing across all quadrants. Siloed experts may underutilize exploratory (Q3) and non-functional testing (Q4) unless explicitly planned</cell></row>
+          <row><cell><strong>Delivery frequency &amp; release strategy</strong></cell><cell>Short cycles / continuous delivery demand extensive automation in Q1 and Q4 (component testing, API testing, smoke testing). Longer cycles allow more manual Q3 work (exploratory, usability, UAT)</cell></row>
+          <row><cell><strong>Observability</strong></cell><cell>Low observability → more Q2 simulations and prototypes. High testability → instrumentation and test-only interfaces enable targeted testing across all quadrants</cell></row>
+          <row><cell><strong>Product maturity &amp; change frequency</strong></cell><cell>Early-stage / rapid prototyping → Q3 exploratory testing takes precedence. Mature products → greater investment in Q1/Q2 structured testing and regression automation to mitigate change cost</cell></row>
+          <row><cell><strong>Tooling constraints &amp; infrastructure maturity</strong></cell><cell>Modern CI/CD enables full Q1/Q2/Q4 automation. Without these, strategy may be limited to manual Q3 testing or isolated environments, requiring compensatory measures (exploratory coverage, feature toggles)</cell></row>
+          <row><cell><strong>Risk appetite &amp; leadership culture</strong></cell><cell>Risk-averse / regulatory → process-heavy Q2 (boundary value analysis, state transition, decision tables). Adaptive / experimental → Q3 exploratory, Q2 simulations. Balance is key: Q1/Q2 ensure repeatability; Q3/Q4 foster innovation and learning</cell></row>
+          <row><cell><strong>Customer feedback &amp; production observability</strong></cell><cell>A/B testing, usage telemetry, and failure pattern analysis extend Q3/Q4 into production for short feedback loops</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>The test strategy should be revisited periodically (e.g., based on retrospective outcomes). As a product and its context evolve, the strategy should adapt by shifting across quadrants, rebalancing scripted vs. unscripted and manual vs. automated testing. The more dynamic the delivery model, the more often this reevaluation is necessary.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s3-2">
+        <h2>3.2 Test Monitoring and Test Control</h2>
+        <paragraph>In Agile, test monitoring uses lightweight metrics displayed via burn-down charts, cumulative flow diagrams, automated dashboards, and similar visualizations to continuously track test progress and product quality. These are updated frequently and accessible to all team members for shared situational awareness and immediate action.</paragraph>
+
+        <h4>Key Characteristics</h4>
+        <list type="ul">
+          <item>Metrics focus on <strong>delivered value</strong> and <strong>actionable, real-time feedback</strong> rather than periodic reporting</item>
+          <item>Emphasis on trends in defect discovery, test automation coverage, exploratory testing findings, and production monitoring data</item>
+          <item><strong>Test control</strong> is exercised collaboratively during daily stand-ups, iteration reviews, and retrospectives</item>
+          <item>Data from CI/CD pipelines drives real-time decisions: prioritizing exploratory sessions, refining acceptance criteria, focusing on high-risk areas</item>
+          <item>Adjustments are made by the <strong>whole team</strong>, not just testers</item>
+          <item>Test automation feedback, production monitoring signals, and customer feedback loops are treated as critical triggers for test control decisions</item>
+          <item>Test monitoring and test control should be integrated into the daily workflow, using cross-functional collaboration and continuous feedback from both pre-production and production environments</item>
+        </list>
+      </section>
+
+      <section id="s3-3">
+        <h2>3.3 Test Reporting</h2>
+        <paragraph>Test reporting in Agile focuses on coverage metrics to reflect test progress, support decision-making, and enhance transparency. Coverage types should align with team goals, support rapid feedback cycles, and be lightweight enough to avoid unnecessary overhead.</paragraph>
+
+        <table>
+          <row><cell>Coverage Type</cell><cell>Description</cell></row>
+          <row><cell><strong>Requirements coverage</strong></cell><cell>Common in ATDD/BDD contexts. Links automated acceptance tests to user stories or examples, demonstrating which functional aspects have been specified, developed, and verified. Acceptance criteria become traceable units of coverage.</cell></row>
+          <row><cell><strong>Code coverage</strong></cell><cell>Used selectively in highly automated environments. Should not be treated as a proxy for quality — high code coverage alone does not guarantee meaningful testing. Combine with fault seeding or assertion quality reviews.</cell></row>
+          <row><cell><strong>Exploratory testing coverage</strong></cell><cell>Reported using session-based test management or test charter completion rates. Particularly valuable for business-facing exploratory testing, usability testing, or risk areas lacking formal specifications. Visual dashboards show what has been explored.</cell></row>
+          <row><cell><strong>Infrastructure &amp; environment coverage</strong></cell><cell>In DevOps/CD contexts, tracks which platforms, configurations, or APIs have been exercised. Monitoring and observability tools enhance operational coverage reporting by revealing usage patterns and anomalies in production.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Coverage metrics should be discussed collaboratively, not consumed as abstract indicators. They must support informed decision-making and adapt to context. Teams should resist the <strong>illusion of completeness</strong> created by metrics and instead provide tailored information to different stakeholders.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s3-4">
+        <h2>3.4 Test Process Improvement</h2>
+
+        <h3>3.4.1 Metrics for Test Process Improvements</h3>
+        <paragraph>Metrics-based test process improvement requires careful interpretation of both product and process indicators. Metrics should serve as <strong>feedback mechanisms rather than performance targets</strong>, to avoid misuse that could distort behavior and lead to local optimization.</paragraph>
+
+        <table>
+          <row><cell>Situation / Metric</cell><cell>Possible Improvement Actions</cell></row>
+          <row><cell><strong>Declining defect detection percentage</strong></cell><cell>Root cause analysis may reveal ineffective exploratory testing or insufficient test automation. Consider refining test chartering techniques, improving session-based test management, or investing in observability tooling.</cell></row>
+          <row><cell><strong>Repeated test failures from environmental instability</strong></cell><cell>Invest in test environment management, service virtualization, or containerized solutions to improve stability and confidence.</cell></row>
+          <row><cell><strong>High cycle times for resolving defects</strong></cell><cell>May indicate weak cross-role collaboration or siloed responsibilities. Adopt whole team approaches to defect triage, involve testers earlier in refinement, embed Agile test leaders.</cell></row>
+          <row><cell><strong>Low coverage on critical paths</strong></cell><cell>Strengthen automated coverage at component or component integration testing levels. Rebalance the test pyramid toward more granular, fast-executing tests. Assess whether tests provide meaningful insights or simply inflate metrics.</cell></row>
+          <row><cell><strong>Redundant or fragile tests</strong> (high failure rates, low defect yields)</cell><cell>Refactor or replace using design patterns such as page objects or test data builders.</cell></row>
+          <row><cell><strong>Declining participation in retrospectives / quality discussions</strong></cell><cell>May reflect cultural issues. Coaching for psychological safety and reinforcing testing as shared responsibility. Qualitative metrics (perceived trust, openness) can be as important as numerical indicators.</cell></row>
+          <row><cell><strong>Accumulating test debt</strong> (flaky tests, growing manual regression time)</cell><cell>Schedule maintenance time in each iteration, rotate test ownership, apply test automation refactoring. Measure automation effectiveness by maintenance effort and execution lead times, not just pass/fail rates.</cell></row>
+          <row><cell><strong>High MTTR or production defect escape rates</strong></cell><cell>May indicate missing system alerts, resource constraints, or insufficient exploratory testing of operational behaviors. Consider chaos testing, canary releases, feature toggles, or dark launches.</cell></row>
+          <row><cell><strong>Lack of cross-functional collaboration</strong></cell><cell>Low pair testing frequency, few defect learning sessions, or poor cross-functional contribution ratios may necessitate mentoring, role rotation, or community of practice initiatives.</cell></row>
+          <row><cell><strong>Long lead times from commit to feedback</strong></cell><cell>Invest in dashboards, automated root cause analysis, smart test selection, and other tools that enable short feedback loops.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Important</heading>
+          <paragraph>Any improvement action should be measurable and validated, ideally through retrospectives. Metrics must be traceable to test objectives and risk priorities, not arbitrary benchmarks. Use models like <strong>GQM (Goal-Question-Metric)</strong> to structure metrics in a goal-oriented manner. Maintain critical thinking and contextual sensitivity to prevent metrics from becoming disconnected from the core test mission.</paragraph>
+        </key-box>
+
+        <h3>3.4.2 Test Process Improvement in Agile Software Development</h3>
+        <paragraph>Teams can adopt structured yet lightweight approaches that emphasize collaboration, context-awareness, and iterative experimentation:</paragraph>
+
+        <list type="check">
+          <item><strong>Conduct focused retrospectives</strong> — Use lightweight, collaborative practices such as test-specific retrospectives to identify testing challenges and improvement opportunities. Must be grounded in the team's current context, not imposed from outside.</item>
+          <item><strong>Establish a baseline assessment</strong> — Perform structured Agile test assessments using self-assessments or checklists to identify gaps in the current test approach (collaboration, feedback loops, CI). From there, targeted improvement can follow a gradual, iterative path.</item>
+          <item><strong>Align via joint risk workshops</strong> — Include business, testing, and development representatives to build shared understanding of critical product risks and where test effort is best focused.</item>
+          <item><strong>Strengthen CI/CD feedback loops</strong> — Integrate test-first approaches and pair testing for early, actionable feedback. Use exploratory testing not just to find defects, but to uncover unknown risks and test gaps.</item>
+          <item><strong>Run small experiments</strong> — Use techniques like session-based test management to explore process changes incrementally. Discuss results openly, use retrospectives to adjust strategy.</item>
+          <item><strong>Leverage visible metrics with care</strong> — Monitor automation health, defect trends, and coverage across CI/CD pipelines. Resist benchmarking teams against each other; focus on helping teams understand their own effectiveness.</item>
+        </list>
+
+        <paragraph>Teams can also use practices such as <strong>Value Stream Mapping</strong>, the <strong>PDCA cycle</strong>, or <strong>causal loop diagrams</strong> (see ISTQB-ATLAS). Improvements must account for sociotechnical factors such as organizational culture and communication. <strong>Resistance to change</strong> should be addressed through inclusive conversations and change facilitation strategies.</paragraph>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Continuous improvement in Agile testing must be rooted in critical thinking, ongoing learning, and whole team collaboration. Each improvement should act as a hypothesis to be tested through action, learning, and adaptation — not a fixed prescription.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s3-glossary">
+        <h2>Chapter 3 Glossary</h2>
+        <glossary>
+          <term>Test Strategy</term>
+          <definition>A document describing the test approach, objectives, and scope for a project, shaped by contextual factors such as product domain, delivery frequency, observability, and risk appetite.</definition>
+
+          <term>Testing Quadrants</term>
+          <definition>A model (Gregory &amp; Crispin) organizing tests into four quadrants: Q1 (technology-facing, guide development), Q2 (business-facing, guide development), Q3 (business-facing, critique product), Q4 (technology-facing, critique product).</definition>
+
+          <term>Test Planning</term>
+          <definition>In Agile, performed at two levels: iteration planning (select stories, define test conditions, ensure iteration readiness) and release planning (assess quality risks, define release-level test objectives and strategy).</definition>
+
+          <term>Definition of Done</term>
+          <definition>A formal description of the state of the increment when it meets the quality measures required for the product; agreed at both iteration and release levels.</definition>
+
+          <term>Test Monitoring</term>
+          <definition>The use of lightweight, real-time metrics (burn-down charts, cumulative flow diagrams, dashboards) to continuously track test progress and product quality.</definition>
+
+          <term>Test Control</term>
+          <definition>Collaborative decision-making during daily stand-ups, iteration reviews, and retrospectives, using CI/CD pipeline data to adjust priorities and test activities.</definition>
+
+          <term>Test Reporting</term>
+          <definition>Context-driven reporting of coverage metrics (requirements, code, exploratory, infrastructure) to support decision-making and transparency.</definition>
+
+          <term>Goal-Question-Metric (GQM)</term>
+          <definition>A measurement approach that defines goals, derives questions to assess achievement, and identifies metrics to answer the questions in a systematic and traceable manner.</definition>
+
+          <term>Canary Release</term>
+          <definition>A deployment strategy releasing a new version to a limited subset of users to evaluate before wider rollout.</definition>
+
+          <term>Dark Launch</term>
+          <definition>Deploying new or changed functionality to production without making it visible or accessible to end users, to validate behavior and performance under real conditions before full release.</definition>
+
+          <term>Community of Practice</term>
+          <definition>A group of professionals who share a common interest, meet regularly to share knowledge, learn from experiences, and improve skills in their domain.</definition>
+
+          <term>Metric</term>
+          <definition>A measurement scale and method used for measurement. Should serve as feedback mechanisms rather than performance targets.</definition>
+        </glossary>
+      </section>
+    </chapter>
+
+    <chapter id="ch4">
+      <meta>
+        <badge>Chapter 4</badge>
+        <badge>135 minutes</badge>
+        <badge>K2 / K3 Focus</badge>
+      </meta>
+      <title>Shift Left</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Give examples of how testware can be used as a form of requirements</item>
+          <item>Explain how storyboarding and testboarding can be used to increase the quality of the test basis</item>
+          <item>Explain how example mapping can be used to increase the quality of the test basis</item>
+          <item>Give examples of how biases can negatively affect the product quality</item>
+          <item>Apply user story slicing to achieve testable user stories (K3)</item>
+          <item>Explain how requirements engineering supports shift left</item>
+        </list>
+      </key-box>
+
+      <section id="ch4-intro">
+        <h3>Introduction</h3>
+        <paragraph>Shift left emphasizes bringing quality activities as early as possible in the software development lifecycle, focusing on improving the test basis from the outset. Testware — such as acceptance criteria, checklists, and automated test scripts — can act as living requirements. Techniques like <strong>storyboarding</strong> and <strong>testboarding</strong> help visualize workflows and align perspectives. <strong>Example mapping</strong> refines acceptance criteria through collaborative discussion. Awareness of <strong>cognitive biases</strong> safeguards against flawed assumptions. <strong>User story slicing</strong> ensures stories are small, focused, and testable. Effective <strong>requirements engineering</strong> supports shift left by combining analysis, documentation, and validation.</paragraph>
+
+        <paragraph>Emerging AI and large language model tools can support shift left by analyzing requirements for ambiguities, suggesting test scenarios, or identifying gaps in user story coverage. Testers should evaluate such tools critically and use them to augment rather than replace collaborative human analysis.</paragraph>
+      </section>
+
+      <section id="s4-1">
+        <h2>4.1 Using Shift Left to Improve Test Basis Quality</h2>
+
+        <h3>4.1.1 Testware as Requirements</h3>
+        <paragraph>In Agile, testware can be treated as a form of requirements when used collaboratively and reviewed/applied for each iteration. These work products help teams clarify expectations, drive shared understanding, and support ongoing validation. They are often created during conversations with business stakeholders, making them <strong>living requirements</strong> rather than static documentation.</paragraph>
+
+        <table>
+          <row><cell>Testware Type</cell><cell>Role as Requirements</cell></row>
+          <row><cell><strong>User stories with acceptance criteria</strong></cell><cell>Define expected behavior and pass/fail conditions for each story</cell></row>
+          <row><cell><strong>Checklists</strong></cell><cell>Translate implicit understanding into shared reference points</cell></row>
+          <row><cell><strong>BDD scenarios</strong></cell><cell>Executable specifications derived from team-stakeholder conversations; serve as living requirements and enduring regression tests</cell></row>
+          <row><cell><strong>ATDD acceptance level test cases</strong></cell><cell>Drive development from acceptance criteria; verify stakeholder expectations</cell></row>
+          <row><cell><strong>Examples (Specification by Example)</strong></cell><cell>Concrete, testable illustrations of business rules that reduce ambiguity</cell></row>
+          <row><cell><strong>Test charters</strong></cell><cell>Emerge from high-level product ideas or risk assessments; guide investigation and help identify missing or misunderstood functionality</cell></row>
+          <row><cell><strong>Contracts</strong></cell><cell>Define agreed-upon interfaces between service consumers and providers</cell></row>
+          <row><cell><strong>Automated test scripts</strong></cell><cell>Living documentation that validates behavior and provides regression safety</cell></row>
+          <row><cell><strong>Mind maps, flow diagrams, state diagrams</strong></cell><cell>Used during Agile planning; translate implicit understanding into shared reference points</cell></row>
+          <row><cell><strong>Monitoring logs, analytics, feedback loops</strong></cell><cell>In DevOps/CD models, interpreted as evolving requirements when translated into testable hypotheses or decision rules</cell></row>
+        </table>
+      </section>
+
+      <section id="s4-1-2">
+        <h3>4.1.2 Storyboarding and Testboarding</h3>
+        <paragraph><strong>Storyboarding</strong> visualizes user journeys by presenting expected behavior as a sequence of steps or scenes. This narrative approach reveals assumptions, edge cases, and interactions that might not be obvious in textual requirements. It prompts critical questions about workflow logic, enabling stakeholders to discover inconsistencies or incomplete flows before code is written. Because storyboards focus on user interactions, they help uncover gaps related to usability, flow transitions, and persona-specific needs.</paragraph>
+
+        <paragraph><strong>Testboarding</strong> is a simple practice that helps visualize what needs to be tested for each feature, complementing storyboarding. In addition to validating acceptance criteria, testboarding shows main and alternative scenarios, leading to early alignment among testers, developers, and business representatives on terminology, system behavior, and test priorities. This shared understanding reduces interpretation errors during test design and execution, increasing test case maintainability.</paragraph>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>By combining these techniques, teams create a shared space for exploratory thinking. Testers can pose "what if?" questions and propose negative or alternative scenarios, prompting early improvements in user stories and acceptance criteria. These techniques are most powerful when used <strong>iteratively</strong> — revisiting storyboards and testboards during backlog refinement and iteration planning exposes changes in scope, risks, or understanding. They serve as living documentation that evolves alongside the product.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s4-1-3">
+        <h3>4.1.3 Example Mapping</h3>
+        <paragraph><strong>Example mapping</strong> (Wynne, 2015) is a collaborative technique that refines user stories through structured conversation. It helps teams identify business rules, associated examples (which can become test cases), and capture questions to deepen shared understanding.</paragraph>
+
+        <h4>How It Works — Colored Cards</h4>
+        <table>
+          <row><cell>Card Color</cell><cell>Represents</cell></row>
+          <row><cell><strong>Yellow</strong></cell><cell>The user story under review</cell></row>
+          <row><cell><strong>Blue</strong></cell><cell>Business rules</cell></row>
+          <row><cell><strong>Green</strong></cell><cell>Examples that illustrate the rules (can become test cases)</cell></row>
+          <row><cell><strong>Red</strong></cell><cell>Questions (unresolved issues or things the team still needs to learn)</cell></row>
+        </table>
+
+        <paragraph>Rules are grouped under a user story, and examples are grouped under corresponding rules. The team continues until the scope is clear or the timebox expires. When time runs out, it may indicate the user story is too complex and needs further refinement.</paragraph>
+
+        <h4>Signals from Example Mapping</h4>
+        <list type="check">
+          <item><strong>Too many red cards</strong> → the team still has a lot to learn about this user story</item>
+          <item><strong>Many blue cards, or a single rule with many green cards</strong> → the user story is large and complex and should be sliced (see Section 4.1.5). Split rules and examples between the original story and new slice; create another yellow card for the sliced user story and put it on the backlog</item>
+        </list>
+
+        <key-box>
+          <heading>Testing Perspective</heading>
+          <paragraph>Example mapping strengthens the test basis by grounding abstract requirements in concrete, agreed examples. These examples reduce ambiguity, uncover hidden assumptions, and reveal conflicting interpretations early. It promotes <strong>shift left validation</strong> by uncovering gaps in the specification before coding begins. It also supports creation of test charters for exploratory testing and helps identify relevant test conditions and alternative scenarios. The traceability from examples → rules → user needs is preserved throughout development.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s4-1-4">
+        <h3>4.1.4 Biases in Agile Testing</h3>
+        <paragraph>A <strong>bias</strong> is a systematic deviation from neutrality or accuracy that affects how people think, judge, or act, sometimes leading them away from objectivity or fairness. Biases can significantly compromise product quality by distorting risk perception, limiting diversity of testing, and weakening feedback mechanisms.</paragraph>
+
+        <table>
+          <row><cell>Bias</cell><cell>Impact on Testing</cell></row>
+          <row><cell><strong>Confirmation bias</strong></cell><cell>Leads to designing and executing tests that only verify expected behavior, neglecting failure paths or unusual conditions. Narrows scope of exploration and increases risk of undetected defects, especially in complex systems where implicit assumptions drive development decisions.</cell></row>
+          <row><cell><strong>Anchoring effect</strong></cell><cell>Early requirements or stakeholder expectations fixate teams on specific interpretations, overlooking alternative behaviors. E.g., if initial user stories focus exclusively on happy paths, testing may underrepresent edge cases, accessibility, or internationalization.</cell></row>
+          <row><cell><strong>Conformity bias</strong></cell><cell>Diverse opinions are discouraged; testers copy one another's behaviors/beliefs rather than following independent judgment, or defer to dominant voices in cross-functional teams. Undermines the whole team approach, which relies on shared responsibility and critical feedback loops.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Mitigating Bias</heading>
+          <list type="check">
+            <item>Promote <strong>diversity of thought</strong></item>
+            <item>Leverage <strong>exploratory testing</strong> with session-based testing</item>
+            <item>Foster a culture of <strong>psychological safety</strong> that encourages dissent and questioning</item>
+            <item>Use <strong>debriefs</strong> after exploratory testing sessions</item>
+            <item>Apply <strong>paired testing</strong> and <strong>tissue testers</strong> for fresh perspectives</item>
+            <item>Conduct <strong>root cause analysis</strong> to reveal the influence of bias</item>
+          </list>
+          <paragraph>The risk of bias is increased by the whole team approach. In practices such as <strong>Specification by Example</strong> and <strong>ATDD</strong>, failing to challenge assumptions during collaborative specification can lead to ineffective coverage.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s4-1-5">
+        <h3>4.1.5 User Story Slicing</h3>
+        <paragraph><strong>User story slicing</strong> is the practice of breaking down large user stories into smaller, more manageable pieces that deliver value, are feasible within an iteration, and are testable. Properly sliced user stories facilitate continuous delivery and enable earlier feedback.</paragraph>
+
+        <h4>Slicing Dimensions</h4>
+        <table>
+          <row><cell>Slicing Strategy</cell><cell>Description</cell></row>
+          <row><cell><strong>Workflow slicing</strong></cell><cell>Decomposes the user story based on user tasks or steps in a business process. Each slice focuses on a single task or interaction with observable system behavior. Makes it easier to define precise acceptance criteria and expected results.</cell></row>
+          <row><cell><strong>Slicing by data complexity</strong></cell><cell>Begins with a single happy path using the simplest data, then moves alternative data conditions and edge cases to separate stories. Verifies core functionality early and incrementally builds coverage.</cell></row>
+          <row><cell><strong>Slicing by interface</strong></cell><cell>Separates backend processing logic from UI functionality when each can be tested independently. Enables earlier test automation and aligns with architectural layering. Build backend stories exposing APIs before UI workflow stories.</cell></row>
+          <row><cell><strong>Slicing by scenario</strong></cell><cell>Starts with the most common business scenario and builds on that with additional slices for less frequent or more complex cases. Use example mapping or structured conversations to elicit scenarios. Each scenario slice should be verifiable through specific examples.</cell></row>
+          <row><cell><strong>Vertical slicing</strong></cell><cell>Each user story includes a complete thin slice of functionality across layers (database to UI). Helps deliver demonstrable value and verify integration. Avoid including too much in one slice — if end-to-end scope becomes unmanageable, revert to scenario or workflow slicing.</cell></row>
+          <row><cell><strong>Slicing based on constraints</strong></cell><cell>Focuses first on general assumptions, then considers conditions from known constraints. E.g., start with a story assuming the user is authenticated, then slice off a separate story for authentication failures. Helps isolate test conditions and improves boundary clarity.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Acceptance Criteria and Testability</heading>
+          <list type="ul">
+            <item>When slicing, <strong>rewrite acceptance criteria per slice</strong> — do NOT copy-paste the original criteria into each slice</item>
+            <item>Each slice should have <strong>one narrow user outcome</strong>; avoid combining multiple behavioral variations in one slice</item>
+            <item>The set of acceptance criteria across slices should eventually cover the full original story</item>
+            <item><strong>Testability as primary criterion</strong>: Can the slice be independently validated? Can clear acceptance criteria be derived? Does it support creation of business-facing tests? If not, further refinement is needed.</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s4-2">
+        <h2>4.2 Shift Left and Requirements Engineering</h2>
+        <paragraph>Shift left moves quality activities earlier in the software development lifecycle to detect anomalies and defects early, reduce rework, shorten delivery cycles, and improve alignment with business needs. All main requirements engineering activities support shift left:</paragraph>
+
+        <compare>
+          <card type="pos">
+            <heading>Requirements Elicitation</heading>
+            <list type="ul">
+              <item>Captures stakeholder needs early and continuously</item>
+              <item>Enables development and testing to start with a clear understanding of expectations</item>
+              <item>Continuous elicitation through user stories, backlog grooming, and collaborative workshops ensures features are defined, testable, and validated</item>
+              <item>Reduces defects and rework later in the iteration</item>
+            </list>
+          </card>
+          <card type="pos">
+            <heading>Requirements Analysis</heading>
+            <list type="ul">
+              <item>Identifies ambiguities, conflicts, risks, and dependencies early</item>
+              <item>Ensures development and testing start with clear, feasible, and prioritized requirements</item>
+              <item>Enables appropriate solution design, test planning, and defect prevention before coding begins</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Requirements Specification</heading>
+            <list type="ul">
+              <item>Provides clear, precise, and testable documentation of what the system must do</item>
+              <item>Enables developers and testers to plan and validate work early</item>
+              <item>Reduces misunderstandings and helps find anomalies before implementation</item>
+              <item>Agile testers work with free-form text (user stories, epics) and may use semi-formal models (use cases, BPMN, state transition diagrams) when more structure is needed</item>
+              <item>Glossaries ensure shared understanding of domain-specific terms, especially for acceptance criteria</item>
+            </list>
+          </card>
+          <card type="pos">
+            <heading>Requirements Validation</heading>
+            <list type="ul">
+              <item>Ensures requirements are correct, unambiguous, complete, consistent, and testable before development begins</item>
+              <item>Early validation through reviews, prototyping, and modeling detects anomalies and gaps</item>
+              <item>Reduces defects, rework, and costly late-phase changes</item>
+            </list>
+          </card>
+        </compare>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>By shifting left, the team may detect anomalies and defects sooner, reduce rework, and deliver higher-value products. Each requirements engineering activity — elicitation, analysis, specification, and validation — plays a distinct role in preventing defects and aligning development with business needs from the very start.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s4-glossary">
+        <h2>Chapter 4 Glossary</h2>
+        <glossary>
+          <term>Shift Left</term>
+          <definition>The practice of bringing quality activities as early as possible in the software development lifecycle, focusing on improving the test basis and detecting anomalies and defects sooner.</definition>
+
+          <term>Testware</term>
+          <definition>Work products produced during testing that can serve as a form of requirements, including acceptance criteria, checklists, BDD scenarios, test charters, contracts, and automated test scripts.</definition>
+
+          <term>Testboarding</term>
+          <definition>A practice that visualizes what needs to be tested for each feature, complementing storyboarding by showing main and alternative scenarios for early alignment on terminology, behavior, and priorities.</definition>
+
+          <term>Storyboarding</term>
+          <definition>A technique that visualizes user journeys by presenting expected behavior as a sequence of steps or scenes, revealing assumptions, edge cases, and interactions not obvious in textual requirements.</definition>
+
+          <term>Example Mapping</term>
+          <definition>A collaborative technique using colored cards (yellow for user stories, blue for business rules, green for examples, red for questions) to refine user stories, identify rules and examples, and capture unresolved questions.</definition>
+
+          <term>Specification by Example</term>
+          <definition>A collaborative approach where concrete examples are used to clarify and validate requirements, reducing ambiguity and ensuring shared understanding across the team.</definition>
+
+          <term>Bias</term>
+          <definition>A systematic deviation from objectivity that may affect test objectives, test activities, or test results. Key biases in Agile testing include confirmation bias, anchoring effect, and conformity bias.</definition>
+
+          <term>User Story Slicing</term>
+          <definition>The practice of breaking down large user stories into smaller, manageable pieces that deliver value, are feasible within an iteration, and are testable. Strategies include workflow, data complexity, interface, scenario, vertical, and constraint-based slicing.</definition>
+
+          <term>User Journey</term>
+          <definition>The path a user takes through an application or across systems to achieve a goal; often the focus of end-to-end testing and storyboarding.</definition>
+
+          <term>Structured Conversation</term>
+          <definition>A facilitated discussion technique (such as example mapping) that uses rules, examples, and questions to systematically refine user stories and requirements.</definition>
+
+          <term>Test Session Sheet</term>
+          <definition>A document recording observations, findings, coverage, and anomalies during an exploratory testing session; provides informal yet valuable insights into evolving requirements.</definition>
+
+          <term>Acceptance Test-Driven Development (ATDD)</term>
+          <definition>A collaborative approach where acceptance criteria are defined as tests before implementation, helping ensure delivered functionality meets stakeholder expectations.</definition>
+
+          <term>Behavior-Driven Development (BDD)</term>
+          <definition>A collaborative approach using concrete, testable examples to clarify behavior and align business expectations with development in a format that can be executed as tests.</definition>
+
+          <term>Quality</term>
+          <definition>The degree to which a component or system satisfies stated and implied needs of various stakeholders.</definition>
+        </glossary>
+      </section>
+</chapter>
+
+    <chapter id="ch5">
+      <meta>
+        <badge>Chapter 5</badge>
+        <badge>285 minutes</badge>
+        <badge>K2 / K3 / K4 Focus</badge>
+      </meta>
+      <title>Agile Approaches and Test Techniques</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Explain test heuristics</item>
+          <item>Give examples of test mnemonics related to testing in Agile software development</item>
+          <item>Explain test tours</item>
+          <item>Analyze user stories and epics to create test charters (K4)</item>
+          <item>Apply exploratory testing to support testing in Agile software development (K3)</item>
+          <item>Explain mob testing</item>
+          <item>Explain pair testing</item>
+          <item>Explain vibe testing</item>
+          <item>Use test smells to evaluate the quality of test cases (K3)</item>
+        </list>
+      </key-box>
+
+      <section id="ch5-intro">
+        <h3>Introduction</h3>
+        <paragraph>Testers must adapt their test strategies and tools to match the fast-paced, iterative nature of Agile software development projects. The techniques and collaboration methods covered in this chapter emphasize flexibility, real-time feedback, and continuous learning — core values of Agile methodologies.</paragraph>
+      </section>
+
+      <section id="s5-1">
+        <h2>5.1 Exploratory Testing</h2>
+
+        <h3>5.1.1 Test Heuristics</h3>
+        <paragraph>Test heuristics are general guidelines or rules of thumb that help testers make informed decisions, solve problems, and guide their exploration of a system under test. They are not guaranteed to be correct in every context, but serve as practical strategies that often lead to valuable results when:</paragraph>
+        <list type="ul">
+          <item>Time or resources are limited</item>
+          <item>The specification is incomplete or unclear</item>
+          <item>The tester performs experience-based testing</item>
+          <item>Regression testing is performed without full test automation coverage</item>
+          <item>The tester wants to think like a user or simulate real-world use cases</item>
+        </list>
+
+        <h4>Types of Test Heuristics</h4>
+        <table>
+          <row><cell>Type</cell><cell>Description</cell><cell>Examples</cell></row>
+          <row><cell><strong>Guidelines</strong></cell><cell>Recommended procedures or steps directing testers on specific actions</cell><cell>"Test early and often"; "Testing is about information, not just passed/failed"; "Always consider boundaries"; "Try common workflows and unexpected or invalid behaviors"; "Change one variable at a time"; "Test how features work together in sequence"</cell></row>
+          <row><cell><strong>Generic checklists</strong></cell><cell>Reusable lists of common things to test, used as reminders or prompts</cell><cell>Nielsen's usability heuristics; OWASP Top 10; Beizer's defect taxonomy; IEEE 1044 taxonomy</cell></row>
+          <row><cell><strong>Rules of thumb</strong></cell><cell>Unwritten experiential "laws" or commonly accepted truths</cell><cell>"If something looks too simple, it is probably hiding complexity"; "If it broke before, it will probably break again"; "Defects cluster together"; "If it is hard to test, it is probably hard to use"; "What works with one user might fail with many"</cell></row>
+          <row><cell><strong>Mnemonics</strong></cell><cell>Memory aids helping testers recall sets of test conditions</cell><cell>SFDIPOT (see Section 5.1.2)</cell></row>
+          <row><cell><strong>Analogies and metaphors</strong></cell><cell>Compare the system to familiar concepts, then apply reasoning to generate test conditions</cell><cell>Test tours (see Section 5.1.3)</cell></row>
+        </table>
+      </section>
+
+      <section id="s5-1-2">
+        <h3>5.1.2 Test Mnemonics</h3>
+        <paragraph>Mnemonics are memory aids, usually in the form of acronyms, abbreviations, rhymes, or patterns. They do not rigidly prescribe what to test, but help testers recall complex information sets and broaden their perspective during exploratory testing and reviews. They require domain knowledge, contextual knowledge, risk knowledge, critical thinking, and team trust to be effective.</paragraph>
+
+        <h4>Common Uses of Test Mnemonics</h4>
+        <list type="ul">
+          <item>Guide exploratory testing by providing structure to free-form testing without rigid test cases</item>
+          <item>Spark creative and critical thinking by prompting testers to think in ways they might not have naturally considered</item>
+          <item>Achieve broader coverage by ensuring key areas are not forgotten</item>
+          <item>Serve as mental checklists during test planning or execution, reducing cognitive load</item>
+        </list>
+
+        <h4>Key Test Mnemonics</h4>
+        <table>
+          <row><cell>Mnemonic</cell><cell>Expansion</cell><cell>Purpose</cell></row>
+          <row><cell><strong>SFDIPOT</strong></cell><cell>Structure, Function, Data, Interfaces, Platform, Operations, Time</cell><cell>General analysis of the system under test; useful when exploring a new system or planning test charters</cell></row>
+          <row><cell><strong>RCRCRC</strong></cell><cell>Recent, Core, Risky, Configuration, Repaired, Chronic</cell><cell>Supports regression testing; helps decide coverage in Agile iterations or regression test cycles</cell></row>
+          <row><cell><strong>I SLICED UP FUN</strong></cell><cell>Inputs, Store, Location, Interactions/Interruptions, Communication, Ergonomics, Data, Usability, Platform, Function, User scenarios, Network</cell><cell>Supports mobile application testing by generating test conditions</cell></row>
+          <row><cell><strong>FEW HICCUPPS</strong></cell><cell>Familiarity, Explainability, World, History, Image, Comparable products, Claims, Users' desires, Product, Purpose, Statutes</cell><cell>Identifies and applies test oracles; detects defects by observing different types of inconsistencies</cell></row>
+          <row><cell><strong>TERMS</strong></cell><cell>Tools and Technology, Execution, Requirements and Risks, Maintenance, Security</cell><cell>Helps remember factors that influence the success of test automation</cell></row>
+        </table>
+      </section>
+
+      <section id="s5-1-3">
+        <h3>5.1.3 Test Tours</h3>
+        <paragraph>Test tours use city tour metaphors to guide exploratory testing of a system. The concept helps testers explore software much like tourists explore a new place, using different types of "tours" to uncover various kinds of problems. Each tour focuses on a specific perspective, guiding the tester to examine the application from a particular viewpoint. Tours are informal, lightweight, and creative, making them ideal for exploratory testing, session-based testing, or as test condition generators.</paragraph>
+
+        <table>
+          <row><cell>Tour</cell><cell>Description</cell></row>
+          <row><cell><strong>Business district</strong></cell><cell>Core features. Bounded by startup and shutdown code; contains the features and functions that users interact with most.</cell></row>
+          <row><cell><strong>Historical district</strong></cell><cell>Legacy code and the history of defective functions or features. Legacy code is often poorly understood, and many assumptions are made when it is included, modified, or used.</cell></row>
+          <row><cell><strong>Tourist district</strong></cell><cell>Features that novice users gravitate toward, while experienced users no longer need them. Mirrors real cities where tourists visit areas that locals avoid.</cell></row>
+          <row><cell><strong>Entertainment district</strong></cell><cell>Supportive features that complement other tours and fill gaps in a comprehensive test plan. Like city entertainment areas, these provide relaxation within the software experience.</cell></row>
+          <row><cell><strong>Hotel district</strong></cell><cell>Secondary and supporting functions that are often overlooked or underrepresented in a test plan. A place for the tester to step away from primary functionality.</cell></row>
+          <row><cell><strong>Seedy district</strong></cell><cell>Areas of vulnerability that could be highly problematic if left in the product. Primarily concerned with negative testing, employing techniques such as error guessing or fault attacks.</cell></row>
+        </table>
+      </section>
+
+      <section id="s5-1-4">
+        <h3>5.1.4 Test Charter Creation</h3>
+        <paragraph>Test charters align closely with Agile principles and provide a structured yet flexible approach to exploratory testing. A test charter is a short, focused statement outlining the purpose, scope, and test objectives of an exploratory testing session. It acts as a guiding mission statement or testable hypothesis for the tester during the session. Test charters can be created based on user stories, acceptance criteria, product risks, or iteration goals.</paragraph>
+
+        <h4>Required Elements of a Test Charter</h4>
+        <list type="ul">
+          <item><strong>Mission/test objectives</strong> — high-level focus or testable goals for the session (e.g., "Validate user login under load")</item>
+          <item><strong>Scope</strong> — specific areas of interest, test level, test conditions, test techniques, exit criteria, priorities, what to cover, and what will not be covered</item>
+        </list>
+
+        <h4>Optional Elements of a Test Charter</h4>
+        <list type="ul">
+          <item><strong>Actor</strong> — intended user of the system</item>
+          <item><strong>Purpose</strong> — an objective the actor wants to achieve</item>
+          <item><strong>Setup</strong> — what needs to be in place to start exploratory testing (e.g., test environment)</item>
+          <item><strong>Priority</strong> — relative importance based on user story priority or risk level</item>
+          <item><strong>Reference</strong> — specifications, risks, or other information sources</item>
+          <item><strong>Data</strong> — whatever data is needed to carry out the test charter</item>
+          <item><strong>Activities</strong> — ideas of what the actor may want to do, what would be interesting to test, and what test techniques could be used</item>
+          <item><strong>Test oracle notes</strong> — how to evaluate the product to determine correct test results</item>
+          <item><strong>Variations</strong> — alternative actions and evaluations to complement the activities</item>
+          <item><strong>Limitations</strong> — what the product must never do</item>
+          <item><strong>Constraints and risks</strong> — regulations, rules, and standards used</item>
+        </list>
+
+        <h4>Deriving Test Charters from User Stories and Epics</h4>
+        <paragraph>Agile testers analyze user stories and epics to identify test objectives and mission focus. They extract the intent (who the actor is and what their purpose is) and translate it into a mission statement for the test session. Related user stories can be grouped to evaluate integrated behavior.</paragraph>
+        <paragraph>The <strong>5W1H technique (Kipling method)</strong> helps uncover scope, setup, and priority:</paragraph>
+        <list type="ul">
+          <item><strong>What</strong> feature is being delivered?</item>
+          <item><strong>Who</strong> are the users?</item>
+          <item><strong>When</strong> is it used?</item>
+          <item><strong>Where</strong> is it used?</item>
+          <item><strong>Why</strong> is this feature important?</item>
+          <item><strong>How</strong> does it integrate with other features?</item>
+        </list>
+
+        <key-box>
+          <heading>Acceptance Criteria as Test Charter Inputs</heading>
+          <paragraph>Acceptance criteria define what must be true for a user story to be accepted. They can be directly translated into test conditions. While they guide expected behavior, they also highlight areas to explore <em>beyond</em> the happy path. Testers should treat missing, vague, or ambiguous acceptance criteria as opportunities for exploratory testing to uncover unstated variations and edge cases. Acceptance criteria can also serve as lightweight test oracle notes, though they are not exhaustive test oracles.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s5-1-5">
+        <h3>5.1.5 Performing Exploratory Testing</h3>
+        <paragraph>In Agile environments, where requirements change frequently and time for analysis is limited, exploratory testing offers the flexibility and responsiveness that scripted approaches often lack. It is particularly important due to the limited details of user stories.</paragraph>
+
+        <h4>When to Apply Exploratory Testing</h4>
+        <list type="check">
+          <item>During iteration execution — to quickly test new features or changes before or alongside scripted testing</item>
+          <item>In iteration reviews/demos — to explore the product informally while gathering feedback</item>
+          <item>After major changes — to uncover integration or regression defects that scripted tests might miss</item>
+          <item>When acceptance criteria are vague or minimal — to clarify expectations and find edge cases</item>
+        </list>
+
+        <h4>Exploratory Testing Session Structure</h4>
+        <paragraph>Exploratory testing is typically based on test charters and performed in time-boxed sessions (usually 60–120 minutes), documented with session sheets, observations, and findings.</paragraph>
+
+        <table>
+          <row><cell>Phase</cell><cell>Activities</cell></row>
+          <row><cell><strong>Pre-session setup</strong></cell><cell>Define the test charter; prepare the test environment; set the session timebox.</cell></row>
+          <row><cell><strong>Test execution</strong></cell><cell>Learn, explore, and evaluate the product. Follow the charter intent but adapt as new information is discovered. Use test heuristics and mnemonics to stimulate test conditions. Document coverage, evaluation notes, actual behavior, and anomalies.</cell></row>
+          <row><cell><strong>Post-session review</strong></cell><cell>Discuss session results with stakeholders, including: charter vs. reality, defects found, questions raised (e.g., unclear requirements), and next steps (new charters or regression tests needed?).</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Test Oracles in Exploratory Testing</heading>
+          <paragraph>Exploratory testers apply test oracles flexibly and contextually, relying on experience, product knowledge, and team collaboration. Common test oracle sources in exploratory testing:</paragraph>
+          <list type="ul">
+            <item>Consistent with user stories or acceptance criteria</item>
+            <item>Expressing common sense or user expectations</item>
+            <item>Consistent with similar features or past versions</item>
+            <item>Following standards or guidelines (e.g., accessibility or UI standards)</item>
+            <item>FEW HICCUPPS mnemonic (see Section 5.1.2)</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s5-2">
+        <h2>5.2 Assisted Testing</h2>
+
+        <h3>5.2.1 Mob Testing</h3>
+        <paragraph><strong>Mob testing</strong> (also known as ensemble testing) is a collaborative test approach in which a small group (typically 5–8 people) tests the same system simultaneously. It builds on the concept of swarming, where multiple team members converge on a given testing problem. This real-time collaboration combines diverse skills, perspectives, and immediate feedback to enhance testing quality, speed, and creativity.</paragraph>
+
+        <h4>Setup and Roles</h4>
+        <table>
+          <row><cell>Role</cell><cell>Responsibility</cell></row>
+          <row><cell><strong>Moderator</strong></cell><cell>Session coordinator; oversees flow, ensures role adherence, manages time, fosters balanced participation. Does not rotate with the mob. Can pause the session or assume any role except driver if needed.</cell></row>
+          <row><cell><strong>Navigator</strong></cell><cell>Primary tester; makes final decisions on actions, incorporating insights and guidance from the mob.</cell></row>
+          <row><cell><strong>Driver</strong></cell><cell>Typist implementing the team's collective instructions; does not typically take the lead on strategy, ensuring ideas pass through another person's mind first.</cell></row>
+          <row><cell><strong>Mob</strong></cell><cell>Group of observers who monitor progress and contribute insights as needed.</cell></row>
+        </table>
+
+        <h4>Session Structure</h4>
+        <list type="ul">
+          <item><strong>Mobbing session</strong> — People arranged in a circle with the driver at the keyboard. Roles rotate every ~4 minutes: navigator becomes driver, driver moves to first position in the mob, etc. Session typically lasts ~2 hours.</item>
+          <item><strong>Retrospective</strong> — After mobbing, the moderator silently collects observations from each participant on sticky notes. The team groups similar items to reveal patterns and opportunities for improvement.</item>
+        </list>
+      </section>
+
+      <section id="s5-2-2">
+        <h3>5.2.2 Pair Testing</h3>
+        <paragraph><strong>Pair testing</strong> is a test approach in which two people work together at a single workstation (or virtual environment) to test the same test object in real time. Typically, one person operates the computer (the <strong>driver</strong>) and the other observes, reviews, takes notes, and strategizes (the <strong>navigator</strong>). Pair testing draws inspiration from pair programming (XP).</paragraph>
+
+        <h4>Benefits</h4>
+        <list type="ul">
+          <item><strong>Knowledge sharing</strong> — encourages learning from each other's domain expertise and test strategies; useful for onboarding new team members</item>
+          <item><strong>Faster defect finding</strong> — collaborative synergy helps find defects faster</item>
+          <item><strong>Improved coverage</strong> — combining diverse perspectives</item>
+          <item><strong>Real-time feedback</strong> — helps refine test conditions, leading to more creative and effective test cases</item>
+          <item><strong>Better communication</strong> — reduces misunderstandings about requirements or functionality</item>
+          <item><strong>Engagement and completeness</strong> — keeps testers engaged and reduces the likelihood of missing test steps</item>
+          <item><strong>Instant defect fixes</strong> — immediate feedback loop can trigger instant fixes (especially in developer-tester pairs), though defects still need to be reported appropriately</item>
+        </list>
+
+        <h4>Best Use Cases</h4>
+        <list type="check">
+          <item>Exploratory testing</item>
+          <item>Testing complex or new features</item>
+          <item>Cross-functional testing (e.g., UI + API)</item>
+          <item>Mentoring junior testers or cross-training team members</item>
+        </list>
+
+        <h4>Challenges and Mitigations</h4>
+        <list type="ul">
+          <item><strong>Time-intensive</strong> — two people on the same task can seem less efficient. Mitigation: use strategically for complex or high-risk features only.</item>
+          <item><strong>Working style differences</strong> — different assertiveness levels, thinking styles can cause friction. Mitigation: practice open communication and active listening.</item>
+          <item><strong>Dominance</strong> — one person may always drive or make decisions. Mitigation: clearly define roles (driver and navigator) and switch regularly.</item>
+          <item><strong>Mental fatigue</strong> — constant talking, thinking aloud, and justifying decisions. Mitigation: set clear goals before starting each session.</item>
+        </list>
+      </section>
+
+      <section id="s5-2-3">
+        <h3>5.2.3 Vibe Testing</h3>
+        <paragraph><strong>Vibe testing</strong> is an emerging, informal AI-assisted test approach that has developed alongside the growth of AI-generated code (commonly referred to as "vibe coding"). With vibe coding, developers describe required behavior in natural language as prompts to LLMs, which then generate the code, often reducing the need for detailed human review. This shift demands a corresponding test approach — vibe testing — to verify that the end product aligns with user intent.</paragraph>
+
+        <h4>Key Characteristics</h4>
+        <list type="ul">
+          <item><strong>Intent-first validation</strong> — focuses on testing what the application <em>should</em> do rather than merely what it currently does</item>
+          <item>Relies on <strong>exploratory testing and AI-generated test cases</strong> rather than static test scripts</item>
+          <item>Accelerates the test process, makes testing more adaptable to rapidly evolving AI-built applications</item>
+          <item>Reduces reliance on manual test writing</item>
+          <item>Aligns closely with the intuitive, high-level design style of vibe coding</item>
+        </list>
+
+        <key-box>
+          <heading>Risks of Vibe Testing</heading>
+          <paragraph>Since developers may not fully understand or review the underlying AI-generated code, there is a risk of hidden defects, security vulnerabilities, AI hallucinations, or misunderstood behaviors. Vibe testing mitigates this by acting as a safeguard, ensuring the application delivers the <strong>intended</strong> functionality rather than just what the AI interpreted from a vague prompt.</paragraph>
+        </key-box>
+
+        <h4>Example</h4>
+        <paragraph>Developer prompt: "Create a login page with email and password fields. Users should be redirected to the dashboard upon successful login."</paragraph>
+        <paragraph>Vibe testing prompts explore beyond the prompt:</paragraph>
+        <list type="ul">
+          <item>"Test login with invalid email format and confirm it doesn't proceed to dashboard"</item>
+          <item>"After logging in, confirm the user sees the correct dashboard based on role (e.g., administrator versus regular user)"</item>
+        </list>
+        <paragraph>The original prompt did not specify input validation rules, handling of incorrect inputs, or role-based dashboard logic — vibe testing fills these gaps.</paragraph>
+      </section>
+
+      <section id="s5-3">
+        <h2>5.3 Test Smells</h2>
+        <paragraph>A <strong>test smell</strong> is a symptom of a poorly designed test. While it does not always indicate a problem, it suggests potential risks and increased maintenance costs. Just as code smells should be addressed to maintain code quality, test smells should be addressed to maintain an effective and trustworthy test strategy. This section covers test smells in manual test cases only (for automated test smells, see Aljedaani et al., 2021).</paragraph>
+
+        <h4>Dependency and Complexity Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Interdependent Tests</strong></cell><cell>One test's success depends on another test executing first or leaving residual data.</cell><cell>Make tests independent, self-contained, and executable in any order.</cell></row>
+          <row><cell><strong>Hidden Dependencies</strong></cell><cell>Test relies on data or configuration changes not specified in preconditions.</cell><cell>Make dependencies explicit and controlled.</cell></row>
+          <row><cell><strong>Call on Me</strong></cell><cell>Reliance on extensive calling of other test cases or on passing parameters between them.</cell><cell>Avoid nesting calls and chaining test cases; keep tests simple with clear naming and documentation.</cell></row>
+          <row><cell><strong>ORacle</strong></cell><cell>Using decision logic in test steps, such as offering alternative actions and multiple expected results.</cell><cell>Make test cases deterministic and branch-free by splitting them, moving decision logic into preconditions, and avoiding "or" in expected results.</cell></row>
+        </table>
+
+        <h4>Expected Results Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>No Clear Expected Results</strong></cell><cell>Test procedures list actions but do not clearly define pass/fail criteria.</cell><cell>Add expected results using a structured format that keeps expectations visible and traceable. Avoid subjective language; establish traceability to requirements or acceptance criteria.</cell></row>
+          <row><cell><strong>One More Step</strong></cell><cell>Expected results include additional test steps, often using action verbs such as "check", "verify", and "see".</cell><cell>Keep actions and expected results clearly separated; move verification into its own step; avoid action verbs in expected results.</cell></row>
+        </table>
+
+        <h4>Test Steps Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Ambiguous Steps</strong></cell><cell>Instructions are vague or open to interpretation.</cell><cell>Use specific, objective language with concrete terms and data. Clearly define inputs; avoid subjective words; reference specific UI elements or labels.</cell></row>
+          <row><cell><strong>Hotstepper</strong></cell><cell>Test steps list every action separately, even when the action has no effect.</cell><cell>Merge steps that have no specific effect.</cell></row>
+          <row><cell><strong>Bulk Steps</strong></cell><cell>Many actions are included in a single test step.</cell><cell>Use preconditions when appropriate; follow the "one action = one step" rule with corresponding expected results for each action.</cell></row>
+        </table>
+
+        <h4>Level of Detail Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Overly Long or Detailed Test Case</strong></cell><cell>Test cases with many steps touching multiple features or including the full navigation path before each small action.</cell><cell>Break down into smaller test cases; modularize reusable parts; remove repeated navigation details; use preconditions effectively.</cell></row>
+          <row><cell><strong>God Test Case</strong></cell><cell>A single test case is used to test multiple alternative scenarios or even the whole system.</cell><cell>Design small, focused, independent test cases organized into test suites.</cell></row>
+          <row><cell><strong>Hardcoded Test Data</strong></cell><cell>Each test case explicitly includes all its test data.</cell><cell>Use high-level data descriptions where appropriate; use parameters to separate test data from the test case.</cell></row>
+        </table>
+
+        <h4>Lack Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Environment Assumptions</strong></cell><cell>Test case assumes specific test environment conditions without documenting them.</cell><cell>Explicitly document environment preconditions and setup requirements.</cell></row>
+          <row><cell><strong>No Cleanup or Teardown</strong></cell><cell>Test case does not specify how test data is handled on completion.</cell><cell>Define explicit cleanup or teardown procedures.</cell></row>
+        </table>
+
+        <h4>Excess Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Invalidation Heaven</strong></cell><cell>Each different type of invalid input is handled by a separate test case.</cell><cell>Combine handling of invalid inputs into a single test case by using parameters.</cell></row>
+          <row><cell><strong>Copy-Paste Duplication</strong></cell><cell>Multiple test cases only differ by a few test data values.</cell><cell>Refactor into a single, reusable, parameterized test case while ensuring traceability to requirements for coverage.</cell></row>
+        </table>
+
+        <h4>Format and Language Smells</h4>
+        <table>
+          <row><cell>Smell</cell><cell>Description</cell><cell>Solution</cell></row>
+          <row><cell><strong>Unstructured Formatting</strong></cell><cell>Test steps are not numbered, with no headings.</cell><cell>Use templates.</cell></row>
+          <row><cell><strong>Typos</strong></cell><cell>Test cases include spelling mistakes and incomplete words or sentences.</cell><cell>Run a spellchecker.</cell></row>
+          <row><cell><strong>Click-Push-Press</strong></cell><cell>Terminology and phrasing used in test cases are inconsistent.</cell><cell>Use a glossary of standard expressions.</cell></row>
+        </table>
+      </section>
+
+      <section id="s5-glossary">
+        <h2>Chapter 5 Glossary</h2>
+        <glossary>
+          <term>Exploratory Testing</term>
+          <definition>An experience-based test approach in which testers learn, design, and execute tests simultaneously, using test charters and heuristics to guide investigation within time-boxed sessions.</definition>
+
+          <term>Test Heuristic</term>
+          <definition>A general guideline or rule of thumb that helps testers make informed decisions and guide their exploration of a system; not guaranteed correct in every context but often leads to valuable results.</definition>
+
+          <term>Test Mnemonic</term>
+          <definition>A memory aid, usually an acronym or pattern, that helps testers quickly recall a set of test conditions during exploratory testing and reviews.</definition>
+
+          <term>SFDIPOT</term>
+          <definition>A test mnemonic for Structure, Function, Data, Interfaces, Platform, Operations, Time — used for general system analysis when exploring a new system or planning test charters.</definition>
+
+          <term>RCRCRC</term>
+          <definition>A test mnemonic for Recent, Core, Risky, Configuration, Repaired, Chronic — used to support regression testing and decide coverage in iterations.</definition>
+
+          <term>I SLICED UP FUN</term>
+          <definition>A test mnemonic for Inputs, Store, Location, Interactions/Interruptions, Communication, Ergonomics, Data, Usability, Platform, Function, User scenarios, Network — used to support mobile application testing.</definition>
+
+          <term>FEW HICCUPPS</term>
+          <definition>A test mnemonic for Familiarity, Explainability, World, History, Image, Comparable products, Claims, Users' desires, Product, Purpose, Statutes — used to identify and apply test oracles.</definition>
+
+          <term>TERMS</term>
+          <definition>A test mnemonic for Tools and Technology, Execution, Requirements and Risks, Maintenance, Security — used to remember factors influencing test automation success.</definition>
+
+          <term>Test Tour</term>
+          <definition>A metaphor-based exploratory testing technique that uses city tour concepts (business district, historical district, tourist district, etc.) to guide testers through different perspectives of a system.</definition>
+
+          <term>Test Charter</term>
+          <definition>A short, focused statement outlining the purpose, scope, and test objectives of an exploratory testing session; acts as a guiding mission statement or testable hypothesis.</definition>
+
+          <term>Mob Testing (Ensemble Testing)</term>
+          <definition>A collaborative test approach where a small group (5–8 people) tests the same system simultaneously, combining diverse skills, perspectives, and immediate feedback.</definition>
+
+          <term>Pair Testing</term>
+          <definition>A test approach where two people work together at a single workstation to test the same object in real time, with one person operating the computer (driver) and the other observing and strategizing (navigator).</definition>
+
+          <term>Vibe Testing</term>
+          <definition>An emerging, informal AI-assisted test approach emphasizing intent-first validation — testing what the application should do rather than merely what it currently does — often using exploratory and AI-generated test cases.</definition>
+
+          <term>Vibe Coding</term>
+          <definition>A development approach where developers describe required behavior in natural language (as prompts to LLMs), which then generate the code.</definition>
+
+          <term>Test Smell</term>
+          <definition>A symptom of a poorly designed test that suggests potential risks and increased maintenance costs; analogous to code smells in software development.</definition>
+
+          <term>Test Session Sheet</term>
+          <definition>A document recording observations, findings, coverage, and anomalies during an exploratory testing session; provides informal yet valuable insights.</definition>
+
+          <term>Test Oracle</term>
+          <definition>A mechanism for determining whether a test has passed or failed. In exploratory testing, oracles are applied flexibly and include acceptance criteria, common sense, past versions, and standards.</definition>
+        </glossary>
+      </section>
+    </chapter>
+
+    <chapter id="ch6">
+      <meta>
+        <badge>Chapter 6</badge>
+        <badge>30 minutes</badge>
+        <badge>K2 Focus: Understand</badge>
+      </meta>
+      <title>Test Automation and Test Tools</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item>Distinguish between different test automation approaches applicable to Agile software development</item>
+          <item>Give examples of test tools helpful in Agile testing</item>
+        </list>
+      </key-box>
+
+      <section id="ch6-intro">
+        <h3>Introduction</h3>
+        <paragraph>Test automation can provide fast, reliable feedback in short test cycles. Test automation complements, but does not replace, exploratory testing and manual testing. Test tools aid collaboration, requirement tracking, performance monitoring, and test reporting. Tools that integrate smoothly into Agile software development improve visibility, accelerate feedback, and help the whole team share responsibility for quality.</paragraph>
+      </section>
+
+      <section id="s6-1">
+        <h2>6.1 Test Automation in Agile Software Development</h2>
+        <paragraph>The decision to automate is driven by both risk and value. Test automation is well-suited to tasks that are repetitive, deterministic, and high-value in terms of risk reduction, especially when failures could impact business-critical functionality. Tests that will never fail provide little value, and offer minimal benefit when automated. Similarly, tests whose behavior changes frequently are poor automation candidates because maintenance costs often outweigh the benefits.</paragraph>
+
+        <key-box>
+          <heading>Best Practice</heading>
+          <paragraph>Decide during iteration planning or refinement which user stories to automate, and to what extent. This facilitates more accurate time estimates and greater predictability of iteration delivery.</paragraph>
+        </key-box>
+
+        <h4>Test Automation Approaches in Agile</h4>
+        <paragraph>Agile software development adopts different test automation approaches depending on context, team skills, system criticality, and delivery frequency. One common approach is to automate tests that provide fast feedback and repeatable validation of the most valuable and stable parts of the system.</paragraph>
+
+        <table>
+          <row><cell>Approach</cell><cell>Description</cell></row>
+          <row><cell><strong>Test-first approach</strong></cell><cell>Tests are automated early, before or while code is written. Tests guide development and provide continuous verification (e.g., TDD, ATDD, BDD).</cell></row>
+          <row><cell><strong>Regression automation</strong></cell><cell>Automating regression tests evolves during or after the iteration, depending on when functionality stabilizes. Provides confidence that existing functionality is not broken by new changes.</cell></row>
+          <row><cell><strong>Exploratory / manual testing</strong></cell><cell>Exploratory testing and one-off testing are normally executed manually because they rely on human insight, are driven by emergent behavior, or maintenance costs would be too high. The same often applies to usability testing.</cell></row>
+          <row><cell><strong>Test pyramid strategy</strong></cell><cell>Prioritizes fast, low-level unit tests, a smaller layer of service and integration tests, and a minimal set of end-to-end UI tests. Enables rapid feedback, reduced costs, and greater CI/CD stability (Mike Cohn's test automation pyramid).</cell></row>
+        </table>
+
+        <paragraph>Agile testing integrates test automation throughout the iteration: beginning with build verification in continuous integration, continuing with exploratory testing supported by test automation tools, and concluding with automated regression test suites that confirm system stability before release. Successful test automation in Agile requires a multi-layered strategy that focuses on automating what delivers consistent, valuable feedback, selecting the right tests to automate, and integrating test automation progressively across the SDLC.</paragraph>
+      </section>
+
+      <section id="s6-2">
+        <h2>6.2 Test Tools in Agile Software Development</h2>
+        <paragraph>Test tools in Agile span multiple categories and support both the iterative and collaborative nature of Agile development. Tool selection should align with the test strategy, test automation layers, and feedback objectives rather than convenience or trend.</paragraph>
+
+        <table>
+          <row><cell>Tool Category</cell><cell>Purpose</cell></row>
+          <row><cell><strong>Task management and tracking</strong></cell><cell>Plan, prioritize, and track user stories, test tasks, and defects. Essential for maintaining backlogs, managing defects, and managing test charters. Supports transparency and shared understanding of team progress and risks.</cell></row>
+          <row><cell><strong>Communication and information-sharing</strong></cell><cell>Support real-time collaboration, especially in distributed teams. Enhance interaction during refinement sessions, iteration planning, test reviews, and retrospectives. Help testers share insights, discuss defects, and communicate customer feedback.</cell></row>
+          <row><cell><strong>Test design, implementation, and execution</strong></cell><cell>Support creation and execution of automated and manual tests. Include test automation frameworks for unit testing, API testing, and GUI test automation. Enable specification by example practices like ATDD and BDD for collaboration on acceptance criteria.</cell></row>
+          <row><cell><strong>Continuous integration</strong></cell><cell>Enable frequent code integration and rapid failure detection while keeping software ready for deployment. Essential for short feedback loops and early regression risk mitigation.</cell></row>
+          <row><cell><strong>Configuration management</strong></cell><cell>Ensure consistency across test environments by managing code, test scripts, and infrastructure changes. Often integrated into CI/CD pipelines to support DevOps and continuous delivery goals.</cell></row>
+          <row><cell><strong>Exploratory testing</strong></cell><cell>Support session-based test management, test charter tracking, recording test session sheets, and taking screenshots. Capture test conditions and results with minimal documentation overhead.</cell></row>
+          <row><cell><strong>Monitoring and analytics</strong></cell><cell>Provide production-level insights by tracking usage patterns, defect rates, and performance metrics. Especially useful for teams practicing monitoring as testing and leveraging real user feedback to refine product behavior post-deployment.</cell></row>
+          <row><cell><strong>AI tools</strong></cell><cell>Automatically generate test cases from code changes, requirements, or user behavior patterns; predict build failures using code changes and historical data; analyze user stories or requirements to detect ambiguity, missing acceptance criteria, or inconsistent terminology; create realistic test data covering edge cases.</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Tool selection should be driven by the test strategy and feedback objectives, not by convenience or trend. The right tools, properly integrated, improve visibility, accelerate feedback, and help the whole team share responsibility for quality.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s6-glossary">
+        <h2>Chapter 6 Glossary</h2>
+        <glossary>
+          <term>Test Automation</term>
+          <definition>The use of software to perform or support test activities, particularly those that are repetitive, deterministic, and high-value in terms of risk reduction.</definition>
+
+          <term>Test Pyramid</term>
+          <definition>A strategy promoting a balanced testing approach: fast, low-level unit tests at the base, a smaller layer of service/integration tests, and a minimal set of end-to-end UI tests at the top.</definition>
+
+          <term>Test-First Approach</term>
+          <definition>A development practice where tests are automated early, before or while code is written, to guide development and provide continuous verification.</definition>
+
+          <term>Continuous Integration (CI)</term>
+          <definition>A practice where code is integrated frequently, with automated build verification and rapid failure detection to keep software always ready for deployment.</definition>
+
+          <term>Configuration Management</term>
+          <definition>The management of code, test scripts, and infrastructure changes to ensure consistency across test environments, often integrated into CI/CD pipelines.</definition>
+        </glossary>
+      </section>
+    </chapter>
+   </chapters>
+
+   <toc>
+     <item id="ch1" status="active">Chapter 1: Test Strategy and Test Approach Challenges</item>
+     <item id="ch2" status="active">Chapter 2: People and Teams</item>
+     <item id="ch3" status="active">Chapter 3: Test Management and Test Process Improvement</item>
+     <item id="ch4" status="active">Chapter 4: Shift Left</item>
+     <item id="ch5" status="active">Chapter 5: Agile Approaches and Test Techniques</item>
+     <item id="ch6" status="active">Chapter 6: Test Automation and Test Tools</item>
+   </toc>
+
+   <footer-text>Generated from ISTQB® CTAL-AT Syllabus v2.0 — All Chapters Complete</footer-text>
+</syllabus>

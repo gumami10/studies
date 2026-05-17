@@ -1,6 +1,15 @@
 (function() {
   'use strict';
-  const STORAGE_KEY = 'ctal_at_starred';
+
+  var CHAPTERS = [
+    { title: 'Chapters 1–6: Syllabus', file: 'CTAL-AT-Chapter1.html' },
+    { title: 'Quality Metrics', file: 'quality-metrics.html' }
+  ];
+
+  var STORAGE_KEY = 'ctal_at_starred';
+
+  var DANGEROUS_TAGS = ['script','iframe','object','embed','applet','form','input','button','select','textarea','link','meta','base'];
+  var DANGEROUS_ATTRS = /^on/i;
 
   function getStarred() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -11,13 +20,32 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
+  function sanitizeHtml(html) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, 'text/html');
+    var all = doc.body.querySelectorAll('*');
+    all.forEach(function(el) {
+      if (DANGEROUS_TAGS.indexOf(el.tagName.toLowerCase()) !== -1) {
+        el.remove();
+        return;
+      }
+      var attrs = Array.from(el.attributes);
+      attrs.forEach(function(attr) {
+        if (DANGEROUS_ATTRS.test(attr.name)) {
+          el.removeAttribute(attr.name);
+        }
+      });
+    });
+    return doc.body.innerHTML;
+  }
+
   function extractTitle(section) {
-    const h = section.querySelector('h2, h3, h4');
+    var h = section.querySelector('h2, h3, h4');
     return h ? h.textContent.trim() : (section.id || 'Untitled');
   }
 
   function createStarButton(isStarred) {
-    const btn = document.createElement('button');
+    var btn = document.createElement('button');
     btn.className = 'star-btn' + (isStarred ? ' starred' : '');
     btn.innerHTML = isStarred ? '&#9733;' : '&#9734;';
     btn.title = isStarred ? 'Unstar this section' : 'Star this section';
@@ -27,19 +55,19 @@
   }
 
   function initStarButtons() {
-    const starred = getStarred();
-    const sections = document.querySelectorAll('section[id]');
+    var starred = getStarred();
+    var sections = document.querySelectorAll('section[id]');
 
     sections.forEach(function(section) {
       if (section.querySelector('.star-btn')) return;
 
-      const id = section.id;
-      const title = extractTitle(section);
-      const isStarred = !!starred[id];
-      const btn = createStarButton(isStarred);
+      var id = section.id;
+      var title = extractTitle(section);
+      var isStarred = !!starred[id];
+      var btn = createStarButton(isStarred);
 
       btn.addEventListener('click', function() {
-        const current = getStarred();
+        var current = getStarred();
         if (current[id]) {
           delete current[id];
           btn.classList.remove('starred');
@@ -53,14 +81,14 @@
             setTimeout(function() { section.remove(); }, 350);
           }
         } else {
-          const clone = section.cloneNode(true);
-          const existingBtn = clone.querySelector('.star-btn');
+          var clone = section.cloneNode(true);
+          var existingBtn = clone.querySelector('.star-btn');
           if (existingBtn) existingBtn.remove();
           current[id] = {
             id: id,
             title: title,
             source: location.pathname.split('/').pop() || 'index.html',
-            html: clone.outerHTML
+            html: sanitizeHtml(clone.outerHTML)
           };
           btn.classList.add('starred');
           btn.innerHTML = '&#9733;';
@@ -70,7 +98,7 @@
         saveStarred(current);
       });
 
-      const heading = section.querySelector('h2, h3, h4');
+      var heading = section.querySelector('h2, h3, h4');
       if (heading) {
         heading.style.overflow = 'hidden';
         heading.appendChild(btn);
@@ -82,20 +110,40 @@
 
   function initNav() {
     if (document.getElementById('study-nav')) return;
-    const container = document.querySelector('.container');
-    const header = document.querySelector('header');
+    var container = document.querySelector('.container');
+    var header = document.querySelector('header');
     if (!container) return;
 
-    const nav = document.createElement('div');
+    var nav = document.createElement('nav');
     nav.id = 'study-nav';
     nav.className = 'top-nav';
 
-    const isStarredPage = location.pathname.includes('starred');
-    if (isStarredPage) {
-      nav.innerHTML = '<a href="CTAL-AT-Chapter1.html">Back to Study Guide</a>';
-    } else {
-      nav.innerHTML = '<a href="starred.html">View Starred Sections</a>';
+    var currentPage = location.pathname.split('/').pop() || 'index.html';
+    var isStarredPage = currentPage === 'starred.html';
+    var isIndexPage = currentPage === 'index.html' || currentPage === '';
+
+    var links = [];
+
+    if (!isIndexPage) {
+      links.push({ href: 'index.html', label: 'Home' });
     }
+    if (!isStarredPage) {
+      links.push({ href: 'starred.html', label: 'Starred Sections' });
+    }
+
+    CHAPTERS.forEach(function(ch) {
+      if (ch.file !== currentPage) {
+        links.push({ href: ch.file, label: ch.title });
+      }
+    });
+
+    links.forEach(function(link, i) {
+      if (i > 0) nav.appendChild(document.createTextNode(' · '));
+      var a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.label;
+      nav.appendChild(a);
+    });
 
     if (header) {
       header.appendChild(nav);
@@ -104,22 +152,58 @@
     }
   }
 
+  function initToTop() {
+    if (document.getElementById('to-top-btn')) return;
+    var btn = document.createElement('button');
+    btn.id = 'to-top-btn';
+    btn.className = 'to-top-btn';
+    btn.innerHTML = '&#8593;';
+    btn.title = 'Back to top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.type = 'button';
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.body.appendChild(btn);
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          if (window.scrollY > 400) {
+            btn.classList.add('visible');
+          } else {
+            btn.classList.remove('visible');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
   window.StarStudy = {
     getStarred: getStarred,
     saveStarred: saveStarred,
+    sanitizeHtml: sanitizeHtml,
     initStarButtons: initStarButtons,
-    initNav: initNav
+    initNav: initNav,
+    initToTop: initToTop,
+    CHAPTERS: CHAPTERS
   };
 
   if (!document.body.dataset.noAutoInit) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        initNav();
-        initStarButtons();
-      });
-    } else {
+    document.addEventListener('DOMContentLoaded', function() {
       initNav();
       initStarButtons();
+      initToTop();
+    });
+    if (document.readyState !== 'loading') {
+      initNav();
+      initStarButtons();
+      initToTop();
     }
+  } else {
+    initToTop();
   }
 })();
