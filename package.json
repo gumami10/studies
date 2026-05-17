@@ -1,0 +1,23 @@
+{
+  "name": "ctal-at-study-guide",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "npm run convert",
+    "dev": "vite",
+    "prebuild": "npm run convert",
+    "build": "vite build",
+    "preview": "vite preview",
+    "convert": "node scripts/convert-xml.mjs"
+  },
+  "dependencies": {
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0"
+  }
+}
