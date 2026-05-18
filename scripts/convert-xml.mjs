@@ -4,7 +4,7 @@ import { resolve } from 'path'
 const XML_DIR = resolve('xml')
 const DATA_DIR = resolve('data')
 
-function parseXml(xml) {
+export function parseXml(xml) {
   const tagRegex = /<(\/?)(\w[\w-]*)((?:\s+[^>]*?)?)\s*(\/?)>/g
   const attrRegex = /([\w-]+)="([^"]*)"/g
   const tokens = []
@@ -62,14 +62,14 @@ function parseXml(xml) {
   return root
 }
 
-function getTextContent(node) {
+export function getTextContent(node) {
   return node.children
     .map(ch => ch.type === 'text' ? ch.value : getTextContent(ch))
     .join('')
     .trim()
 }
 
-function renderInlineHtml(children) {
+export function renderInlineHtml(children) {
   const parts = children.map(ch => {
     if (ch.type === 'text') return ch.value
     const tag = ch.tag
@@ -88,7 +88,7 @@ function renderInlineHtml(children) {
 
 const INLINE_TAGS = ['strong', 'em', 'b', 'i', 'code', 'span', 'br']
 
-function transformNode(node) {
+export function transformNode(node) {
   if (node.type === 'text') {
     return node.value
   }
@@ -180,7 +180,7 @@ function transformNode(node) {
   return null
 }
 
-function convertFile(filepath) {
+export function convertFile(filepath) {
   const root = parseXml(readFileSync(filepath, 'utf-8'))
   const syllabus = root.children.find(c => c.type === 'element' && c.tag === 'syllabus')
   if (!syllabus) throw new Error(`No <syllabus> root found in ${filepath}`)
@@ -226,14 +226,18 @@ function convertFile(filepath) {
   return { chapters, toc, footerText }
 }
 
-mkdirSync(DATA_DIR, { recursive: true })
+const isMain = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/^.*[\\/]/, ''))
 
-const chaptersData = convertFile(resolve(XML_DIR, 'chapters-1-6.xml'))
-writeFileSync(resolve(DATA_DIR, 'chapters-1-6.js'), `export default ${JSON.stringify(chaptersData, null, 2)}\n`)
+if (isMain) {
+  mkdirSync(DATA_DIR, { recursive: true })
 
-const metricsData = convertFile(resolve(XML_DIR, 'quality-metrics.xml'))
-writeFileSync(resolve(DATA_DIR, 'quality-metrics.js'), `export default ${JSON.stringify(metricsData, null, 2)}\n`)
+  const chaptersData = convertFile(resolve(XML_DIR, 'chapters-1-6.xml'))
+  writeFileSync(resolve(DATA_DIR, 'chapters-1-6.js'), `export default ${JSON.stringify(chaptersData, null, 2)}\n`)
 
-console.log('Conversion complete!')
-console.log(`  data/chapters-1-6.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`)
-console.log(`  data/quality-metrics.js (${metricsData.chapters.length} chapters, ${metricsData.toc.length} toc items)`)
+  const metricsData = convertFile(resolve(XML_DIR, 'quality-metrics.xml'))
+  writeFileSync(resolve(DATA_DIR, 'quality-metrics.js'), `export default ${JSON.stringify(metricsData, null, 2)}\n`)
+
+  console.log('Conversion complete!')
+  console.log(`  data/chapters-1-6.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`)
+  console.log(`  data/quality-metrics.js (${metricsData.chapters.length} chapters, ${metricsData.toc.length} toc items)`)
+}

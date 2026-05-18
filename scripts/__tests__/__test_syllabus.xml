@@ -1,0 +1,16 @@
+<syllabus>
+      <chapters>
+        <chapter id="ch1">
+          <meta><badge>K1</badge></meta>
+          <title>Chapter One</title>
+          <section id="sec-1">
+            <h2>Section Title</h2>
+            <paragraph>Body text here</paragraph>
+          </section>
+        </chapter>
+      </chapters>
+      <toc>
+        <item id="sec-1" status="active">Section Title</item>
+      </toc>
+      <footer-text>Footer content</footer-text>
+    </syllabus>

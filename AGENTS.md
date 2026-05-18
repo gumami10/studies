@@ -15,6 +15,9 @@ Vue 3 SPA with Vite build system. Study guide for ISTQB CTAL-AT certification.
 - `npm run build` — Production build to `dist/`
 - `npm run preview` — Preview production build
 - `npm run convert` — Regenerate data files from `xml/*.xml` → `data/*.js`
+- `npm test` — Run vitest test suite
+- `npm run test:watch` — Run vitest in watch mode
+- `npm run test:coverage` — Run vitest with coverage report
 
 ## Project Structure
 ```
@@ -82,7 +85,8 @@ Block types: `section`, `h2`, `h3`, `h4`, `heading`, `paragraph`, `list`, `table
 - `study-highlights.js` — original highlights (now `useHighlightToolbar.js` + highlights store)
 
 ## Agent Notes
-- No lint, typecheck, or test commands configured. Not applicable to this repo.
+- Tests use vitest + @vue/test-utils + happy-dom. Run `npm test` before committing changes.
+- Test files live in `src/__tests__/` and `scripts/__tests__/` matching the source structure.
 - The old static `.html` files alongside the new Vue SPA are intentional — they serve as reference/staging.
 - `data/` is git-tracked (generated from XML). Run `npm run convert` after XML changes and commit both.
 - `dist/` is gitignored (build output).
