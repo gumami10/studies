@@ -1,16 +1,21 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useHighlightsStore } from '@/stores/highlights'
 
+interface TextNodeResult {
+  node: Node
+  offset: number
+}
+
 export function useHighlightToolbar() {
   const show = ref(false)
   const position = ref({ top: 0, left: 0 })
-  const currentRange = ref(null)
+  const currentRange = ref<Range | null>(null)
   const currentText = ref('')
-  const existingMark = ref(null)
+  const existingMark = ref<HTMLElement | null>(null)
 
-  function getBlockParent(node) {
+  function getBlockParent(node: Node): HTMLElement | null {
     const blocks = ['P', 'LI', 'TD', 'TH', 'H2', 'H3', 'H4', 'DT', 'DD']
-    let el = node.nodeType === 3 ? node.parentElement : node
+    let el: HTMLElement | null = node.nodeType === 3 ? node.parentElement : (node as HTMLElement)
     while (el) {
       if (blocks.includes(el.tagName)) return el
       if (el.id === 'content-area') return null
@@ -19,19 +24,21 @@ export function useHighlightToolbar() {
     return null
   }
 
-  function getElementPath(el) {
-    const parts = []
+  function getElementPath(el: HTMLElement): string[] {
+    const parts: string[] = []
     const contentArea = document.getElementById('content-area')
-    let current = el
+    let current: HTMLElement | null = el
     while (current && current !== contentArea) {
       if (current.id) {
         parts.unshift('#' + current.id)
         break
       }
-      const parent = current.parentElement
+      const parent: HTMLElement | null = current.parentElement
       if (!parent) break
       const tag = current.tagName.toLowerCase()
-      const sameTag = Array.from(parent.children).filter(c => c.tagName.toLowerCase() === tag)
+      const sameTag = Array.from(parent.children).filter(
+        (c: Element) => c.tagName.toLowerCase() === tag,
+      )
       const index = sameTag.indexOf(current)
       parts.unshift(`${tag}:${index}`)
       current = parent
@@ -39,48 +46,51 @@ export function useHighlightToolbar() {
     return parts
   }
 
-  function getTextOffset(el, node, offset) {
+  function getTextOffset(el: HTMLElement, node: Node, offset: number): number {
     if (node.nodeType !== Node.TEXT_NODE) return 0
     let count = 0
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
-    let n
+    let n: Node | null
     while ((n = walker.nextNode())) {
       if (n === node) return count + offset
-      count += n.length
+      count += n.textContent?.length ?? 0
     }
     return count
   }
 
-  function findElementByPath(path) {
+  function findElementByPath(path: string[]): HTMLElement | null {
     const contentArea = document.getElementById('content-area')
-    let el = contentArea
+    let el: HTMLElement | null = contentArea
     for (const part of path) {
       if (!el) return null
       if (part.startsWith('#')) {
         el = document.getElementById(part.substring(1))
       } else {
         const [tag, idx] = part.split(':')
-        const children = Array.from(el.children).filter(c => c.tagName.toLowerCase() === tag)
-        el = children[parseInt(idx, 10)]
+        const children = Array.from(el.children).filter((c) => c.tagName.toLowerCase() === tag)
+        el = (children[parseInt(idx, 10)] as HTMLElement | undefined) ?? null
       }
     }
     return el
   }
 
-  function normalizeToText(container, offset) {
+  function _normalizeToText(container: Node, offset: number): TextNodeResult {
     if (container.nodeType === Node.TEXT_NODE) return { node: container, offset }
     const child = container.childNodes[offset]
     if (!child) {
       const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT)
-      let lastText = null, n
+      let lastText: Node | null = null,
+        n: Node | null
       while ((n = walker.nextNode())) lastText = n
-      return lastText ? { node: lastText, offset: lastText.length } : { node: container, offset: container.childNodes.length }
+      return lastText
+        ? { node: lastText, offset: lastText.textContent?.length ?? 0 }
+        : { node: container, offset: container.childNodes.length }
     }
     if (child.nodeType === Node.TEXT_NODE) return { node: child, offset: 0 }
     const walker = document.createTreeWalker(child, NodeFilter.SHOW_TEXT)
     const firstText = walker.nextNode()
     if (firstText) return { node: firstText, offset: 0 }
-    let next = child.nextSibling
+    let next: Node | null = child.nextSibling
     while (next) {
       if (next.nodeType === Node.TEXT_NODE) return { node: next, offset: 0 }
       const w = document.createTreeWalker(next, NodeFilter.SHOW_TEXT)
@@ -91,21 +101,23 @@ export function useHighlightToolbar() {
     return { node: container, offset }
   }
 
-  function getNodeAndOffset(el, offset, skipMarks = false) {
+  function getNodeAndOffset(el: HTMLElement, offset: number, skipMarks = false): TextNodeResult {
     let count = 0
-    let lastText = null
+    let lastText: Text | null = null
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
-    let n
+    let n: Node | null
     while ((n = walker.nextNode())) {
-      if (skipMarks && n.parentElement && n.parentElement.closest('mark[data-highlight-id]')) continue
-      lastText = n
-      if (count + n.length >= offset) return { node: n, offset: offset - count }
-      count += n.length
+      if (skipMarks && (n as Text).parentElement?.closest('mark[data-highlight-id]')) continue
+      lastText = n as Text
+      if (count + (n.textContent?.length ?? 0) >= offset) return { node: n, offset: offset - count }
+      count += n.textContent?.length ?? 0
     }
-    return lastText ? { node: lastText, offset: lastText.length } : { node: el, offset: el.childNodes.length }
+    return lastText
+      ? { node: lastText, offset: lastText.length }
+      : { node: el, offset: el.childNodes.length }
   }
 
-  function makeHighlightId() {
+  function makeHighlightId(): string {
     return `hl-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
   }
 
@@ -128,19 +140,24 @@ export function useHighlightToolbar() {
     currentRange.value = range
     currentText.value = text
 
-    existingMark.value = range.commonAncestorContainer.nodeType === 3
-      ? range.commonAncestorContainer.parentElement.closest('mark[data-highlight-id]')
-      : range.commonAncestorContainer.closest('mark[data-highlight-id]')
+    existingMark.value =
+      range.commonAncestorContainer.nodeType === 3
+        ? ((range.commonAncestorContainer.parentElement?.closest(
+            'mark[data-highlight-id]',
+          ) as HTMLElement | null) ?? null)
+        : (((range.commonAncestorContainer as Element).closest(
+            'mark[data-highlight-id]',
+          ) as HTMLElement | null) ?? null)
 
     const rect = range.getBoundingClientRect()
     position.value = {
       top: rect.top - 40,
-      left: rect.left + rect.width / 2
+      left: rect.left + rect.width / 2,
     }
     show.value = true
   }
 
-  function applyHighlight(color) {
+  function applyHighlight(color: string) {
     const store = useHighlightsStore()
     const range = currentRange.value
     if (!range || !currentText.value) return
@@ -156,7 +173,7 @@ export function useHighlightToolbar() {
       startPath: getElementPath(startBlock),
       startOffset: getTextOffset(startBlock, range.startContainer, range.startOffset),
       endPath: getElementPath(endBlock),
-      endOffset: getTextOffset(endBlock, range.endContainer, range.endOffset)
+      endOffset: getTextOffset(endBlock, range.endContainer, range.endOffset),
     }
 
     const mark = document.createElement('mark')
@@ -179,18 +196,18 @@ export function useHighlightToolbar() {
     const store = useHighlightsStore()
     const mark = existingMark.value
     if (!mark) return
-    store.remove(mark.dataset.highlightId)
-    const parent = mark.parentNode
+    store.remove(mark.dataset.highlightId!)
+    const parent = mark.parentNode!
     while (mark.firstChild) parent.insertBefore(mark.firstChild, mark)
     parent.removeChild(mark)
     parent.normalize()
   }
 
-  function removeMark(mark) {
+  function removeMark(mark: HTMLElement) {
     const store = useHighlightsStore()
     const id = mark.dataset.highlightId
     if (id) store.remove(id)
-    const parent = mark.parentNode
+    const parent = mark.parentNode!
     while (mark.firstChild) parent.insertBefore(mark.firstChild, mark)
     parent.removeChild(mark)
     parent.normalize()
@@ -206,8 +223,8 @@ export function useHighlightToolbar() {
       return pathCmp !== 0 ? pathCmp : b.startOffset - a.startOffset
     })
 
-    let restored = 0
-    sorted.forEach(item => {
+    let _restored = 0
+    sorted.forEach((item) => {
       try {
         const startEl = findElementByPath(item.startPath)
         const endEl = findElementByPath(item.endPath)
@@ -231,26 +248,26 @@ export function useHighlightToolbar() {
           mark.appendChild(frag)
           range.insertNode(mark)
         }
-        restored++
+        _restored++
       } catch {
         // skip corrupted highlights silently
       }
     })
   }
 
-  function onMouseUp(e) {
+  function onMouseUp(_e: MouseEvent) {
     setTimeout(() => checkSelection(), 0)
   }
 
-  function onClick(e) {
-    const mark = e.target.closest('mark[data-highlight-id]')
+  function onClick(e: MouseEvent) {
+    const mark = (e.target as Element).closest('mark[data-highlight-id]') as HTMLElement | null
     if (mark) {
       removeMark(mark)
       show.value = false
     }
   }
 
-  function onKeyDown(e) {
+  function onKeyDown(e: KeyboardEvent) {
     if (e.key !== 'h' && e.key !== 'H') return
     if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) return
 
@@ -266,9 +283,12 @@ export function useHighlightToolbar() {
     e.preventDefault()
 
     const container = range.commonAncestorContainer
-    const mark = container.nodeType === 3
-      ? container.parentElement.closest('mark[data-highlight-id]')
-      : container.closest('mark[data-highlight-id]')
+    const mark =
+      container.nodeType === 3
+        ? ((container.parentElement?.closest('mark[data-highlight-id]') as HTMLElement | null) ??
+          null)
+        : (((container as Element).closest('mark[data-highlight-id]') as HTMLElement | null) ??
+          null)
 
     if (mark) {
       removeMark(mark)
@@ -293,7 +313,11 @@ export function useHighlightToolbar() {
   })
 
   return {
-    show, position, applyHighlight, removeFromSelection,
-    restoreHighlights, checkSelection
+    show,
+    position,
+    applyHighlight,
+    removeFromSelection,
+    restoreHighlights,
+    checkSelection,
   }
 }

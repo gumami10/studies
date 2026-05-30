@@ -25,13 +25,13 @@ describe('useStarredStore', () => {
 
   it('toggle adds a starred item', () => {
     const store = useStarredStore()
-    store.toggle('sec-1', 'My Section', 'Chapters 1-6', '<h2>My Section</h2>')
+    store.toggle('sec-1', 'My Section', 'CTAL-AT', '<h2>My Section</h2>')
     expect(store.starredCount).toBe(1)
     expect(store.isStarred('sec-1')).toBe(true)
     expect(store.items['sec-1']).toEqual({
       id: 'sec-1',
       title: 'My Section',
-      source: 'Chapters 1-6',
+      source: 'CTAL-AT',
       html: '<h2>My Section</h2>'
     })
   })
@@ -69,14 +69,14 @@ describe('useStarredStore', () => {
 
   it('bySource groups items by source', () => {
     const store = useStarredStore()
-    store.toggle('1', 'One', 'Chapters 1-6', '<p>1</p>')
-    store.toggle('2', 'Two', 'Chapters 1-6', '<p>2</p>')
+    store.toggle('1', 'One', 'CTAL-AT', '<p>1</p>')
+    store.toggle('2', 'Two', 'CTAL-AT', '<p>2</p>')
     store.toggle('3', 'Three', 'Quality Metrics', '<p>3</p>')
     store.toggle('4', 'Four') // no source -> 'Unknown'
 
     const grouped = store.bySource
     expect(Object.keys(grouped)).toHaveLength(3)
-    expect(grouped['Chapters 1-6']).toHaveLength(2)
+    expect(grouped['CTAL-AT']).toHaveLength(2)
     expect(grouped['Quality Metrics']).toHaveLength(1)
     expect(grouped['Unknown']).toHaveLength(1)
   })

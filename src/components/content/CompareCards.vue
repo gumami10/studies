@@ -8,22 +8,24 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { Component } from 'vue'
+import type { ContentBlock } from '@/types'
 import ContentParagraph from './ContentParagraph.vue'
 import ContentHeading from './ContentHeading.vue'
 import ContentList from './ContentList.vue'
 import DataTable from './DataTable.vue'
 
-defineProps({ block: { type: Object, required: true } })
+defineProps<{ block: ContentBlock }>()
 
-const map = {
+const map: Record<string, Component> = {
   paragraph: ContentParagraph,
   heading: ContentHeading,
   list: ContentList,
   table: DataTable,
 }
 
-function resolveComponent(type) {
+function resolveComponent(type: string): Component | string {
   return map[type] || 'div'
 }
 </script>

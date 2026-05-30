@@ -4,10 +4,10 @@
   </component>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
 const props = defineProps({ block: { type: Object, required: true } })
 
-const tag = computed(() => props.block.listType === 'ol' ? 'ol' : 'ul')
+const tag = computed(() => (props.block.listType === 'ol' ? 'ol' : 'ul'))
 </script>

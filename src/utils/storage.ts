@@ -1,13 +1,13 @@
-export function storageGet(key, fallback = null) {
+export function storageGet<T = unknown>(key: string, fallback: T | null = null): T | null {
   try {
     const raw = localStorage.getItem(key)
-    return raw ? JSON.parse(raw) : fallback
+    return raw ? (JSON.parse(raw) as T) : fallback
   } catch {
     return fallback
   }
 }
 
-export function storageSet(key, value) {
+export function storageSet(key: string, value: unknown): boolean {
   try {
     localStorage.setItem(key, JSON.stringify(value))
     return true
@@ -17,7 +17,7 @@ export function storageSet(key, value) {
   }
 }
 
-export function storageAvailable() {
+export function storageAvailable(): boolean {
   try {
     const key = '__storage_test__'
     localStorage.setItem(key, key)

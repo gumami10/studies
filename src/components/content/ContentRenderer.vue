@@ -4,7 +4,9 @@
   </template>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { Component } from 'vue'
+import type { ContentBlock } from '@/types'
 import ContentSection from './ContentSection.vue'
 import ContentHeading from './ContentHeading.vue'
 import ContentParagraph from './ContentParagraph.vue'
@@ -15,9 +17,9 @@ import CompareCards from './CompareCards.vue'
 import GlossaryList from './GlossaryList.vue'
 import BadgeList from './BadgeList.vue'
 
-defineProps({ blocks: { type: Array, required: true } })
+defineProps<{ blocks: ContentBlock[] }>()
 
-const componentMap = {
+const componentMap: Record<string, Component> = {
   section: ContentSection,
   h2: ContentHeading,
   h3: ContentHeading,
@@ -33,7 +35,7 @@ const componentMap = {
   meta: BadgeList,
 }
 
-function resolveComponent(type) {
+function resolveComponent(type: string): Component | string {
   return componentMap[type] || 'div'
 }
 </script>

@@ -3,7 +3,7 @@
   <h4 v-else v-html="block.text" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
 const props = defineProps({ block: { type: Object, required: true } })

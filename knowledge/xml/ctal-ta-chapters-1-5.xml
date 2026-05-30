@@ -272,6 +272,20 @@
         <paragraph>Tools help to organize, track, and ensure the quality of the test process. The TA supports this effort by selecting, structuring, and maintaining test cases, ensuring traceability, and managing test case versions for efficient testing and test control.</paragraph>
       </section>
 
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Get involved from day one of the SDLC</strong> — don't wait for code to be written. Review requirements, challenge user stories, and define test conditions early. The cost of a missed requirement grows 10x with every phase it survives.</item>
+          <item><strong>Start with high-level test cases for coverage, refine to low-level for execution</strong> — high-level cases map to test conditions and ensure nothing is missed. Only invest in concrete values where they matter for repeatability or automation.</item>
+          <item><strong>Apply the 9 quality criteria to every test case</strong> — correctness, feasibility, necessity, understandability, traceability, consistency, precision, completeness, conciseness. A test case failing any of these will cost you during execution or maintenance.</item>
+          <item><strong>Review the test basis before designing tests</strong> — finding ambiguities, gaps, and contradictions in requirements is 10x cheaper than finding them in code. Use review techniques systematically, not ad hoc.</item>
+          <item><strong>Solve the test oracle problem before execution</strong> — if you can't determine expected results, your test is incomplete. Consider pseudo-oracles, property-based testing, or metamorphic testing when specifications are weak.</item>
+          <item><strong>Separate test logic from test data</strong> — hard-coded data in test cases makes maintenance painful. Use external data sources and keep test cases parameterized for flexibility.</item>
+          <item><strong>Run a smoke test before full test execution</strong> — a 30-minute validation that the environment is set up correctly prevents wasted days of testing against a broken configuration.</item>
+          <item><strong>Structure keywords at the right abstraction layer</strong> — domain-layer keywords for business stakeholders, test-interface-layer keywords for technical execution. Mixing them creates confusion and redundancy.</item>
+        </list>
+      </key-box>
+
       <section id="s1-glossary">
         <h2>Chapter 1 Glossary</h2>
         <glossary>
@@ -390,6 +404,20 @@
 
         <paragraph>It is often necessary to use a combination of selection techniques for a more comprehensive and effective regression test suite. However, the TA must carefully balance the need for coverage with a manageable size of the test suite. After each test cycle, the TA analyzes the test results to determine the effectiveness of the techniques applied (see Section 5.3.1). Next time, the TA retains effective techniques and replaces ineffective ones. This continuously improves regression test selection over time. It is essential in iterative and incremental development models, where changes are frequent.</paragraph>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Bring your testing experience to risk workshops</strong> — you know what usually breaks and what the impact is. Your hands-on knowledge is the most valuable input for risk identification that no business stakeholder can provide.</item>
+          <item><strong>Categorize risks by quality characteristics</strong> — use ISO/IEC 25010 to ensure you're not only thinking about functional defects. Security, performance, usability, and compatibility risks are often overlooked in risk registers.</item>
+          <item><strong>Propose the earliest possible mitigation for each risk</strong> — shift left: static testing catches requirement defects before they become code defects. Recommend the test level, type, and technique for each risk, not just "more testing."</item>
+          <item><strong>Maintain a traceability matrix between regression tests and the risk register</strong> — when risks change after a release, you can instantly see which tests to add, modify, or retire without guessing.</item>
+          <item><strong>Combine regression selection techniques</strong> — no single technique catches everything. Risk-based ensures high-risk areas are covered, history-based catches repeat offenders, operational profiles cover real-world usage patterns.</item>
+          <item><strong>Measure your regression selection effectiveness after each cycle</strong> — if a technique didn't find defects in the last three cycles, consider replacing it. Keep what works, retire what doesn't.</item>
+          <item><strong>Use operational profiles for manual regression prioritization</strong> — when time is short, test the most-used paths first: login, core transactions, checkout. These give you the highest defect detection per hour of manual effort.</item>
+          <item><strong>Monitor risks continuously, not just at planning</strong> — risks change with every sprint. Update the risk register and adjust regression scope at every iteration boundary, not just at project kickoff.</item>
+        </list>
+      </key-box>
 
       <section id="s2-glossary">
         <h2>Chapter 2 Glossary</h2>
@@ -827,6 +855,21 @@
         <paragraph>The TA must also consider the <strong>risks of automating the test design</strong>. They include overlooking test conditions that are not shown in the model, underestimating the maintenance effort of the test model, stakeholders finding the model difficult to understand, and the generic risks of test automation (see ISTQB-CTFL, v4.0.1, Section 6.2).</paragraph>
       </section>
 
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Use domain testing for complex multi-parameter boundaries</strong> — when basic BVA isn't enough, ON/OFF/IN/OUT points catch partition defects that simple boundary values miss, especially with interacting variables.</item>
+          <item><strong>Start with pairwise testing for combinatorial explosion</strong> — 97% of failures come from one or two interacting parameters. Pairwise gives you maximum defect detection with minimum test cases.</item>
+          <item><strong>Apply round-trip coverage for stateful systems</strong> — it's empirically proven highly effective at finding defects. Model your states, find the loops, and test every round trip.</item>
+          <item><strong>Build a CRUD matrix early for data-heavy systems</strong> — a simple C/R/U/D grid per entity per function reveals missing lifecycle operations before a single test is written.</item>
+          <item><strong>Verify decision table minimization with the checksum procedure</strong> — if checksums don't match, you have gaps or overlaps. Never trust a minimized table without checking.</item>
+          <item><strong>Use metamorphic testing for AI-based systems</strong> — when you can't determine exact expected results, define relations like "increasing input X should decrease output Y" and generate follow-up test cases from source cases.</item>
+          <item><strong>Write test charters with the lightweight mission format</strong> — "Explore [target] With [resources] To discover [information]" gives structure without killing exploration flexibility.</item>
+          <item><strong>Combine test techniques for better coverage</strong> — BVA for guard conditions in state transitions, domain testing for scenario variables, decision tables for business rules in workflows. No single technique catches everything.</item>
+          <item><strong>Automate test design when the specification is stable</strong> — model-based test generation from a single source of truth reduces maintenance and prevents human error in test case specification.</item>
+        </list>
+      </key-box>
+
       <section id="s3-glossary">
         <h2>Chapter 3 Glossary</h2>
         <glossary>
@@ -1019,6 +1062,20 @@
         <paragraph>Examples of general standards in interoperability are (ISO 15745, 2003) and (ISO 16100, 2009). ETSI (ETSI EG 202 237 v1.2.1, 2010) provides an example of a concrete interoperability testing methodology in the telecommunications domain.</paragraph>
       </section>
 
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Test all three sub-characteristics of functional suitability separately</strong> — completeness (is everything there?), correctness (does it work right?), appropriateness (does it help the user?). Each needs different techniques and different test levels.</item>
+          <item><strong>Push for functional completeness reviews early</strong> — trace requirements to test conditions during collaborative user story writing or requirements reviews, not after system testing starts. Missing features found late are the most expensive.</item>
+          <item><strong>Design usability test scenarios from personas and operational profiles</strong> — don't just check if buttons work. Evaluate whether real users in real contexts can complete their tasks effectively, efficiently, and satisfactorily.</item>
+          <item><strong>Identify your WCAG conformance level before accessibility testing</strong> — know whether you need A, AA, or AAA compliance. Design tests for the specific needs of your target user group, not just a generic checklist.</item>
+          <item><strong>Use combinatorial testing for adaptability</strong> — the number of browser/OS/device/screen-size combinations explodes fast. Pairwise or base-choice coverage keeps it manageable while catching the critical interactions.</item>
+          <item><strong>Trace data transformations in interoperability testing</strong> — when systems exchange data, verify not just the transfer but the transformation. A field that's correct in System A may be misinterpreted by System B.</item>
+          <item><strong>Test installability beyond "does the installer finish"</strong> — verify uninstall, update, and reconfigure flows. Test on multiple environments. Review the installation documentation for clarity. Check permission behavior on mobile.</item>
+          <item><strong>Use crowd testing for real-world diversity, not as a replacement for structured testing</strong> — it gives you devices, locations, and perspectives you can't replicate in-house, but quality varies. Define clear scope and security boundaries.</item>
+        </list>
+      </key-box>
+
       <section id="s4-glossary">
         <h2>Chapter 4 Glossary</h2>
         <glossary>
@@ -1207,6 +1264,20 @@
 
         <paragraph>More information on RCA can be found in (ISTQB-ITP, v1.0).</paragraph>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Model the specification before code is written</strong> — state transition diagrams reveal unreachable states, decision tables reveal overlapping rules, activity diagrams reveal dead ends. A 2-hour modeling session prevents weeks of rework.</item>
+          <item><strong>Choose your review technique based on the test basis type</strong> — scenario-based for use cases, role-based for user-facing features, perspective-based for critical specifications, checklist-based for consistency. Don't default to ad hoc.</item>
+          <item><strong>Compare predicted vs. actual defect clusters after every test cycle</strong> — if you predicted low risk in an area but found many defects, your risk assessment needs recalibration. Feed this back into the next planning session.</item>
+          <item><strong>Track DDP per test level and split by severity</strong> — if 40% of critical defects escape system testing, that level needs more rigor. DDP is your single best measure of test level effectiveness.</item>
+          <item><strong>Standardize defect classification across the entire SDLC</strong> — use ODC, IEEE 1044, or a severity-based scheme consistently from component testing through production. Without uniform classification, root cause analysis is guesswork.</item>
+          <item><strong>Use the five whys for recurring defect types</strong> — when the same category of defect appears in multiple sprints, dig past the symptom. "Developer forgot" is not a root cause; "no input validation in the API contract" is.</item>
+          <item><strong>Measure DRE and PCE quarterly</strong> — defect removal efficiency tells you how many defects you catch before release. Phase containment effectiveness tells you how well you catch defects where they're introduced. Track both to prove prevention works.</item>
+          <item><strong>Bring defect data to retrospectives</strong> — don't just discuss feelings. Present classified defect counts, escape rates, and cluster analysis. Data-driven retrospectives produce actionable improvements, not vague commitments.</item>
+        </list>
+      </key-box>
 
       <section id="s5-glossary">
         <h2>Chapter 5 Glossary</h2>

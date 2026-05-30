@@ -1,12 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import chaptersData from '../../data/chapters-1-6.js'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import chaptersData from '../../data/ctal-at.js'
 import metricsData from '../../data/quality-metrics.js'
 import taeData from '../../data/ctal-tae.js'
 import codeReviewData from '../../data/code-review.js'
+import taData from '../../data/ctal-ta.js'
 
 const ContentPage = () => import('@/pages/ContentPage.vue')
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   { path: '/index.html', redirect: '/' },
   { path: '/', name: 'home', component: () => import('@/pages/HomePage.vue') },
   {
@@ -46,6 +47,18 @@ const routes = [
     },
   },
   {
+    path: '/ta',
+    name: 'ta',
+    component: ContentPage,
+    meta: {
+      title: 'ISTQB CTAL-TA Study Guide',
+      subtitle: 'Advanced Level Test Analyst (v4.0) — Chapters 1–5',
+      tocTitle: 'Syllabus Chapters',
+      highlightKey: 'ctal-ta-highlights',
+      data: taData,
+    },
+  },
+  {
     path: '/code-review',
     name: 'code-review',
     component: ContentPage,
@@ -66,5 +79,5 @@ export default createRouter({
   scrollBehavior(to) {
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
-  }
+  },
 })

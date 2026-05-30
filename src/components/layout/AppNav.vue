@@ -7,7 +7,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStarredStore } from '@/stores/starred'
@@ -16,9 +16,10 @@ const route = useRoute()
 const store = useStarredStore()
 
 const chapters = [
-  { to: '/chapters', label: 'Chapters 1–6' },
+  { to: '/chapters', label: 'CTAL-AT' },
   { to: '/metrics', label: 'Quality Metrics' },
   { to: '/tae', label: 'TAE' },
+  { to: '/ta', label: 'TA' },
   { to: '/code-review', label: 'Code Review' },
 ]
 
@@ -28,7 +29,7 @@ const links = computed(() => {
   if (route.name !== 'starred') {
     result.push({ to: '/starred', label: `Starred Sections (${store.starredCount})` })
   }
-  chapters.forEach(ch => {
+  chapters.forEach((ch) => {
     if (ch.to !== route.path) result.push(ch)
   })
   return result

@@ -6,6 +6,6 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AppNav from './AppNav.vue'
 </script>

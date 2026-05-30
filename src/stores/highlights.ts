@@ -2,14 +2,24 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { storageGet, storageSet, storageAvailable } from '@/utils/storage'
 
+export interface HighlightItem {
+  id: string
+  color: string
+  text: string
+  startPath: string[]
+  startOffset: number
+  endPath: string[]
+  endOffset: number
+}
+
 const DEFAULT_KEY = 'ctal-at-highlights-ch1'
 
 export const useHighlightsStore = defineStore('highlights', () => {
-  const items = ref([])
+  const items = ref<HighlightItem[]>([])
   const storageKey = ref(DEFAULT_KEY)
   const available = ref(true)
 
-  function setKey(key) {
+  function setKey(key: string) {
     storageKey.value = key || DEFAULT_KEY
     load()
   }
@@ -20,20 +30,20 @@ export const useHighlightsStore = defineStore('highlights', () => {
       console.warn('[Highlights] localStorage not available')
       return
     }
-    items.value = storageGet(storageKey.value, [])
+    items.value = storageGet<HighlightItem[]>(storageKey.value, []) ?? []
   }
 
   function save() {
     storageSet(storageKey.value, items.value)
   }
 
-  function add(data) {
+  function add(data: HighlightItem) {
     items.value.push(data)
     save()
   }
 
-  function remove(id) {
-    items.value = items.value.filter(h => h.id !== id)
+  function remove(id: string) {
+    items.value = items.value.filter((h) => h.id !== id)
     save()
   }
 

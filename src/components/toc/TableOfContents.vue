@@ -9,10 +9,12 @@
   </ol>
 </template>
 
-<script setup>
-defineProps({ items: { type: Array, required: true } })
+<script setup lang="ts">
+import type { TocItem } from '@/types'
 
-function scrollTo(id) {
+defineProps<{ items: TocItem[] }>()
+
+function scrollTo(id: string) {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }

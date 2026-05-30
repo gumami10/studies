@@ -10,14 +10,14 @@
   />
 </template>
 
-<script setup>
-import { computed, ref, onMounted } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStarredStore } from '@/stores/starred'
 
 const props = defineProps({
   sectionId: { type: String, required: true },
-  sectionTitle: { type: String, default: 'Untitled' }
+  sectionTitle: { type: String, default: 'Untitled' },
 })
 
 const store = useStarredStore()
@@ -33,15 +33,18 @@ function toggle() {
   const section = document.getElementById(props.sectionId)
   let html = ''
   if (section && !store.isStarred(props.sectionId)) {
-    const clone = section.cloneNode(true)
+    const clone = section.cloneNode(true) as HTMLElement
     const btn = clone.querySelector('.star-btn')
     if (btn) btn.remove()
     html = clone.outerHTML
   }
 
-  const source = route.name === 'chapters' ? 'Chapters 1–6'
-    : route.name === 'metrics' ? 'Quality Metrics'
-    : document.title
+  const source =
+    route.name === 'chapters'
+      ? 'CTAL-AT'
+      : route.name === 'metrics'
+        ? 'Quality Metrics'
+        : document.title
 
   store.toggle(props.sectionId, props.sectionTitle, source, html)
   starred.value = store.isStarred(props.sectionId)

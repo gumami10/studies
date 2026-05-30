@@ -10,7 +10,7 @@
     <template v-else>
       <div v-for="(items, source) in store.bySource" :key="source" class="source-group">
         <div class="source-badge">From: {{ source }}</div>
-        <div v-for="item in items" :key="item.id" :id="item.id" ref="itemRefs" v-html="item.html" />
+        <div v-for="item in items" :id="item.id" :key="item.id" ref="itemRefs" v-html="item.html" />
       </div>
     </template>
   </main>
@@ -19,7 +19,7 @@
   <ToTopButton />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { useStarredStore } from '@/stores/starred'
 import AppNav from '@/components/layout/AppNav.vue'
@@ -28,18 +28,18 @@ import EmptyState from '@/components/ui/EmptyState.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 
 const store = useStarredStore()
-const containerRef = ref(null)
+const containerRef = ref<HTMLElement | null>(null)
 
 function attachStarButtons() {
   nextTick(() => {
     const container = containerRef.value
     if (!container) return
 
-    const sections = container.querySelectorAll('[id]')
-    sections.forEach(section => {
+    const sections = container.querySelectorAll<HTMLElement>('[id]')
+    sections.forEach((section: HTMLElement) => {
       if (section.querySelector('.star-btn')) return
 
-      const heading = section.querySelector('h2, h3, h4')
+      const heading = section.querySelector<HTMLElement>('h2, h3, h4')
       const btn = document.createElement('button')
       btn.className = 'star-btn starred'
       btn.innerHTML = '★'
@@ -47,7 +47,7 @@ function attachStarButtons() {
       btn.type = 'button'
 
       btn.addEventListener('click', () => {
-        store.toggle(section.id)
+        store.toggle(section.id, '', '', '')
         section.style.transition = 'opacity .35s ease, transform .35s ease'
         section.style.opacity = '0'
         section.style.transform = 'scale(.98)'
@@ -69,7 +69,11 @@ onMounted(() => {
   attachStarButtons()
 })
 
-watch(() => store.items, () => {
-  attachStarButtons()
-}, { deep: true })
+watch(
+  () => store.items,
+  () => {
+    attachStarButtons()
+  },
+  { deep: true },
+)
 </script>

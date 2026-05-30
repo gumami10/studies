@@ -7,10 +7,12 @@
     title="Back to top"
     aria-label="Back to top"
     @click="scrollToTop"
-  >&#8593;</button>
+  >
+    &#8593;
+  </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useScroll } from '@/composables/useScroll'
 
 const { showButton, scrollToTop } = useScroll()

@@ -21,15 +21,21 @@
   </main>
 
   <AppFooter>{{ data.footerText }}</AppFooter>
-  <HighlightToolbar :show="highlight.show" :position="highlight.position" @apply="highlight.applyHighlight" @remove="highlight.removeFromSelection" />
+  <HighlightToolbar
+    :show="toolbarShow"
+    :position="toolbarPosition"
+    @apply="applyHighlight"
+    @remove="removeFromSelection"
+  />
   <ToTopButton />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
+import type { ChapterData } from '@/types'
 import AppNav from '@/components/layout/AppNav.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import TableOfContents from '@/components/toc/TableOfContents.vue'
@@ -40,13 +46,19 @@ import ToTopButton from '@/components/ui/ToTopButton.vue'
 
 const route = useRoute()
 const meta = computed(() => route.meta)
-const data = computed(() => meta.value.data)
+const data = computed(() => meta.value.data as ChapterData)
 const store = useHighlightsStore()
-const highlight = useHighlightToolbar()
+const {
+  show: toolbarShow,
+  position: toolbarPosition,
+  applyHighlight,
+  removeFromSelection,
+  restoreHighlights,
+} = useHighlightToolbar()
 
 function init() {
-  store.setKey(meta.value.highlightKey)
-  highlight.restoreHighlights()
+  store.setKey(meta.value.highlightKey as string)
+  restoreHighlights()
 }
 
 onMounted(init)

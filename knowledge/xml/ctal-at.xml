@@ -209,6 +209,20 @@
         </key-box>
       </section>
 
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Test during and after every iteration</strong> — don't defer testing to a hardening sprint. Perform component, integration, and functional tests within the iteration; reserve end-to-end testing for stable, integrated increments.</item>
+          <item><strong>Combine formal and holistic testing</strong> — use formal testing (ATDD, scripted tests) for critical components and regulatory requirements; use holistic testing (exploratory, whole-team) for general quality and complex user-facing scenarios.</item>
+          <item><strong>Choose regression approaches based on context</strong> — incremental regression for continuous delivery, risk-based for high-change areas, DevOps-oriented for CI/CD pipelines, exploratory to supplement automation with human insight.</item>
+          <item><strong>Automate regression tests incrementally</strong> — maintain a continuously evolving automated suite, triggering subsets per commit based on risk, location, and dependencies. This enables early defect detection without full-suite overhead.</item>
+          <item><strong>Use feature toggles to decouple deployment from release</strong> — deploy code to production without exposing it to users. This enables safe integration testing in production environments and supports canary releases.</item>
+          <item><strong>Run bug bashes for collaborative regression</strong> — whole-team walkthroughs of critical flows build awareness of product state and risk areas. Especially useful when automation is immature or as a team learning exercise.</item>
+          <item><strong>Maintain lightweight traceability</strong> — tag tests to user stories rather than building heavy traceability matrices. This supports confidence in frequent releases without slowing delivery velocity.</item>
+          <item><strong>Reserve end-to-end testing for critical user journeys</strong> — E2E tests are expensive to maintain and slow to execute. Focus them on the highest-value cross-system flows, not every feature.</item>
+        </list>
+      </key-box>
+
       <section id="s1-glossary">
         <h2>Chapter 1 Glossary</h2>
         <glossary>
@@ -391,6 +405,20 @@
           <paragraph>Tissue testers provide a lightweight, transient source of unbiased feedback early in development. Use them once for fresh perspective, then move to structured testing for rigorous validation.</paragraph>
         </key-box>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Build T-shaped skills deliberately</strong> — maintain deep testing expertise while developing broad knowledge in coding, business analysis, and DevOps. This enables cross-functional collaboration and reduces team bottlenecks.</item>
+          <item><strong>Invite business reps into testing early</strong> — involve them in defining acceptance criteria, reviewing test results, and participating in exploratory testing. Their engagement links testing directly to product validation and business value.</item>
+          <item><strong>Use ATDD and BDD to anchor collaboration</strong> — concrete, testable examples give business representatives a meaningful role in clarifying behavior and aligning expectations with development before code is written.</item>
+          <item><strong>Support developers with early test feedback</strong> — contribute to code reviews from a quality perspective, coach on component test design, and automate tests early to enable safe refactoring and faster CI/CD pipelines.</item>
+          <item><strong>Deploy tissue testers for fresh-eyes feedback</strong> — use external testers early in design or feature implementation to catch usability defects and confusing flows. Their value is single-use; don't over-explain or reuse them.</item>
+          <item><strong>Run mob testing sessions for shared learning</strong> — bring the whole team together on a single test task simultaneously. This blurs role boundaries, builds shared quality ownership, and surfaces risks that individual testing misses.</item>
+          <item><strong>Minimize silos through pairing and knowledge sharing</strong> — pair testing with developers, rotate roles, and participate in communities of practice. Silos create bottlenecks and concentrate risk in single individuals.</item>
+          <item><strong>Show quality dashboards to business stakeholders</strong> — coverage metrics, defect trends, and quality-risk visualizations help business representatives understand where testing adds value and keep them engaged in the process.</item>
+        </list>
+      </key-box>
 
       <section id="s2-glossary">
         <h2>Chapter 2 Glossary</h2>
@@ -591,6 +619,20 @@
           <paragraph>Continuous improvement in Agile testing must be rooted in critical thinking, ongoing learning, and whole team collaboration. Each improvement should act as a hypothesis to be tested through action, learning, and adaptation — not a fixed prescription.</paragraph>
         </key-box>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Plan tests at two levels</strong> — iteration planning defines test conditions and acceptance criteria for selected stories; release planning assesses quality risks and defines release-level test objectives across the full scope.</item>
+          <item><strong>Use testing quadrants to balance coverage</strong> — Q1/Q2 guide development (unit, functional, ATDD), Q3/Q4 critique the product (exploratory, usability, performance, security). An imbalance signals a gap in your strategy.</item>
+          <item><strong>Facilitate risk-storming in iteration planning</strong> — bring business reps and developers together to identify risks and prioritize test activities before stories are committed. This aligns the whole team on what matters most.</item>
+          <item><strong>Monitor with lightweight, real-time metrics</strong> — use burn-down charts, cumulative flow diagrams, and CI/CD dashboards. Heavy periodic reports are too slow for Agile decision-making.</item>
+          <item><strong>Treat metrics as feedback, not targets</strong> — when metrics become performance targets, teams optimize the metric instead of the product. Use GQM (Goal-Question-Metric) to keep metrics aligned with actual test objectives.</item>
+          <item><strong>Report coverage that supports decisions</strong> — requirements coverage for ATDD/BDD traceability, exploratory coverage via session-based management, infrastructure coverage for DevOps. Avoid the illusion of completeness from code coverage alone.</item>
+          <item><strong>Run focused test retrospectives</strong> — dedicate time to identify testing-specific challenges and improvement opportunities. Each improvement should be a hypothesis to test through action, not a fixed prescription.</item>
+          <item><strong>Act on metric signals early</strong> — declining defect detection, repeated environment failures, high cycle times, and accumulating test debt are all actionable signals. Delayed response compounds the problem.</item>
+        </list>
+      </key-box>
 
       <section id="s3-glossary">
         <h2>Chapter 3 Glossary</h2>
@@ -822,6 +864,20 @@
           <paragraph>By shifting left, the team may detect anomalies and defects sooner, reduce rework, and deliver higher-value products. Each requirements engineering activity — elicitation, analysis, specification, and validation — plays a distinct role in preventing defects and aligning development with business needs from the very start.</paragraph>
         </key-box>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Shift left on requirements, not just testing</strong> — participate in elicitation, analysis, specification, and validation of requirements before code is written. Defects found here cost 10–100x less to fix than in production.</item>
+          <item><strong>Use example mapping in refinement sessions</strong> — colored cards (stories, rules, examples, questions) make implicit assumptions visible and generate testable acceptance criteria collaboratively.</item>
+          <item><strong>Storyboard user journeys early</strong> — visualize expected behavior as a sequence of scenes before implementation. This reveals edge cases, interactions, and assumptions that textual requirements miss.</item>
+          <item><strong>Testboard alongside storyboarding</strong> — visualize what needs to be tested for each feature. This complements storyboarding by showing main and alternative scenarios for early alignment on priorities.</item>
+          <item><strong>Slice user stories vertically</strong> — break large stories into smaller, testable pieces using workflow, data complexity, interface, or scenario slicing. Each slice should deliver value and be feasible within one iteration.</item>
+          <item><strong>Watch for cognitive biases in testing</strong> — confirmation bias leads you to test only what you expect to pass. Anchoring effect makes you over-rely on first impressions. Actively seek disconfirming evidence.</item>
+          <item><strong>Treat testware as living requirements</strong> — acceptance criteria, BDD scenarios, test charters, and automated scripts are all forms of requirements. Keep them synchronized with the product as it evolves.</item>
+          <item><strong>Validate requirements before development begins</strong> — use reviews, prototyping, and modeling to detect anomalies early. Each requirements engineering activity (elicitation, analysis, specification, validation) prevents a different class of defects.</item>
+        </list>
+      </key-box>
 
       <section id="s4-glossary">
         <h2>Chapter 4 Glossary</h2>
@@ -1180,6 +1236,21 @@
         </table>
       </section>
 
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Use heuristics to structure exploration</strong> — when specs are vague or time is short, apply rules of thumb like "if it broke before, it will break again" or "defects cluster together" to focus your testing effort.</item>
+          <item><strong>Apply mnemonics as mental checklists</strong> — use SFDIPOT for general system analysis, RCRCRC for regression coverage decisions, and FEW HICCUPPS when you need to identify test oracles beyond acceptance criteria.</item>
+          <item><strong>Write test charters before exploratory sessions</strong> — define mission, scope, and test objectives in a short statement. A charter keeps sessions focused and makes findings traceable to iteration goals.</item>
+          <item><strong>Time-box exploratory sessions to 60–120 minutes</strong> — longer sessions lose focus. Document findings on session sheets immediately; deferred notes lose context and value.</item>
+          <item><strong>Use test tours to shift perspective</strong> — explore the business district for core features, the historical district for legacy code risks, and the seedy district for negative testing. Each tour reveals different defect types.</item>
+          <item><strong>Pair test with developers and business reps</strong> — pair testing combines diverse skills and provides immediate feedback. The navigator strategizes while the driver operates, catching defects neither would find alone.</item>
+          <item><strong>Refactor test cases that smell</strong> — watch for god test cases, hardcoded data, copy-paste duplication, and overly detailed steps. Apply the same refactoring discipline to tests as you do to production code.</item>
+          <item><strong>Treat vague acceptance criteria as exploration opportunities</strong> — missing or ambiguous criteria signal areas to explore beyond the happy path. Use them to derive test charters that uncover unstated edge cases.</item>
+          <item><strong>Try vibe testing for intent-first validation</strong> — use AI-generated test cases to validate what the application should do, not just what it currently does. Combine with human exploratory testing for best results.</item>
+        </list>
+      </key-box>
+
       <section id="s5-glossary">
         <h2>Chapter 5 Glossary</h2>
         <glossary>
@@ -1302,6 +1373,20 @@
           <paragraph>Tool selection should be driven by the test strategy and feedback objectives, not by convenience or trend. The right tools, properly integrated, improve visibility, accelerate feedback, and help the whole team share responsibility for quality.</paragraph>
         </key-box>
       </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Automate the test pyramid base first</strong> — invest heavily in fast unit and component tests before adding UI-level automation. A top-heavy pyramid slows feedback and inflates maintenance costs.</item>
+          <item><strong>Automate in-sprint, not after</strong> — push for test automation within the same iteration the feature is built. Delayed automation accumulates technical debt faster than it reduces it.</item>
+          <item><strong>Keep exploratory testing manual</strong> — don't try to automate what relies on human insight, emergent behavior, or creative exploration. The cost of maintaining such scripts exceeds their value.</item>
+          <item><strong>Select tools based on strategy, not trends</strong> — align tool choices with your test objectives, team skills, and CI/CD pipeline maturity. A trendy tool that doesn't fit creates more friction than it removes.</item>
+          <item><strong>Integrate CI smoke tests as quality gates</strong> — fast build verification tests on every commit catch integration defects before they propagate. Make them a non-negotiable pipeline stage.</item>
+          <item><strong>Use AI tools for augmentation, not replacement</strong> — leverage AI for test case generation, ambiguity detection in requirements, and test data creation, but always validate AI output with human judgment.</item>
+          <item><strong>Monitor production as an extension of testing</strong> — use observability tools to track usage patterns, defect rates, and performance metrics post-deployment. Production signals are your fastest feedback loop.</item>
+          <item><strong>Manage test automation like code</strong> — version control test scripts, apply refactoring patterns (page objects, test data builders), and schedule maintenance time each iteration to prevent decay.</item>
+        </list>
+      </key-box>
 
       <section id="s6-glossary">
         <h2>Chapter 6 Glossary</h2>

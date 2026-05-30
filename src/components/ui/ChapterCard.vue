@@ -5,10 +5,10 @@
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
   to: { type: String, required: true },
   title: { type: String, required: true },
-  description: { type: String, default: '' }
+  description: { type: String, default: '' },
 })
 </script>

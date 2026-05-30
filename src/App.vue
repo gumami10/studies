@@ -5,6 +5,6 @@
   <ToTopButton />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 </script>
