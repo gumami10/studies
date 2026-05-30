@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <chapters>
+    <chapter id="cr-executive-summary">
+      <meta>
+        <badge>Research Plan</badge>
+        <badge>Overview</badge>
+      </meta>
+      <title>Executive Summary</title>
+
+      <section id="cr-research-objective">
+        <h2>Research Objective</h2>
+        <key-box>
+          <heading>Objective</heading>
+          <paragraph>This research plan aims to decode the cognitive frameworks and methodological approaches used by code reviewers across the world's most influential open source repositories. By analyzing 11 top-tier projects, we identify universal review patterns, architecture evaluation strategies, and design assessment techniques that define excellence in code review.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="cr-key-questions">
+        <h2>Key Research Questions</h2>
+        <compare>
+          <card type="pos">
+            <heading>Strategy Analysis</heading>
+            <paragraph>What systematic approaches do reviewers use to evaluate code changes? How do they balance thoroughness with velocity?</paragraph>
+          </card>
+          <card type="pos">
+            <heading>Architecture Assessment</heading>
+            <paragraph>How do reviewers evaluate architectural impact? What patterns indicate good vs. poor architectural decisions?</paragraph>
+          </card>
+        </compare>
+        <compare>
+          <card type="pos">
+            <heading>Design Evaluation</heading>
+            <paragraph>What design principles consistently emerge? How do reviewers assess code maintainability and extensibility?</paragraph>
+          </card>
+          <card type="pos">
+            <heading>Quality Gates</heading>
+            <paragraph>What automated and manual checks form the quality barriers? How do projects define "ready to merge"?</paragraph>
+          </card>
+        </compare>
+      </section>
+    </chapter>
+
+    <chapter id="cr-common-patterns">
+      <meta>
+        <badge>Patterns</badge>
+        <badge>All Repos</badge>
+      </meta>
+      <title>Common Patterns Across All Repositories</title>
+
+      <section id="cr-cognitive-framework">
+        <h2>1. The Reviewer's Cognitive Framework</h2>
+        <paragraph>Every code reviewer operates within a mental model that spans five core dimensions:</paragraph>
+        <table>
+          <row><cell>Dimension</cell><cell>Key Questions</cell></row>
+          <row><cell><strong>Correctness</strong></cell><cell>Does it work? Edge cases? Error handling?</cell></row>
+          <row><cell><strong>Maintainability</strong></cell><cell>Readable? Documented? Test covered?</cell></row>
+          <row><cell><strong>Architecture</strong></cell><cell>Fits design? No tech debt? Scalable?</cell></row>
+          <row><cell><strong>Performance</strong></cell><cell>Efficient? Resource aware? Optimized?</cell></row>
+          <row><cell><strong>Security</strong></cell><cell>Safe? No leaks? Validated?</cell></row>
+        </table>
+      </section>
+
+      <section id="cr-review-phases">
+        <h2>2. Universal Review Phases</h2>
+        <paragraph>Across all 11 repositories, code review follows a consistent five-phase progression:</paragraph>
+        <table>
+          <row><cell>Phase</cell><cell>Name</cell><cell>Description</cell></row>
+          <row><cell><strong>1</strong></cell><cell>Context Acquisition</cell><cell>Understanding the problem, reading related issues, examining existing code patterns, and understanding the contributor's intent.</cell></row>
+          <row><cell><strong>2</strong></cell><cell>High-Level Assessment</cell><cell>Evaluating approach validity, architecture fit, and whether the solution aligns with project goals and patterns.</cell></row>
+          <row><cell><strong>3</strong></cell><cell>Detailed Code Review</cell><cell>Line-by-line examination, logic verification, style compliance, edge case analysis, and test evaluation.</cell></row>
+          <row><cell><strong>4</strong></cell><cell>Integration Evaluation</cell><cell>Assessing how the change integrates with existing systems, potential conflicts, and downstream effects.</cell></row>
+          <row><cell><strong>5</strong></cell><cell>Final Decision</cell><cell>Approve, request changes, or reject based on accumulated evidence and project standards.</cell></row>
+        </table>
+      </section>
+
+      <section id="cr-quality-criteria">
+        <h2>3. Shared Quality Criteria</h2>
+        <list type="check">
+          <item>Code compiles and passes all automated tests</item>
+          <item>Follows established coding style and conventions</item>
+          <item>Includes appropriate tests (unit, integration, e2e)</item>
+          <item>Documentation is updated (code comments, README, API docs)</item>
+          <item>Commit messages are descriptive and follow project format</item>
+          <item>No security vulnerabilities introduced</item>
+          <item>Performance implications are considered and documented</item>
+          <item>Backward compatibility is maintained or explicitly broken with migration path</item>
+          <item>Error handling is comprehensive and graceful</item>
+          <item>Resource management (memory, files, connections) is proper</item>
+        </list>
+      </section>
+
+      <section id="cr-anti-patterns">
+        <h2>4. Common Anti-Patterns Rejected by Reviewers</h2>
+        <key-box>
+          <heading>Anti-Patterns Universally Rejected</heading>
+          <list type="ul">
+            <item><strong>Large, monolithic PRs:</strong> Changes spanning too many files or concerns</item>
+            <item><strong>Tight coupling:</strong> Creating unnecessary dependencies between unrelated modules</item>
+            <item><strong>Copy-paste code:</strong> Duplicating logic instead of abstracting</item>
+            <item><strong>Magic numbers/strings:</strong> Hardcoded values without explanation or constants</item>
+            <item><strong>Premature optimization:</strong> Complex code for theoretical performance gains</item>
+            <item><strong>Over-engineering:</strong> Building for hypothetical future requirements</item>
+            <item><strong>Breaking encapsulation:</strong> Reaching into private/internal APIs</item>
+            <item><strong>Ignoring error cases:</strong> Happy-path-only implementation</item>
+          </list>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="cr-repo-analysis">
+      <meta>
+        <badge>11 Repos</badge>
+        <badge>Deep Dive</badge>
+      </meta>
+      <title>Repository-Specific Analysis</title>
+
+      <section id="cr-linux">
+        <h2>1. Linux Kernel</h2>
+        <paragraph><strong>C | 30M+ LOC | Mailing List Based | 25+ Years</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Email-based workflow:</strong> Patches submitted via <code>git send-email</code> to subsystem mailing lists</item>
+          <item><strong>Subsystem maintainers:</strong> Hierarchical review through MAINTAINERS file and get_maintainer.pl script</item>
+          <item><strong>Developer Certificate of Origin:</strong> Every patch must include Signed-off-by chain</item>
+          <item><strong>Review tags:</strong> Formal Reviewed-by, Acked-by, Tested-by tags with legal meaning</item>
+          <item><strong>Single logical change per patch:</strong> Strict separation of concerns; mixed changes rejected</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>User-visible impact must be described (crashes, lockups, performance regressions)</item>
+          <item>Quantified optimizations with trade-off analysis required</item>
+          <item>Internal API changes must be justified with impact assessment</item>
+          <item>Build verification after each patch in series (for bisectability)</item>
+        </list>
+      </section>
+
+      <section id="cr-react">
+        <h2>2. React (Meta)</h2>
+        <paragraph><strong>JavaScript/TypeScript | UI Library | GitHub PRs | Component-Based</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Component-centric thinking:</strong> Reviews focus on component boundaries, props contracts, and state ownership</item>
+          <item><strong>Declarative UI patterns:</strong> Emphasis on "Thinking in React" - breaking UI into component hierarchy</item>
+          <item><strong>One-way data flow enforcement:</strong> Reviewers verify unidirectional data flow and proper state lifting</item>
+          <item><strong>Hook rules compliance:</strong> Strict enforcement of Rules of Hooks (call order, conditional hooks)</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Component decomposition following single responsibility principle</item>
+          <item>Props vs State determination (DRY principle for state)</item>
+          <item>Inverse data flow patterns (callback props for child-to-parent communication)</item>
+          <item>Reconciliation efficiency and key prop correctness</item>
+          <item>Effect dependencies completeness in useEffect hooks</item>
+        </list>
+      </section>
+
+      <section id="cr-kubernetes">
+        <h2>3. Kubernetes</h2>
+        <paragraph><strong>Go | Container Orchestration | GitHub PRs | SIG-Based Governance</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>SIG (Special Interest Group) ownership:</strong> Different SIGs own different parts; PRs must respect boundaries</item>
+          <item><strong>Enhancement Proposal Process (KEP):</strong> Large changes require formal proposal before code review</item>
+          <item><strong>OWNERS file system:</strong> Automated reviewer assignment based on code ownership</item>
+          <item><strong>Prow bot automation:</strong> /lgtm, /approve, /retest commands for review workflow</item>
+          <item><strong>Strict size limits:</strong> "Smaller is Better" philosophy; large PRs actively discouraged</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>KISS, YAGNI, MVP principles explicitly enforced</item>
+          <item>API conventions compliance (naming, versioning, backward compatibility)</item>
+          <item>No cross-repository PRs; changes must be scoped to single SIG when possible</item>
+          <item>E2E test requirements for all functional changes</item>
+          <item>Release note requirements for user-facing changes</item>
+        </list>
+      </section>
+
+      <section id="cr-vscode">
+        <h2>4. VS Code (Microsoft)</h2>
+        <paragraph><strong>TypeScript | Code Editor | GitHub PRs | Electron</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Issue-first approach:</strong> Significant changes must be tied to issues; "help wanted" labels guide contributors</item>
+          <item><strong>Performance-first culture:</strong> "Lightweight" is a core value; performance regression risks rejected</item>
+          <item><strong>UX team involvement:</strong> UI changes must go through UX review and feature owner approval</item>
+          <item><strong>Electron API restrictions:</strong> New Electron APIs require unit tests in Electron upstream</item>
+          <item><strong>Architecture approval:</strong> Team must agree on architectural impact before merging</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Multi-process architecture awareness (renderer, extension host, search processes)</item>
+          <item>Web standards preference over Electron APIs (for web client compatibility)</item>
+          <item>Extension API design requires discussion and agreement</item>
+          <item>Platform abstraction (Windows, macOS, Linux, Web)</item>
+          <item>Memory and startup performance impact assessment</item>
+        </list>
+      </section>
+
+      <section id="cr-chromium">
+        <h2>5. Chromium</h2>
+        <paragraph><strong>C++ | Browser Engine | Gerrit | Google-Managed</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Gerrit-based workflow:</strong> Not GitHub PRs; uses <code>git cl upload</code> to Gerrit instance</item>
+          <item><strong>Design documents required:</strong> Nontrivial efforts (&gt;1 person-month) need formal design docs</item>
+          <item><strong>Committers vs non-committers:</strong> Different approval requirements (1 vs 2 Code-Review +1)</item>
+          <item><strong>OWNERS file hierarchy:</strong> Every affected file must have owner approval</item>
+          <item><strong>Commit Queue (CQ):</strong> Automated testing across multiple platforms before merge</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Code must serve other Chromium code (no dead code)</item>
+          <item>Centralization only when multiple consumers benefit</item>
+          <item>Refactoring existing code to fit new features properly</item>
+          <item>80% rule: Team mandating change does 80% of migration work</item>
+          <item>New language/toolchain additions require ATL_OWNERS approval</item>
+          <item>AI coding assistant disclosure required</item>
+        </list>
+      </section>
+
+      <section id="cr-django">
+        <h2>6. Django</h2>
+        <paragraph><strong>Python | Web Framework | Trac + GitHub | BDFL Model</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Trac ticket requirement:</strong> Non-trivial PRs without Trac tickets are closed automatically</item>
+          <item><strong>Documentation-first:</strong> Extensive contribution guidelines in official docs</item>
+          <item><strong>BDFL model:</strong> Final decisions rest with technical board/core devs</item>
+          <item><strong>Backwards compatibility:</strong> Strict deprecation policy; breaking changes require major releases</item>
+          <item><strong>Code of Conduct enforcement:</strong> Strong community standards</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>ORM query optimization and database backend neutrality</item>
+          <item>Middleware and request/response cycle integrity</item>
+          <item>Template system security (auto-escaping, XSS prevention)</item>
+          <item>Settings system design (lazy evaluation, override behavior)</item>
+          <item>App encapsulation and reusable app design patterns</item>
+        </list>
+      </section>
+
+      <section id="cr-rust">
+        <h2>7. Rust</h2>
+        <paragraph><strong>Rust | Programming Language | GitHub PRs | RFC Process</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>RFC (Request for Comments) process:</strong> Substantial changes require formal RFC before implementation</item>
+          <item><strong>rustc-dev-guide:</strong> Extensive compiler architecture documentation reviewers expect familiarity with</item>
+          <item><strong>Subtrees and submodules:</strong> Changes must be directed to correct repository in ecosystem</item>
+          <item><strong>Zulip community:</strong> Real-time discussion encouraged before PR submission</item>
+          <item><strong>No merge commits:</strong> Linear history enforced through rebasing</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Type system soundness and borrow checker correctness</item>
+          <item>MIR (Mid-level IR) and LLVM IR generation correctness</item>
+          <item>Standard library API design (ergonomics, zero-cost abstractions)</item>
+          <item>Compiler pass ordering and optimization correctness</item>
+          <item>Cross-platform ABI compliance</item>
+        </list>
+      </section>
+
+      <section id="cr-nodejs">
+        <h2>8. Node.js</h2>
+        <paragraph><strong>JavaScript/C++ | Runtime | GitHub PRs | Open Governance</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Open governance model:</strong> Collaborators elected based on contributions; no corporate control</item>
+          <item><strong>Large PR guidelines:</strong> Special process for changes &gt;500 lines</item>
+          <item><strong>Bot authorization:</strong> Unauthorized automation subject to immediate moderation</item>
+          <item><strong>CLA and DCO:</strong> Developer's Certificate of Origin required</item>
+          <item><strong>Multiple review rounds:</strong> Explicit "please take another look" (PTAL) culture</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>libuv integration and event loop impact</item>
+          <item>V8 API compatibility and wrapper object correctness</item>
+          <item>Native addon ABI stability (N-API vs NAN)</item>
+          <item>Platform abstraction (Windows, POSIX, libuv)</item>
+          <item>Memory management in C++ bindings</item>
+        </list>
+      </section>
+
+      <section id="cr-spark">
+        <h2>9. Apache Spark</h2>
+        <paragraph><strong>Scala/Java/Python | Big Data | GitHub PRs | Apache Way</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>JIRA integration:</strong> Changes must reference JIRA issues; no standalone PRs</item>
+          <item><strong>Apache license compliance:</strong> Original work affirmation required</item>
+          <item><strong>Third-party project criteria:</strong> New features evaluated if they can stand alone</item>
+          <item><strong>Community consensus:</strong> Changes must be "important and ready enough" for community time</item>
+          <item><strong>Clear motivation requirement:</strong> Changes must be clearly explained and motivated</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Distributed computing correctness (shuffle, partitioning, serialization)</item>
+          <item>DataFrame/Dataset API design and optimization</item>
+          <item>Catalyst optimizer rule correctness</item>
+          <item>Cross-language API parity (Scala, Java, Python, R)</item>
+          <item>Memory management and spill-to-disk behavior</item>
+        </list>
+      </section>
+
+      <section id="cr-tensorflow">
+        <h2>10. TensorFlow</h2>
+        <paragraph><strong>Python/C++ | ML Framework | GitHub PRs | Google-Managed</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Contributor License Agreement:</strong> Google CLA required for all contributions</item>
+          <item><strong>SIG-focused:</strong> Special Interest Groups for different domains (SIG Build, SIG MLIR, etc.)</item>
+          <item><strong>API review process:</strong> Public API changes require additional scrutiny</item>
+          <item><strong>Testing rigor:</strong> Extensive test requirements including GPU and distributed tests</item>
+          <item><strong>Performance benchmarks:</strong> Regressions must be justified with benchmark data</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Graph execution and eager execution compatibility</item>
+          <item>XLA compilation and device placement correctness</item>
+          <item>Op kernel implementation (CPU, GPU, TPU variants)</item>
+          <item>Gradient correctness in automatic differentiation</item>
+          <item>Model serialization (SavedModel) backward compatibility</item>
+        </list>
+      </section>
+
+      <section id="cr-go">
+        <h2>11. Go</h2>
+        <paragraph><strong>Go | Programming Language + Stdlib | Gerrit | Google-Managed</strong></paragraph>
+        <h3>Unique Review Characteristics</h3>
+        <list type="ul">
+          <item><strong>Gerrit-based workflow:</strong> Uses <code>git-codereview</code> tool; changes sent to Gerrit, not GitHub PRs</item>
+          <item><strong>Single-commit branches:</strong> Each change must be a single commit per branch; squashing enforced</item>
+          <item><strong>Thorough review culture:</strong> "Think of each review comment like a ticket" - every comment must be addressed</item>
+          <item><strong>Google employee requirement:</strong> Two Google employees must be involved (uploader or +1 reviewer) for compliance</item>
+          <item><strong>Proposal process:</strong> Significant language/library/tool changes require formal proposal before code review</item>
+          <item><strong>Gopherbot bridge:</strong> GitHub PRs automatically synced to Gerrit for first-time contributors</item>
+        </list>
+        <h3>Architecture Review Focus</h3>
+        <list type="ul">
+          <item>Go idioms and simplicity ("less is more" philosophy)</item>
+          <item>Backward compatibility for stdlib APIs (Go 1 compatibility promise)</item>
+          <item>Compiler and runtime correctness (especially GC, scheduler, goroutine semantics)</item>
+          <item>Cross-architecture correctness (trybots test multiple architectures automatically)</item>
+          <item>Performance: benchstat tool used for benchmark data in commit messages</item>
+          <item><code>go fmt</code> enforcement - style violations rejected at commit time</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="cr-review-strategies">
+      <meta>
+        <badge>Strategies</badge>
+        <badge>Deep Dive</badge>
+      </meta>
+      <title>Code Review Strategies Deep Dive</title>
+
+      <section id="cr-outside-in">
+        <h2>1. The "Outside-In" Review Strategy</h2>
+        <key-box>
+          <heading>Used by: Linux Kernel, Chromium, React</heading>
+          <paragraph>Reviewers start with the user-visible impact, API surface, and architecture fit before diving into implementation details. This prevents wasting time on well-implemented solutions to wrong problems.</paragraph>
+        </key-box>
+        <list type="ul">
+          <item>Read PR description and linked issues</item>
+          <item>Examine public API changes</item>
+          <item>Verify approach aligns with project architecture</item>
+          <item>Check test coverage at high level</item>
+          <item>Then review implementation details</item>
+        </list>
+      </section>
+
+      <section id="cr-checklist-driven">
+        <h2>2. The "Checklist-Driven" Strategy</h2>
+        <key-box>
+          <heading>Used by: Kubernetes, VS Code, Chromium</heading>
+          <paragraph>Projects maintain explicit checklists that reviewers follow systematically, ensuring no dimension is overlooked.</paragraph>
+        </key-box>
+        <h3>Chromium Commit Checklist Example</h3>
+        <list type="check">
+          <item>Code compiles and tests pass locally</item>
+          <item>Style guide compliance verified</item>
+          <item>OWNERS approval obtained for all affected files</item>
+          <item>Bug reference included in commit message</item>
+          <item>Manual testing described if not covered by trybots</item>
+          <item>Security implications considered</item>
+          <item>Privacy implications considered</item>
+          <item>Internationalization considerations addressed</item>
+        </list>
+      </section>
+
+      <section id="cr-layered">
+        <h2>3. The "Layered" Review Strategy</h2>
+        <key-box>
+          <heading>Used by: Rust, Node.js, Django</heading>
+          <paragraph>Different reviewers focus on different layers: syntax/style, logic correctness, architecture, performance, security.</paragraph>
+        </key-box>
+        <table>
+          <row><cell>Layer</cell><cell>Focus</cell><cell>Description</cell></row>
+          <row><cell><strong>1: Automated</strong></cell><cell>CI/CD</cell><cell>Linters, formatters, static analysis, test suites run by CI</cell></row>
+          <row><cell><strong>2: Style &amp; Idioms</strong></cell><cell>Conventions</cell><cell>Language-specific patterns, project conventions, readability</cell></row>
+          <row><cell><strong>3: Logic Correctness</strong></cell><cell>Correctness</cell><cell>Edge cases, error handling, algorithm correctness</cell></row>
+          <row><cell><strong>4: Architecture</strong></cell><cell>Design</cell><cell>Design patterns, coupling, cohesion, extensibility</cell></row>
+          <row><cell><strong>5: Integration</strong></cell><cell>System</cell><cell>How change fits with rest of system, migration paths</cell></row>
+          <row><cell><strong>6: Meta</strong></cell><cell>Documentation</cell><cell>Documentation, commit messages, changelog entries</cell></row>
+        </table>
+      </section>
+
+      <section id="cr-teaching">
+        <h2>4. The "Teaching" Review Strategy</h2>
+        <key-box>
+          <heading>Used by: Rust, Django, Node.js</heading>
+          <paragraph>Reviewers treat code review as a mentoring opportunity, explaining not just what to change but why, fostering community knowledge.</paragraph>
+        </key-box>
+        <list type="ul">
+          <item>Explaining idiomatic patterns in the language/framework</item>
+          <item>Suggesting design alternatives with trade-offs</item>
+          <item>Linking to relevant documentation or prior discussions</item>
+          <item>Citing specific style guide sections</item>
+          <item>Providing context on historical decisions</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="cr-architecture">
+      <meta>
+        <badge>Architecture</badge>
+        <badge>Design</badge>
+      </meta>
+      <title>Architecture &amp; Design Evaluation Methods</title>
+
+      <section id="cr-constraints-first">
+        <h2>1. The "Constraints First" Approach</h2>
+        <paragraph><strong>Used by: Linux, Chromium</strong></paragraph>
+        <paragraph>Reviewers evaluate what constraints inform the design decision:</paragraph>
+        <list type="ul">
+          <item>What products depend on this code?</item>
+          <item>What platforms must it support?</item>
+          <item>What performance requirements exist?</item>
+          <item>What security boundaries must be respected?</item>
+        </list>
+        <key-box>
+          <heading>Chromium Principle</heading>
+          <paragraph><em>"Code in the Chromium project should be in service of other code in the Chromium project."</em></paragraph>
+        </key-box>
+      </section>
+
+      <section id="cr-refactor-vs-add">
+        <h2>2. The "Refactor vs Add" Decision</h2>
+        <paragraph><strong>Used by: Kubernetes, VS Code</strong></paragraph>
+        <paragraph>Reviewers ask: Should existing code be refactored first?</paragraph>
+        <list type="ul">
+          <item>Is the existing code designed for this extension?</item>
+          <item>Should prefactoring happen in a separate PR?</item>
+          <item>Is technical debt being accumulated?</item>
+        </list>
+        <key-box>
+          <heading>Key Insight</heading>
+          <paragraph><em>"The code likely wasn't designed for everything we are trying to do with it now. Take time to refactor."</em></paragraph>
+        </key-box>
+      </section>
+
+      <section id="cr-generic-specific">
+        <h2>3. The "Generic vs Specific" Balance</h2>
+        <paragraph><strong>Used by: Kubernetes, React</strong></paragraph>
+        <paragraph>Reviewers evaluate abstraction level:</paragraph>
+        <list type="ul">
+          <item>Can this be made more generic and moved up?</item>
+          <item>Is this premature abstraction?</item>
+          <item>Does it duplicate existing patterns?</item>
+          <item>Is it YAGNI (You Aren't Gonna Need It)?</item>
+        </list>
+      </section>
+
+      <section id="cr-api-contract">
+        <h2>4. The "API Contract" Review</h2>
+        <paragraph><strong>Used by: Rust, React, TensorFlow</strong></paragraph>
+        <paragraph>Public APIs receive extra scrutiny:</paragraph>
+        <list type="ul">
+          <item>Is the API surface minimal and complete?</item>
+          <item>Are naming conventions consistent?</item>
+          <item>Is backward compatibility maintained?</item>
+          <item>Are error messages actionable?</item>
+          <item>Is the API ergonomic for users?</item>
+        </list>
+      </section>
+
+      <section id="cr-design-smells">
+        <h2>Design Smells Reviewers Watch For</h2>
+        <table>
+          <row><cell>Smell</cell><cell>Detection Method</cell><cell>Projects Particularly Sensitive</cell></row>
+          <row><cell>Feature Envy</cell><cell>Method accessing data from another object more than its own</cell><cell>Linux, Chromium</cell></row>
+          <row><cell>Leaky Abstractions</cell><cell>Implementation details exposed in APIs</cell><cell>React, Rust</cell></row>
+          <row><cell>Circular Dependencies</cell><cell>Module A depends on B which depends on A</cell><cell>All projects</cell></row>
+          <row><cell>God Objects</cell><cell>Single class/module doing too much</cell><cell>Kubernetes, Django</cell></row>
+          <row><cell>Shotgun Surgery</cell><cell>Change requires modifying many classes</cell><cell>VS Code, Node.js</cell></row>
+          <row><cell>Speculative Generality</cell><cell>Abstractions for future requirements that may never come</cell><cell>Kubernetes, Linux</cell></row>
+        </table>
+      </section>
+    </chapter>
+
+    <chapter id="cr-research-plan">
+      <meta>
+        <badge>Timeline</badge>
+        <badge>9 Weeks</badge>
+      </meta>
+      <title>Recommended Research Plan</title>
+
+      <section id="cr-phase1">
+        <h2>Phase 1: Foundation (Weeks 1-2)</h2>
+        <h3>Objectives</h3>
+        <list type="ul">
+          <item>Study each repository's CONTRIBUTING.md and development process documentation</item>
+          <item>Map the review workflow (mailing list, GitHub PR, Gerrit, etc.)</item>
+          <item>Identify key reviewers and maintainers in each project</item>
+          <item>Catalog the automated checks and CI/CD pipelines</item>
+        </list>
+        <h3>Deliverables</h3>
+        <list type="ul">
+          <item>Workflow comparison matrix</item>
+          <item>Key personnel directory</item>
+          <item>Automation inventory</item>
+        </list>
+      </section>
+
+      <section id="cr-phase2">
+        <h2>Phase 2: Pattern Extraction (Weeks 3-4)</h2>
+        <h3>Objectives</h3>
+        <list type="ul">
+          <item>Analyze 50+ merged PRs from each repository</item>
+          <item>Document reviewer comments and feedback categories</item>
+          <item>Identify common approval criteria and rejection reasons</item>
+          <item>Map the evolution of PRs through multiple review rounds</item>
+        </list>
+        <h3>Deliverables</h3>
+        <list type="ul">
+          <item>Comment taxonomy (types of feedback reviewers give)</item>
+          <item>Approval criteria checklist per project</item>
+          <item>Review round analysis (average iterations, time to merge)</item>
+        </list>
+      </section>
+
+      <section id="cr-phase3">
+        <h2>Phase 3: Architecture Deep Dive (Weeks 5-6)</h2>
+        <h3>Objectives</h3>
+        <list type="ul">
+          <item>Study design documents and RFCs from each project</item>
+          <item>Interview core maintainers about their review philosophy</item>
+          <item>Analyze architectural decision records (ADRs)</item>
+          <item>Map the relationship between design docs and code review</item>
+        </list>
+        <h3>Deliverables</h3>
+        <list type="ul">
+          <item>Architecture review rubric</item>
+          <item>Maintainer interview summaries</item>
+          <item>Decision pattern catalog</item>
+        </list>
+      </section>
+
+      <section id="cr-phase4">
+        <h2>Phase 4: Comparative Analysis (Weeks 7-8)</h2>
+        <h3>Objectives</h3>
+        <list type="ul">
+          <item>Compare effectiveness of different review models</item>
+          <item>Identify which practices correlate with project health metrics</item>
+          <item>Develop a universal code review framework</item>
+          <item>Create actionable recommendations for teams</item>
+        </list>
+        <h3>Deliverables</h3>
+        <list type="ul">
+          <item>Comparative effectiveness report</item>
+          <item>Universal code review framework</item>
+          <item>Team adoption guide</item>
+          <item>Final research report with recommendations</item>
+        </list>
+      </section>
+
+      <section id="cr-phase5">
+        <h2>Phase 5: Validation (Week 9)</h2>
+        <h3>Objectives</h3>
+        <list type="ul">
+          <item>Present findings to selected project maintainers for validation</item>
+          <item>Test framework adoption with volunteer teams</item>
+          <item>Gather feedback and iterate</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="cr-comparison">
+      <meta>
+        <badge>Matrix</badge>
+        <badge>Comparison</badge>
+      </meta>
+      <title>Comparison Matrix</title>
+
+      <section id="cr-comparison-table">
+        <h2>Repository Comparison</h2>
+        <table>
+          <row><cell>Repository</cell><cell>Platform</cell><cell>Change Size</cell><cell>Pre-Review</cell><cell>Approval Model</cell><cell>Unique Differentiator</cell></row>
+          <row><cell><strong>Linux Kernel</strong></cell><cell>Mailing List</cell><cell>Single logical change</cell><cell>Self-contained patches, DCO sign-off</cell><cell>Subsystem maintainer + Linus</cell><cell>Formal review tags</cell></row>
+          <row><cell><strong>React</strong></cell><cell>GitHub PR</cell><cell>Small, focused</cell><cell>Issue reference, test coverage</cell><cell>Meta team member</cell><cell>Component architecture focus</cell></row>
+          <row><cell><strong>Kubernetes</strong></cell><cell>GitHub PR + Prow</cell><cell>Small is better</cell><cell>KEP for large features, CLA</cell><cell>/lgtm + /approve</cell><cell>SIG ownership + bots</cell></row>
+          <row><cell><strong>VS Code</strong></cell><cell>GitHub PR</cell><cell>Per issue, small</cell><cell>Issue first, CLA, UX review</cell><cell>Microsoft team</cell><cell>Performance-first culture</cell></row>
+          <row><cell><strong>Chromium</strong></cell><cell>Gerrit</cell><cell>Reasonable size</cell><cell>Design docs, CLA, AUTHORS</cell><cell>Code-Review +1, Owner</cell><cell>Commit Queue + design docs</cell></row>
+          <row><cell><strong>Django</strong></cell><cell>GitHub + Trac</cell><cell>Focused</cell><cell>Trac ticket required</cell><cell>Core dev (BDFL)</cell><cell>Backwards compatibility</cell></row>
+          <row><cell><strong>Rust</strong></cell><cell>GitHub PR</cell><cell>Logical commits</cell><cell>RFC for substantial changes</cell><cell>Core team</cell><cell>RFC process + no merge commits</cell></row>
+          <row><cell><strong>Node.js</strong></cell><cell>GitHub PR</cell><cell>Small preferred</cell><cell>Large PR protocol, CLA</cell><cell>Collaborator consensus</cell><cell>Open governance model</cell></row>
+          <row><cell><strong>Apache Spark</strong></cell><cell>GitHub PR</cell><cell>Community-ready</cell><cell>JIRA issue, Apache license</cell><cell>Committer approval</cell><cell>Apache Way + consensus</cell></row>
+          <row><cell><strong>TensorFlow</strong></cell><cell>GitHub PR</cell><cell>Reviewable chunks</cell><cell>Google CLA, SIG alignment</cell><cell>Google team + SIG leads</cell><cell>Benchmark-driven decisions</cell></row>
+          <row><cell><strong>Go</strong></cell><cell>Gerrit</cell><cell>Single commit/branch</cell><cell>Google CLA, proposal for API</cell><cell>Maintainer +2 vote</cell><cell>Thorough multi-round reviews</cell></row>
+        </table>
+      </section>
+
+      <section id="cr-key-insights">
+        <h2>Key Insights &amp; Recommendations</h2>
+        <key-box>
+          <heading>The Universal Review Formula</heading>
+          <paragraph>Across all 11 repositories, effective code review follows this pattern:</paragraph>
+          <list type="ul">
+            <item><strong>Context before code:</strong> Understand the problem before evaluating the solution</item>
+            <item><strong>Architecture before implementation:</strong> Validate approach before reviewing style</item>
+            <item><strong>Automation before manual:</strong> Let CI catch trivial issues; humans focus on design</item>
+            <item><strong>Teaching before enforcing:</strong> Explain the "why" to build community knowledge</item>
+            <item><strong>Integration before isolation:</strong> Consider how changes affect the whole system</item>
+          </list>
+        </key-box>
+
+        <h3>Adapting Practices to Your Team</h3>
+        <compare>
+          <card type="pos">
+            <heading>For Small Teams</heading>
+            <paragraph>Adopt React's component-boundary thinking and Linux's "single logical change" principle. Focus on teaching-oriented reviews.</paragraph>
+          </card>
+          <card type="pos">
+            <heading>For Enterprise Teams</heading>
+            <paragraph>Use Chromium's design doc requirement for large changes and Kubernetes' OWNERS file approach for code ownership.</paragraph>
+          </card>
+        </compare>
+        <compare>
+          <card type="pos">
+            <heading>For Open Source Projects</heading>
+            <paragraph>Emulate Node.js's open governance or Django's ticket-first approach. Document your process clearly.</paragraph>
+          </card>
+          <card type="pos">
+            <heading>For Performance-Critical Code</heading>
+            <paragraph>Adopt VS Code's performance-first culture and TensorFlow's benchmark requirements. Quantify impact.</paragraph>
+          </card>
+        </compare>
+      </section>
+    </chapter>
+  </chapters>
+
+  <toc>
+    <item id="cr-executive-summary">Executive Summary</item>
+    <item id="cr-common-patterns">Common Patterns</item>
+    <item id="cr-repo-analysis">Repository Analysis</item>
+    <item id="cr-review-strategies">Review Strategies</item>
+    <item id="cr-architecture">Architecture &amp; Design</item>
+    <item id="cr-research-plan">Research Plan</item>
+    <item id="cr-comparison">Comparison Matrix</item>
+  </toc>
+
+  <footer-text>Code Review Research Plan — Analysis of Top 11 Open Source Repositories</footer-text>
+</syllabus>

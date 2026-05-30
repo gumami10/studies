@@ -19,6 +19,7 @@ const chapters = [
   { to: '/chapters', label: 'Chapters 1–6' },
   { to: '/metrics', label: 'Quality Metrics' },
   { to: '/tae', label: 'TAE' },
+  { to: '/code-review', label: 'Code Review' },
 ]
 
 const links = computed(() => {

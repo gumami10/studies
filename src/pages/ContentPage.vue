@@ -1,12 +1,12 @@
 <template>
   <header>
-    <h1>ISTQB CTAL-AT Study Guide</h1>
-    <p class="subtitle">Advanced Level Agile Tester (v2.0) — Chapter-by-Chapter Review</p>
+    <h1>{{ meta.title }}</h1>
+    <p class="subtitle">{{ meta.subtitle }}</p>
     <AppNav />
   </header>
 
   <div class="toc">
-    <h2>Syllabus Chapters</h2>
+    <h2>{{ meta.tocTitle }}</h2>
     <TableOfContents :items="data.toc" />
   </div>
 
@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import chaptersData from '../../data/chapters-1-6.js'
+import { computed, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 import AppNav from '@/components/layout/AppNav.vue'
@@ -38,12 +38,17 @@ import BadgeList from '@/components/content/BadgeList.vue'
 import HighlightToolbar from '@/components/ui/HighlightToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 
-const data = chaptersData
+const route = useRoute()
+const meta = computed(() => route.meta)
+const data = computed(() => meta.value.data)
 const store = useHighlightsStore()
 const highlight = useHighlightToolbar()
 
-onMounted(() => {
-  store.setKey('ctal-at-highlights-ch1')
+function init() {
+  store.setKey(meta.value.highlightKey)
   highlight.restoreHighlights()
-})
+}
+
+onMounted(init)
+watch(() => route.name, init)
 </script>

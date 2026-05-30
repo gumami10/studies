@@ -5,6 +5,8 @@ const routes = [
   { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
   { path: '/chapters', name: 'chapters', component: { template: '<div>Chapters</div>' } },
   { path: '/metrics', name: 'metrics', component: { template: '<div>Metrics</div>' } },
+  { path: '/tae', name: 'tae', component: { template: '<div>TAE</div>' } },
+  { path: '/code-review', name: 'code-review', component: { template: '<div>CodeReview</div>' } },
   { path: '/starred', name: 'starred', component: { template: '<div>Starred</div>' } },
 ]
 
@@ -24,8 +26,8 @@ describe('Router', () => {
     await router.isReady()
   })
 
-  it('has 4 routes', () => {
-    expect(router.getRoutes()).toHaveLength(4)
+  it('has 6 routes', () => {
+    expect(router.getRoutes()).toHaveLength(6)
   })
 
   it('home route resolves correctly', async () => {
@@ -41,6 +43,16 @@ describe('Router', () => {
   it('metrics route resolves correctly', async () => {
     await router.push('/metrics')
     expect(router.currentRoute.value.name).toBe('metrics')
+  })
+
+  it('tae route resolves correctly', async () => {
+    await router.push('/tae')
+    expect(router.currentRoute.value.name).toBe('tae')
+  })
+
+  it('code-review route resolves correctly', async () => {
+    await router.push('/code-review')
+    expect(router.currentRoute.value.name).toBe('code-review')
   })
 
   it('starred route resolves correctly', async () => {

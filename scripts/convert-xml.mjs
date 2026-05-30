@@ -240,8 +240,12 @@ if (isMain) {
   const taeData = convertFile(resolve(XML_DIR, 'ctal-tae.xml'))
   writeFileSync(resolve(DATA_DIR, 'ctal-tae.js'), `export default ${JSON.stringify(taeData, null, 2)}\n`)
 
+  const codeReviewData = convertFile(resolve(XML_DIR, 'code-review.xml'))
+  writeFileSync(resolve(DATA_DIR, 'code-review.js'), `export default ${JSON.stringify(codeReviewData, null, 2)}\n`)
+
   console.log('Conversion complete!')
   console.log(`  data/chapters-1-6.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`)
   console.log(`  data/quality-metrics.js (${metricsData.chapters.length} chapters, ${metricsData.toc.length} toc items)`)
   console.log(`  data/ctal-tae.js (${taeData.chapters.length} chapters, ${taeData.toc.length} toc items)`)
+  console.log(`  data/code-review.js (${codeReviewData.chapters.length} chapters, ${codeReviewData.toc.length} toc items)`)
 }
