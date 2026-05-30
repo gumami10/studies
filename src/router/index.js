@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import chaptersData from '../../data/chapters-1-6.js'
 import metricsData from '../../data/quality-metrics.js'
 import taeData from '../../data/ctal-tae.js'
@@ -61,7 +61,7 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to) {
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
