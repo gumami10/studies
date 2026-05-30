@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'fs'
 import { resolve } from 'path'
 
-const XML_DIR = resolve('xml')
+const XML_DIR = resolve('knowledge/xml')
 const DATA_DIR = resolve('data')
 
 export function parseXml(xml) {
@@ -237,7 +237,11 @@ if (isMain) {
   const metricsData = convertFile(resolve(XML_DIR, 'quality-metrics.xml'))
   writeFileSync(resolve(DATA_DIR, 'quality-metrics.js'), `export default ${JSON.stringify(metricsData, null, 2)}\n`)
 
+  const taeData = convertFile(resolve(XML_DIR, 'ctal-tae.xml'))
+  writeFileSync(resolve(DATA_DIR, 'ctal-tae.js'), `export default ${JSON.stringify(taeData, null, 2)}\n`)
+
   console.log('Conversion complete!')
   console.log(`  data/chapters-1-6.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`)
   console.log(`  data/quality-metrics.js (${metricsData.chapters.length} chapters, ${metricsData.toc.length} toc items)`)
+  console.log(`  data/ctal-tae.js (${taeData.chapters.length} chapters, ${taeData.toc.length} toc items)`)
 }

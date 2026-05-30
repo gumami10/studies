@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <chapters>
+
+    <chapter id="ch1">
+      <meta>
+        <badge>Chapter 1</badge>
+        <badge>45 minutes</badge>
+        <badge>K2 Focus: Understand</badge>
+      </meta>
+      <title>Introduction and Objectives for Test Automation</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-1.1.1</strong> (K2) Explain the advantages and disadvantages of test automation</item>
+          <item><strong>TAE-1.2.1</strong> (K2) Explain how test automation is applied across different SDLC models</item>
+          <item><strong>TAE-1.2.2</strong> (K2) Select suitable test automation tools for a given system under test</item>
+        </list>
+      </key-box>
+
+      <section id="s1-1">
+        <h2>1.1 Purpose of Test Automation</h2>
+        <paragraph>Test automation includes using purpose-built tools to control and set up test suites, executing tests automatically, and comparing actual results to expected results. It covers many kinds of software: UI-based SUTs, headless systems, mobile apps, network protocols, and connections.</paragraph>
+
+        <compare>
+          <card type="pos">
+            <heading>Advantages</heading>
+            <list type="ul">
+              <item>More tests per build compared to manual</item>
+              <item>Enables tests impossible to execute manually (real-time, remote, parallel)</item>
+              <item>Supports more complex tests than manual</item>
+              <item>Faster execution than manual tests</item>
+              <item>Less subject to human error</item>
+              <item>More effective and efficient resource use</item>
+              <item>Quicker feedback on SUT quality</item>
+              <item>Improves system reliability (availability, recoverability)</item>
+              <item>Improves consistency across test cycles</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Disadvantages</heading>
+            <list type="ul">
+              <item>Additional costs: hiring TAEs, new hardware, training</item>
+              <item>Initial investment to set up the solution</item>
+              <item>Time to develop and maintain the solution</item>
+              <item>Requires clear objectives to ensure success</item>
+              <item>Rigidity of tests, less adaptable to SUT changes</item>
+              <item>Can introduce additional defects</item>
+            </list>
+          </card>
+        </compare>
+
+        <key-box>
+          <heading>Limitations of Test Automation</heading>
+          <list type="ul">
+            <item>Not all manual tests can be automated</item>
+            <item>Only verifies what automated tests are programmed to check</item>
+            <item>Can only check machine-interpretable results</item>
+            <item>Can only check results verifiable by an automated test oracle</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s1-2">
+        <h2>1.2 Test Automation in the SDLC</h2>
+
+        <h3>Waterfall</h3>
+        <paragraph>Linear and sequential with distinct phases (requirements, design, implementation, verification, maintenance). Test automation implementation typically happens in parallel to or after the implementation phase. Test runs usually take place during the verification phase.</paragraph>
+
+        <h3>V-model</h3>
+        <paragraph>Sequential process where test and integration activities are defined for each level of requirements. Traditional test levels: component, component integration, system, system integration, and acceptance. Providing a TAF for each test level is possible and recommended.</paragraph>
+
+        <h3>Agile</h3>
+        <paragraph>Countless possibilities for test automation. TAEs and business representatives decide on roadmap, timeline, and planned delivery. Best practices include code reviews, pair programming, and frequent automated test execution. Eliminating silos allows teams to cover all test levels with appropriate depth, achieving <strong>in-sprint automation</strong>.</paragraph>
+
+        <h3>Selecting Test Automation Tools</h3>
+        <paragraph>To identify suitable tools, the SUT must first be analyzed. TAEs identify project requirements as the baseline for tool selection. Key considerations include:</paragraph>
+        <list type="ul">
+          <item>Understand what the project wants to achieve over time (UI vs. web services)</item>
+          <item>Consider costs of commercial vs. open-source solutions</item>
+          <item>Evaluate team composition and programming experience</item>
+          <item>Low-code/no-code solutions for teams with limited programming experience</item>
+          <item>Match tool language to SUT language for better developer collaboration</item>
+        </list>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Before automating anything, ask "should I?"</strong> — weigh the maintenance cost against the frequency of execution. A test run once a month manually may not justify automation overhead.</item>
+          <item><strong>Match your tool to your SUT and team</strong> — if your team knows Python and the SUT is Python, pick a Python-native framework. Cross-training with devs becomes free.</item>
+          <item><strong>Set clear automation objectives</strong> — define what success looks like before writing a single script (e.g., "reduce regression cycle from 3 days to 4 hours").</item>
+          <item><strong>Don't automate the untestable</strong> — if a result can't be verified by an automated oracle (e.g., visual aesthetics), keep it manual or use visual regression tools.</item>
+          <item><strong>In Agile, push for in-sprint automation</strong> — automate within the same sprint the feature is built. Delayed automation creates technical debt fast.</item>
+          <item><strong>Track automation ROI monthly</strong> — count tests run, defects found, time saved vs. time spent maintaining. Present this to stakeholders regularly.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch2">
+      <meta>
+        <badge>Chapter 2</badge>
+        <badge>180 minutes</badge>
+        <badge>K4 Focus: Analyze</badge>
+      </meta>
+      <title>Preparing for Test Automation</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-2.1.1</strong> (K2) Describe configuration needs of an infrastructure for test automation</item>
+          <item><strong>TAE-2.1.2</strong> (K2) Explain how test automation is leveraged within different environments</item>
+          <item><strong>TAE-2.2.1</strong> (K4) Analyze a SUT to determine the appropriate test automation solution</item>
+          <item><strong>TAE-2.2.2</strong> (K4) Illustrate the technical findings of a tool evaluation</item>
+        </list>
+      </key-box>
+
+      <section id="s2-1">
+        <h2>2.1 Infrastructure Configuration for Test Automation</h2>
+        <paragraph>Testability of the SUT (availability of software interfaces that support testing) should be designed and implemented in parallel with other SUT features. This is generally performed by a software architect, often with TAE involvement.</paragraph>
+
+        <h3>Configuration Needs for Better Testability</h3>
+        <list type="ul">
+          <item><strong>Accessibility identifiers</strong> — auto-generated by frameworks or set manually by developers</item>
+          <item><strong>System environment variables</strong> — application parameters changed via administration for easier testing</item>
+          <item><strong>Deployment variables</strong> — similar to system variables but set before deployment</item>
+        </list>
+
+        <key-box>
+          <heading>Designing for Testability</heading>
+          <list type="ul">
+            <item><strong>Observability</strong> — SUT provides interfaces that give insight into its state, enabling result verification</item>
+            <item><strong>Controllability</strong> — SUT provides interfaces for performing actions (UI elements, function calls, TCP/IP, USB protocols)</item>
+            <item><strong>Architecture transparency</strong> — clear documentation of components and interfaces at all test levels</item>
+          </list>
+        </key-box>
+
+        <h3>Test Environments</h3>
+        <table>
+          <row><cell>Environment</cell><cell>Purpose</cell></row>
+          <row><cell><strong>Local development</strong></cell><cell>Component testing, GUI testing, API testing, white-box testing via IDE</cell></row>
+          <row><cell><strong>Build</strong></cell><cell>Builds software, runs low-level tests and static analysis without deployment</cell></row>
+          <row><cell><strong>Integration</strong></cell><cell>Fully integrated SUT release candidate; black-box testing (UI/API); monitoring present</cell></row>
+          <row><cell><strong>Preproduction</strong></cell><cell>Non-functional testing (performance); resembles production; UAT by stakeholders; monitored</cell></row>
+          <row><cell><strong>Production</strong></cell><cell>Real-time assessment with monitoring; canary releases, blue/green deployment, A/B testing</cell></row>
+        </table>
+      </section>
+
+      <section id="s2-2">
+        <h2>2.2 Evaluation Process for Tools and Strategies</h2>
+        <paragraph>During SUT investigation, TAEs gather requirements considering scope and capabilities. Investigation is recommended in collaboration with stakeholders to identify risks and mitigations.</paragraph>
+
+        <h3>Requirements for Test Automation Approach</h3>
+        <list type="ul">
+          <item>Which test process activities should be automated</item>
+          <item>Which test levels and test types should be supported</item>
+          <item>Which test roles and skill sets should be supported</item>
+          <item>Which software products and product lines should be supported</item>
+          <item>Which SUTs need to be compatible with the TAS</item>
+          <item>Availability and quality of test data</item>
+          <item>Methods to emulate unreachable cases (e.g., 3rd party applications)</item>
+        </list>
+
+        <h3>Tool Evaluation Criteria</h3>
+        <paragraph>Capture findings in a comparison table (tools in columns, requirements in rows) to allow stakeholders to see differences.</paragraph>
+        <list type="ul">
+          <item>Language/technology of the tool and IDE tools</item>
+          <item>Configurability: test environments, run configurations, dynamic/static setup</item>
+          <item>Test data management and version control integration</item>
+          <item>Support for different test types</item>
+          <item>Reporting capability aligned with project requirements</item>
+          <item>Integration with CI/CD, task tracking, test management tools</item>
+          <item>Scalability, maintainability, modifiability, compatibility, reliability</item>
+        </list>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Advocate for testability early</strong> — push for data-test-id attributes, accessible APIs, and configurable environment variables during design reviews, not after.</item>
+          <item><strong>Map your environments</strong> — document which test types run where (local = unit, integration = API/UI, preprod = performance). Avoid running expensive E2E tests in the wrong environment.</item>
+          <item><strong>Build a tool comparison table before committing</strong> — list your top 3 candidates against 10+ criteria. Share it with stakeholders. This prevents "we picked it because it was popular" decisions.</item>
+          <item><strong>Involve non-technical stakeholders in SUT analysis</strong> — business analysts and manual testers know the risks you'll miss from a purely technical perspective.</item>
+          <item><strong>Check team skills before tool selection</strong> — a powerful tool is useless if nobody can maintain it. Low-code may be the right call for a team transitioning from manual testing.</item>
+          <item><strong>Request monitoring in integration environments</strong> — without it, you'll spend hours chasing phantom defects that were actually environment issues.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch3">
+      <meta>
+        <badge>Chapter 3</badge>
+        <badge>210 minutes</badge>
+        <badge>K3 Focus: Apply</badge>
+      </meta>
+      <title>Test Automation Architecture</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-3.1.1</strong> (K2) Explain the major capabilities in a test automation architecture</item>
+          <item><strong>TAE-3.1.2</strong> (K2) Explain how to design a test automation solution</item>
+          <item><strong>TAE-3.1.3</strong> (K3) Apply layering of test automation frameworks</item>
+          <item><strong>TAE-3.1.4</strong> (K3) Apply different approaches for automating test cases</item>
+          <item><strong>TAE-3.1.5</strong> (K3) Apply design principles and design patterns in test automation</item>
+        </list>
+      </key-box>
+
+      <section id="s3-1-1">
+        <h2>3.1.1 Generic Test Automation Architecture (gTAA)</h2>
+        <paragraph>The gTAA provides an abstract view of communication between test automation and connected systems (SUT, project management, test management, configuration management). It defines the capabilities necessary when designing a TAA.</paragraph>
+
+        <h3>gTAA Interfaces</h3>
+        <list type="ul">
+          <item><strong>SUT interface</strong> — connection between SUT and TAF</item>
+          <item><strong>Project management interface</strong> — test automation development progress</item>
+          <item><strong>Test management interface</strong> — mapping of test case definitions to automated test cases</item>
+          <item><strong>Configuration management interface</strong> — CI/CD pipelines, environments, and testware</item>
+        </list>
+
+        <h3>Core Test Automation Capabilities</h3>
+        <table>
+          <row><cell>Capability</cell><cell>Description</cell></row>
+          <row><cell><strong>Test generation</strong></cell><cell>Automated design of test cases from a test model (optional; model-based testing tools)</cell></row>
+          <row><cell><strong>Test definition</strong></cell><cell>Definition and implementation of test cases/suites, separated from SUT and tools</cell></row>
+          <row><cell><strong>Test execution</strong></cell><cell>Test execution, logging, and reporting</cell></row>
+          <row><cell><strong>Test adaptation</strong></cell><cell>Adaptors for connecting to SUT via APIs, protocols, and services</cell></row>
+        </table>
+      </section>
+
+      <section id="s3-1-2">
+        <h2>3.1.2 Designing a Test Automation Solution</h2>
+        <paragraph>A TAS is defined by functional, non-functional, and technical requirements of the SUT plus required tools. It is implemented with commercial or open-source tools and may need SUT-specific adaptors.</paragraph>
+
+        <h3>TAA Should Address</h3>
+        <list type="ul">
+          <item>Selecting tools and tool-specific libraries</item>
+          <item>Developing plugins and/or components</item>
+          <item>Connectivity and interface requirements (firewalls, databases, URLs, mocks/stubs, message queues, protocols)</item>
+          <item>Connecting to test management and defect management tools</item>
+          <item>Utilizing version control systems and repositories</item>
+        </list>
+      </section>
+
+      <section id="s3-1-3">
+        <h2>3.1.3 TAF Layering</h2>
+        <paragraph>The TAF is the foundation of a TAS, including a test harness (test runner) and test libraries. Layers define distinct boundaries of classes with similar purposes. Keep the number of layers low to avoid complicated design.</paragraph>
+
+        <table>
+          <row><cell>Layer</cell><cell>Purpose</cell></row>
+          <row><cell><strong>Test scripts</strong></cell><cell>Test case repository and suite annotations; calls business logic layer; no direct calls to core libraries</cell></row>
+          <row><cell><strong>Business logic</strong></cell><cell>SUT-dependent libraries; inherits from or uses facades of core libraries; TAF configuration</cell></row>
+          <row><cell><strong>Core libraries</strong></cell><cell>SUT-independent libraries; reusable across projects sharing the same development stack</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Scaling Test Automation</heading>
+          <paragraph>Core libraries provide a reusable base for multiple TAFs. Different projects can build their TAFs on top of shared core libraries, enabling multiple TAEs to work independently on different projects while leveraging common infrastructure.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s3-1-4">
+        <h2>3.1.4 Approaches for Automating Test Cases</h2>
+
+        <compare>
+          <card type="pos">
+            <heading>Capture/Playback</heading>
+            <list type="ul">
+              <item>Initially easy to set up and use</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Capture/Playback Cons</heading>
+            <list type="ul">
+              <item>Hard to maintain, scale, and evolve</item>
+              <item>SUT must be available during capture</item>
+              <item>Only feasible for small scope, rarely-changing SUTs</item>
+              <item>Recording each test case instead of reusing building blocks is time consuming</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Linear Scripting</heading>
+            <list type="ul">
+              <item>Easy to set up and start writing scripts</item>
+              <item>More modifiable than capture/playback</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Linear Scripting Cons</heading>
+            <list type="ul">
+              <item>Hard to maintain, scale, and evolve</item>
+              <item>SUT must be available during capture</item>
+              <item>Some programming knowledge necessary</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Structured Scripting</heading>
+            <list type="ul">
+              <item>Easy to maintain, scale, port, adapt, and evolve</item>
+              <item>Business logic can be separated from test scripts</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Structured Scripting Cons</heading>
+            <list type="ul">
+              <item>Programming knowledge necessary</item>
+              <item>Initial TAF development and testware definition is time consuming</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Test-Driven Development (TDD)</heading>
+            <paragraph>Cycle: <strong>Red</strong> (write a failing test) → <strong>Green</strong> (implement minimal code to pass) → <strong>Refactor</strong> (optimize, apply clean code). User stories not verified via GUI/API testing can quickly achieve exit criteria through TDD.</paragraph>
+            <list type="ul">
+              <item>Simplifies component-level test development</item>
+              <item>Improves code quality and structure</item>
+              <item>Improves testability</item>
+              <item>Easier to achieve desired code coverage</item>
+              <item>Reduces defect propagation to higher test levels</item>
+              <item>Improves cross-team communication</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>TDD Cons</heading>
+            <list type="ul">
+              <item>Takes more time initially to get accustomed</item>
+              <item>Improper TDD can result in false confidence in code quality</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Data-Driven Testing (DDT)</heading>
+            <paragraph>Builds upon structured scripting. Test scripts are provided with test data from external sources (e.g., .csv, .xlsx, database dumps), allowing the same scripts to run multiple times with different data.</paragraph>
+            <list type="ul">
+              <item>Quick and easy test case expansion through data feeds</item>
+              <item>Cost of adding new tests significantly reduced</item>
+              <item>Test analysts can specify tests via data files with less technical dependency</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>DDT Cons</heading>
+            <list type="ul">
+              <item>Proper test data management may be necessary</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Keyword-Driven Testing (KDT)</heading>
+            <paragraph>Test cases are a list of test steps derived from keywords and test data. Keywords are defined from a user's perspective. Often built upon DDT.</paragraph>
+            <list type="ul">
+              <item>Involves test analysts and business analysts in automated test creation</item>
+              <item>Can also be used for manual testing (ISO/IEC/IEEE 29119-5)</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>KDT Cons</heading>
+            <list type="ul">
+              <item>Implementing and maintaining keywords is complex, challenging at scale</item>
+              <item>Huge effort for smaller systems</item>
+            </list>
+          </card>
+        </compare>
+
+        <compare>
+          <card type="pos">
+            <heading>Behavior-Driven Development (BDD)</heading>
+            <paragraph>Leverages a natural language format (<strong>Given / When / Then</strong>) in acceptance criteria stored as feature files. A BDD tool interprets the language and executes test cases.</paragraph>
+            <list type="ul">
+              <item>Improves communication across teams</item>
+              <item>Automated BDD scenarios act as test cases ensuring specification coverage</item>
+              <item>Can produce multiple test types at different pyramid levels</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>BDD Cons</heading>
+            <list type="ul">
+              <item>Negative test conditions and edge cases still need separate definition</item>
+              <item>Teams often confuse BDD as only natural-language test writing</item>
+              <item>Maintaining natural language steps is complex</item>
+              <item>Overly complex steps make debugging difficult and costly</item>
+            </list>
+          </card>
+        </compare>
+      </section>
+
+      <section id="s3-1-5">
+        <h2>3.1.5 Design Principles and Patterns</h2>
+
+        <h3>Object-Oriented Programming Principles</h3>
+        <paragraph>Four major principles: <strong>encapsulation</strong>, <strong>abstraction</strong>, <strong>inheritance</strong>, and <strong>polymorphism</strong>.</paragraph>
+
+        <h3>SOLID Principles</h3>
+        <paragraph>Single responsibility, Open-closed, Liskov substitution, Interface segregation, Dependency inversion. These improve code readability, maintainability, and scalability.</paragraph>
+
+        <h3>Key Design Patterns for TAEs</h3>
+        <table>
+          <row><cell>Pattern</cell><cell>Purpose</cell></row>
+          <row><cell><strong>Facade</strong></cell><cell>Hides implementation details, exposing only what testers need for test cases</cell></row>
+          <row><cell><strong>Singleton</strong></cell><cell>Ensures only one driver communicates with the SUT</cell></row>
+          <row><cell><strong>Page Object Model</strong></cell><cell>Class file as page model; updates locators in one place when SUT structure changes</cell></row>
+          <row><cell><strong>Flow Model</strong></cell><cell>Double facade over page objects; stores user actions for improved abstraction and reuse</cell></row>
+        </table>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Use Page Object Model from day one</strong> — when a UI element changes, you fix one locator instead of fifty test scripts. The upfront cost pays for itself within weeks.</item>
+          <item><strong>Keep layers thin and intentional</strong> — if your test scripts import directly from core libraries, your layering is broken. Enforce this with code reviews.</item>
+          <item><strong>Start with structured scripting, graduate to DDT</strong> — once you have 20+ tests with similar flows but different data, externalize the data. CSV/JSON files are your friend.</item>
+          <item><strong>Use BDD only when business stakeholders actually participate</strong> — if nobody reads the feature files, you're just adding a translation layer with no benefit.</item>
+          <item><strong>Apply the facade pattern to hide driver complexity</strong> — your test writers should call <code>loginAs("admin")</code>, not chain 15 Selenium commands.</item>
+          <item><strong>Reuse core libraries across projects</strong> — if you have two products on the same stack, shared core libraries cut your maintenance in half.</item>
+          <item><strong>Review SOLID principles quarterly</strong> — test code rots faster than production code because it's reviewed less. Schedule refactoring sprints.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch4">
+      <meta>
+        <badge>Chapter 4</badge>
+        <badge>150 minutes</badge>
+        <badge>K4 Focus: Analyze</badge>
+      </meta>
+      <title>Implementing Test Automation</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-4.1.1</strong> (K3) Apply guidelines for effective pilot and deployment activities</item>
+          <item><strong>TAE-4.2.1</strong> (K4) Analyze deployment risks and plan mitigation strategies</item>
+          <item><strong>TAE-4.3.1</strong> (K2) Explain factors affecting TAS maintainability</item>
+        </list>
+      </key-box>
+
+      <section id="s4-1">
+        <h2>4.1 Test Automation Development (Pilot)</h2>
+        <paragraph>A pilot project does not take long but its outcome significantly impacts project direction. Evaluate these to set up guidelines:</paragraph>
+        <list type="ul">
+          <item>Programming language(s) to be used</item>
+          <item>Suitable commercial/open-source tools</item>
+          <item>Test levels to cover</item>
+          <item>Test cases selected</item>
+          <item>Test case development approach</item>
+        </list>
+
+        <key-box>
+          <heading>Pilot Best Practices</heading>
+          <list type="ul">
+            <item>Create multiple prototypes to show pros/cons of different approaches</item>
+            <item>Define timelines and periodically check progress</item>
+            <item>Integrate solution into CI/CD during pilot to expose issues early</item>
+            <item>Evaluate non-technical aspects: team knowledge, structure, licensing, planned test types</item>
+            <item>Evaluate effort after pilot completion to assess success/failure</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s4-2">
+        <h2>4.2 Risks Associated with Test Automation</h2>
+
+        <h3>Deployment Risks</h3>
+        <list type="ul">
+          <item>Firewall openings</item>
+          <item>Resource utilization (CPU, RAM)</item>
+          <item>Network connection and reliability</item>
+        </list>
+
+        <h3>Technical Deployment Risks</h3>
+        <table>
+          <row><cell>Risk Area</cell><cell>Considerations</cell></row>
+          <row><cell><strong>Packaging</strong></cell><cell>Version control of testware; repository sharing across organization</cell></row>
+          <row><cell><strong>Logging</strong></cell><cell>Six levels: Fatal (abort execution), Error (test case fails), Warn (unexpected but non-breaking), Info (basic progress), Debug (execution-specific details for investigation), Trace (most granular)</cell></row>
+          <row><cell><strong>Test structuring</strong></cell><cell>Test harness, fixtures, preconditions/postconditions, suite grouping, atomicity. Fixtures enable repeatable and atomic tests</cell></row>
+          <row><cell><strong>Updating</strong></cell><cell>Automatic updates on harnesses/agents; version changes on devices</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Mobile Device Example</heading>
+          <paragraph>Real devices for mobile test automation must be powered on, have enough battery, be connected to a network, and have access to the SUT. These are deployment risks that are not strictly test automation but directly affect its reliability.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s4-3">
+        <h2>4.3 TAS Maintainability</h2>
+        <paragraph>Follow clean code principles (Robert C. Martin). Maintainability is affected by programming standards and TAE expectations.</paragraph>
+
+        <key-box>
+          <heading>Clean Code Principles for Test Automation</heading>
+          <list type="check">
+            <item>Use common naming conventions for meaningful names</item>
+            <item>Use logical and common project structure</item>
+            <item>Avoid hardcoding — use data-driven testing and constants</item>
+            <item>Avoid too many input parameters for methods</item>
+            <item>Avoid long, complex methods</item>
+            <item>Use logging</item>
+            <item>Use design patterns where beneficial</item>
+            <item>Focus on testability</item>
+          </list>
+        </key-box>
+
+        <paragraph>Use static analyzers and code formatters. Agree on a branching structure in version control (feature, release, and fix branches).</paragraph>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Always run a pilot before full rollout</strong> — pick 5-10 representative test cases, build them two different ways, compare. The 2-week pilot saves 6 months of rework.</item>
+          <item><strong>Integrate into CI/CD during the pilot</strong> — don't wait until "the framework is ready." Early CI/CD integration catches environment, permission, and network issues before they compound.</item>
+          <item><strong>Use meaningful log levels</strong> — Fatal/Error for failures, Info for progress, Debug for investigation. If your CI logs are all Info level, you'll drown in noise when something breaks.</item>
+          <item><strong>Make tests atomic and repeatable</strong> — each test should set up its own preconditions and clean up after itself. Tests that depend on execution order are a maintenance nightmare.</item>
+          <item><strong>Enforce naming conventions from day one</strong> — <code>loginButton</code> beats <code>btn1</code> every time. Agree on conventions in your team's first sprint and lint for them.</item>
+          <item><strong>Avoid hardcoding URLs, credentials, and timeouts</strong> — use environment variables or config files. The day you need to point tests at staging, you'll thank yourself.</item>
+          <item><strong>Branch your test code like production code</strong> — feature branches for new tests, release branches for version alignment, hotfix branches for broken locators.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch5">
+      <meta>
+        <badge>Chapter 5</badge>
+        <badge>90 minutes</badge>
+        <badge>K3 Focus: Apply</badge>
+      </meta>
+      <title>Implementation and Deployment Strategies</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-5.1.1</strong> (K3) Apply test automation at different test levels within pipelines</item>
+          <item><strong>TAE-5.1.2</strong> (K2) Explain configuration management for testware</item>
+          <item><strong>TAE-5.1.3</strong> (K2) Explain test automation dependencies for an API infrastructure</item>
+        </list>
+      </key-box>
+
+      <section id="s5-1-1">
+        <h2>5.1.1 Test Automation in CI/CD Pipelines</h2>
+        <paragraph>Automated tests run unattended, making them ideal for pipelines. Test levels are typically integrated as follows:</paragraph>
+
+        <table>
+          <row><cell>Test Level</cell><cell>Pipeline Integration</cell></row>
+          <row><cell><strong>Configuration tests</strong></cell><cell>During TAF/TAS build; verify paths and file existence</cell></row>
+          <row><cell><strong>Component tests</strong></cell><cell>Part of build step; quality gates for CI pipeline</cell></row>
+          <row><cell><strong>Component integration</strong></cell><cell>Part of CI if low-level; executed with component tests</cell></row>
+          <row><cell><strong>System tests</strong></cell><cell>Integrated into CD pipeline as last quality gate</cell></row>
+          <row><cell><strong>System integration</strong></cell><cell>Part of CD pipeline; ensures separately developed components work together</cell></row>
+        </table>
+
+        <h3>Integration Approaches for Higher-Level Tests</h3>
+        <list type="ul">
+          <item><strong>As part of deployment phase</strong> — tests can fail/rollback deployment, but reruns require redeployment</item>
+          <item><strong>As separate pipeline</strong> — triggered by successful deployment; supports multiple test suites per deployment; requires manual rollback actions. Simple deployment check scripts verify the SUT is up but do not verify functional suitability broadly</item>
+        </list>
+
+        <h3>Other Pipeline Uses</h3>
+        <list type="ul">
+          <item><strong>Nightly regression</strong> — run regression suites periodically for longer-running tests</item>
+          <item><strong>Non-functional tests</strong> — monitor performance efficiency and other quality characteristics</item>
+        </list>
+      </section>
+
+      <section id="s5-1-2">
+        <h2>5.1.2 Configuration Management for Testware</h2>
+
+        <table>
+          <row><cell>Aspect</cell><cell>Details</cell></row>
+          <row><cell><strong>Test environment config</strong></cell><cell>URLs, credentials; stored with testware or in shared repository for multi-project use</cell></row>
+          <row><cell><strong>Test data</strong></cell><cell>Environment-specific or release-specific; stored with TAF or in test data management systems</cell></row>
+          <row><cell><strong>Test suites/cases</strong></cell><cell>Grouped by purpose (smoke, regression); feature toggles per release; versioned with SUT using tags/branches</cell></row>
+        </table>
+      </section>
+
+      <section id="s5-1-3">
+        <h2>5.1.3 API Infrastructure Dependencies</h2>
+        <paragraph>With <strong>shift left</strong>, it is recommended to support and divide API testing among different levels (component integration and system integration testing), extended with contract testing as a best practice.</paragraph>
+        <list type="ul">
+          <item><strong>API connections</strong> — understand business logic and relationships between APIs</item>
+          <item><strong>API documentation</strong> — baseline for test automation (parameters, headers, request-response types)</item>
+        </list>
+
+        <key-box>
+          <heading>Contract Testing</heading>
+          <paragraph>Integration testing that verifies services can communicate and that shared data is consistent with specified rules. Goes beyond schema validation — both parties agree on allowed interactions while allowing evolution. Defects from underlying services are found earlier in the SDLC.</paragraph>
+          <list type="ul">
+            <item><strong>Consumer-driven</strong> — consumer sets expectations for provider responses</item>
+            <item><strong>Provider-driven</strong> — provider creates the contract showing how services operate</item>
+          </list>
+        </key-box>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Put component tests in your build step</strong> — they're fast and catch issues before deployment. If your build step doesn't run tests, you're shipping blind.</item>
+          <item><strong>Use feature toggles in test config</strong> — tag test suites per release so you only run relevant tests. No more "why are 200 tests running for a 2-file change?"</item>
+          <item><strong>Version your testware with the SUT</strong> — use the same release tags/branches. When a production bug is reported on v3.2, you can checkout the exact testware that tested v3.2.</item>
+          <item><strong>Add contract tests for microservices</strong> — they catch interface breaks before integration testing. Consumer-driven contracts are especially effective when services evolve independently.</item>
+          <item><strong>Schedule nightly regression for long suites</strong> — if your full regression takes 4+ hours, don't block the pipeline. Run it nightly and review results at standup.</item>
+          <item><strong>Separate environment config from test code</strong> — store URLs, credentials, and feature flags in config files or shared repositories, not in test scripts.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch6">
+      <meta>
+        <badge>Chapter 6</badge>
+        <badge>150 minutes</badge>
+        <badge>K4 Focus: Analyze</badge>
+      </meta>
+      <title>Test Automation Reporting and Metrics</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-6.1.1</strong> (K3) Apply data collection methods from TAS and SUT</item>
+          <item><strong>TAE-6.1.2</strong> (K4) Analyze data from TAS and SUT to understand test results</item>
+          <item><strong>TAE-6.1.3</strong> (K2) Explain how a test progress report is constructed and published</item>
+        </list>
+      </key-box>
+
+      <section id="s6-1-1">
+        <h2>6.1.1 Data Collection Methods</h2>
+
+        <h3>Data Sources</h3>
+        <list type="ul">
+          <item><strong>SUT logs</strong> — web/mobile UI, APIs, applications, web servers, database servers</item>
+          <item><strong>TAF logs</strong> — audit trail</item>
+          <item><strong>Build and deployment logs</strong></item>
+          <item><strong>Production logs</strong> — performance monitoring, trend analysis, load/stress/spike testing</item>
+          <item><strong>Screenshots and recordings</strong> — native or 3rd party</item>
+        </list>
+
+        <h3>TAS Logging Should Include</h3>
+        <list type="ul">
+          <item>Current test case with start/end time</item>
+          <item>Execution status (passed, failed, TAS failure, inconclusive)</item>
+          <item>Low-level details including timing information</item>
+          <item>Dynamic SUT information (e.g., memory leaks)</item>
+          <item>Execution counters for reliability/stress testing</item>
+          <item>Random elements logged (parameters, choices)</item>
+          <item>All actions logged for replay capability</item>
+          <item>Screenshots for root cause analysis</item>
+          <item>Crash dumps and stack traces stored on failure</item>
+        </list>
+
+        <h3>SUT Logging</h3>
+        <paragraph>Correlate TAS results with SUT logs to identify root causes. Log defect information (date/time, source location, error messages), configuration at startup, and synchronize logs with timestamps. Use <strong>correlation IDs / trace IDs</strong> to trace behavior across system interactions.</paragraph>
+
+        <h3>Tool Support for Comparisons</h3>
+        <paragraph>Differences between actual and expected results are not always clear. Tool support helps define comparisons that ignore expected differences (e.g., dates, timestamps) while highlighting unexpected ones. Use color to distinguish log types (defects in red, progress in green).</paragraph>
+
+        <h3>Third-Party Integration</h3>
+        <paragraph>Test execution data can be exported for use in tracking and reporting tools (spreadsheets, XML, databases, report tools). This is often achieved through existing export formats or customized reporting output.</paragraph>
+      </section>
+
+      <section id="s6-1-2">
+        <h2>6.1.2 Analyzing Test Results</h2>
+        <paragraph>After execution, analyze results to identify failures in both SUT and TAS. TAS data is primary, SUT data is secondary.</paragraph>
+
+        <key-box>
+          <heading>Failure Analysis Steps</heading>
+          <list type="ul">
+            <item>Check if the same failure occurred in previous executions (known defect?)</item>
+            <item>Identify the test case and what it is testing</item>
+            <item>Find the test step where failure occurred</item>
+            <item>Analyze SUT state via screenshots, API/network logs</item>
+            <item>If SUT state is unexpected, log a defect with all necessary information</item>
+          </list>
+        </key-box>
+
+        <paragraph>When actual and expected results match but a failure was reported, the TAS likely contains a defect. Environment unavailability can cause seemingly real failures — check SUT logs for outages.</paragraph>
+      </section>
+
+      <section id="s6-1-3">
+        <h2>6.1.3 Test Progress Reports</h2>
+
+        <h3>Report Content</h3>
+        <paragraph>Must contain test results, SUT information, and test environment documentation in a format appropriate for stakeholders. Include execution history and responsible persons for failure investigation.</paragraph>
+
+        <h3>Stakeholders</h3>
+        <table>
+          <row><cell>Category</cell><cell>Typical Roles</cell><cell>Focus</cell></row>
+          <row><cell><strong>Management</strong></cell><cell>Architect, project/delivery manager, test director</cell><cell>Trends, pass-fail ratios, reliability</cell></row>
+          <row><cell><strong>Operational</strong></cell><cell>Product owner, business representative, BA</cell><cell>Product use metrics</cell></row>
+          <row><cell><strong>Technical</strong></cell><cell>Team lead, TAE, tester, developer</cell><cell>Lower-level details</cell></row>
+        </table>
+
+        <h3>Publishing Test Reports</h3>
+        <paragraph>Reports should be published to all relevant stakeholders — uploaded to a website or cloud, sent to mailing lists, or posted via chatbots. Keep a history of test reports to gather statistics about frequent regressions for trend analysis.</paragraph>
+
+        <h3>Dashboards and AI/ML Analysis</h3>
+        <paragraph>Modern tools aggregate data from pipelines, project management, and code repositories. Visualization using charts and colored icons (e.g., traffic lights) helps stakeholders see trends and make decisions. Trends include defect clusters, propagation to certain environments, SUT performance degradation, and build reliability. AI/ML tools help reduce time finding broken locators, analyzing failure reasons (SUT defect vs. TAS defect), and grouping common defects.</paragraph>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Log correlation IDs in every test</strong> — when a test fails, you can trace the exact request through every microservice. Without this, root cause analysis is guesswork.</item>
+          <item><strong>Auto-capture screenshots on failure</strong> — a screenshot is worth a thousand log lines. Configure your framework to attach them to every failed test automatically.</item>
+          <item><strong>Build a dashboard your manager can read</strong> — traffic-light status, pass/fail trends over time, top-5 flaky tests. If stakeholders can't self-serve, they'll keep asking you.</item>
+          <item><strong>Define clear status categories</strong> — passed, failed, TAS failure, inconclusive. If "TAS failure" isn't a category, your pass rate will look worse than it is.</item>
+          <item><strong>Keep report history for trend analysis</strong> — a single report tells you today's status. Six months of reports tell you if quality is improving or degrading.</item>
+          <item><strong>Tailor reports per audience</strong> — management wants trends and risk, ops wants product metrics, technical teams want stack traces. One report doesn't fit all.</item>
+          <item><strong>Ignore expected differences in assertions</strong> — configure your comparison tools to skip timestamps, UUIDs, and dynamic IDs. False failures from these waste everyone's time.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch7">
+      <meta>
+        <badge>Chapter 7</badge>
+        <badge>135 minutes</badge>
+        <badge>K3 Focus: Apply</badge>
+      </meta>
+      <title>Verifying the Test Automation Solution</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-7.1.1</strong> (K3) Plan to verify the test automation environment including tool setup</item>
+          <item><strong>TAE-7.1.2</strong> (K2) Explain correct behavior for automated test scripts/suites</item>
+          <item><strong>TAE-7.1.3</strong> (K2) Identify where test automation produces unexpected results</item>
+          <item><strong>TAE-7.1.4</strong> (K2) Explain how static analysis aids test automation code quality</item>
+        </list>
+      </key-box>
+
+      <section id="s7-1-1">
+        <h2>7.1.1 Verifying the Test Automation Environment</h2>
+
+        <h3>Verification Steps</h3>
+        <table>
+          <row><cell>Area</cell><cell>Details</cell></row>
+          <row><cell><strong>Tool installation/setup</strong></cell><cell>Configure executable components, libraries, data files; use automated installation or repository for consistency</cell></row>
+          <row><cell><strong>Repeatability</strong></cell><cell>Systematic approach to loading/unloading TAS; no discernible difference across environments; configuration management ensures reproducible setups</cell></row>
+          <row><cell><strong>Connectivity</strong></cell><cell>Verify access to internal/external systems and interfaces; check permissions for logging and reporting</cell></row>
+          <row><cell><strong>TAF component testing</strong></cell><cell>Individual functional and non-functional testing of TAF components (object verification, logging accuracy, performance)</cell></row>
+        </table>
+      </section>
+
+      <section id="s7-1-2">
+        <h2>7.1.2 Correct Behavior of Automated Test Suites</h2>
+        <list type="ul">
+          <item><strong>Check composition</strong> — completeness (expected results present, test data available), correct TAF/SUT version</item>
+          <item><strong>Verify new features</strong> — closely monitor first-time use of new TAF features</item>
+          <item><strong>Repeatability</strong> — results should always be the same; move unreliable tests (e.g., race conditions) out of active suite</item>
+          <item><strong>Intrusiveness</strong> — tight TAS-SUT coupling can cause failures not seen in production; developers may require manual reproduction of automation-identified failures to assist analysis</item>
+        </list>
+      </section>
+
+      <section id="s7-1-3">
+        <h2>7.1.3 Unexpected Results</h2>
+        <paragraph>When a test script fails or passes unexpectedly, perform root cause analysis: inspect test logs, performance data, setup/teardown. Execute isolated tests. The defect can be in the test case, SUT, TAF, hardware, or network. Verify all assertions are in place — missing assertions may result in inconclusive results.</paragraph>
+      </section>
+
+      <section id="s7-1-4">
+        <h2>7.1.4 Static Analysis for Test Automation Code</h2>
+        <paragraph>Static code analysis finds vulnerabilities and defects in both SUT and TAF code. Benefits include:</paragraph>
+        <list type="ul">
+          <item>Proactive defect detection early in the SDLC via pipelines</item>
+          <item>Severity categorization (critical, high, medium, low) for prioritization</item>
+          <item>Suggested code fixes for identified defects</item>
+          <item>Security violation detection (e.g., plaintext passwords in test scripts)</item>
+          <item>Code quality measurement, commenting suggestions, and resource handling improvements</item>
+        </list>
+        <paragraph>Extend scanning best practices to test automation code — even though it is not deployed with the software, vulnerabilities like exposed credentials are a risk.</paragraph>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Verify your TAS setup before running tests</strong> — a 5-minute connectivity check (can the TAS reach the SUT? are permissions set? are logs writable?) prevents hours of "why is everything failing?" debugging.</item>
+          <item><strong>Quarantine flaky tests immediately</strong> — move unreliable tests out of the active suite and investigate separately. One flaky test erodes trust in the entire suite.</item>
+          <item><strong>Run static analysis on your test code</strong> — it catches plaintext passwords, unused imports, and code smells. Your test code is code too; treat it that way.</item>
+          <item><strong>Check every assertion is in place</strong> — a test that passes without asserting anything is worse than no test. It gives false confidence. Audit your suite for "empty" tests quarterly.</item>
+          <item><strong>Automate your TAS setup/teardown</strong> — use Docker, scripts, or config management to ensure identical environments. If setup is manual, it will drift between runs.</item>
+          <item><strong>When a test passes unexpectedly, investigate</strong> — unexpected passes can mean missing assertions, stale test data, or a SUT change that made the test irrelevant.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+    <chapter id="ch8">
+      <meta>
+        <badge>Chapter 8</badge>
+        <badge>210 minutes</badge>
+        <badge>K4 Focus: Analyze</badge>
+      </meta>
+      <title>Continuous Improvement</title>
+
+      <key-box>
+        <heading>Learning Objectives</heading>
+        <list type="check">
+          <item><strong>TAE-8.1.1</strong> (K3) Discover opportunities for improving test cases through data collection and analysis</item>
+          <item><strong>TAE-8.1.2</strong> (K4) Analyze technical aspects of a deployed TAS and provide recommendations</item>
+          <item><strong>TAE-8.1.3</strong> (K3) Restructure automated testware to align with SUT updates</item>
+          <item><strong>TAE-8.1.4</strong> (K2) Summarize opportunities for use of test automation tools</item>
+        </list>
+      </key-box>
+
+      <section id="s8-1-1">
+        <h2>8.1.1 Improving Test Cases Through Data</h2>
+
+        <h3>Test Histogram</h3>
+        <paragraph>Visual report of test data showing improvement areas regarding test case data trends. Enables TAEs to identify fragile test cases for refactoring.</paragraph>
+
+        <h3>Artificial Intelligence</h3>
+        <paragraph>AI/ML tools detect changed UI locators and use self-healing algorithms to fix test cases, speeding up version control changes and code maintenance.</paragraph>
+
+        <h3>Schema Validation</h3>
+        <paragraph>Applied to API and database analysis. Checks if responses match business specifications (mandatory elements, object types). Reduces the need for individual assertions, making test code shorter and more efficient at detecting backend defects.</paragraph>
+        <paragraph><strong>Example:</strong> An API has six mandatory response elements that must be strings. With schema validation tools, individual assertions for each type and null-check are unnecessary — the schema validation handles all checks automatically.</paragraph>
+      </section>
+
+      <section id="s8-1-2">
+        <h2>8.1.2 TAS Improvement Areas</h2>
+
+        <table>
+          <row><cell>Area</cell><cell>Improvement Opportunities</cell></row>
+          <row><cell><strong>Scripting</strong></cell><cell>Upgrade scripting technique; consolidate overlapping test steps into library functions; establish failure recovery; evaluate wait mechanisms (hard-coded vs. polling vs. event subscription)</cell></row>
+          <row><cell><strong>Test execution</strong></cell><cell>Concurrent execution on multiple environments; split long suites; remove duplication; parallel batch jobs in CI/CD</cell></row>
+          <row><cell><strong>Verification</strong></cell><cell>Standard verification methods for all tests; parameterization for similar methods</cell></row>
+          <row><cell><strong>TAA</strong></cell><cell>Change architecture to support SUT testability improvements; expensive but major improvement</cell></row>
+          <row><cell><strong>TAF</strong></cell><cell>Pilot and impact analysis before adopting new core library versions; create adoption plan per team</cell></row>
+          <row><cell><strong>Setup/teardown</strong></cell><cell>Move repeated actions into setup/teardown methods; use web service calls for preconditions/postconditions</cell></row>
+          <row><cell><strong>Documentation</strong></cell><cell>Test automation docs, user docs, test reports and logs</cell></row>
+          <row><cell><strong>TAS features</strong></cell><cell>Add only features that will be used; unused features increase complexity</cell></row>
+          <row><cell><strong>TAF updates</strong></cell><cell>Test latest versions with representative sample tests before rollout</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Wait Mechanisms</heading>
+          <list type="ul">
+            <item><strong>Hard-coded waits</strong> — root cause of many defects due to unpredictable response times</item>
+            <item><strong>Dynamic polling</strong> — waits only needed time; include timeout to prevent infinite waiting</item>
+            <item><strong>Event subscription</strong> — most reliable; requires language support and SUT event offering; timeout still required</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s8-1-3">
+        <h2>8.1.3 Restructuring Testware for SUT Updates</h2>
+        <list type="ul">
+          <item><strong>Identify environment changes</strong> — evaluate impact on testware, libraries, OS; make changes incrementally with MVP mindset</item>
+          <item><strong>Improve core function libraries</strong> — incorporate new techniques (optimized code, newer OS libraries) for current and future projects</item>
+          <item><strong>Consolidate control functions</strong> — merge specialized functions acting on same control types into fewer, general functions</item>
+          <item><strong>Refactor TAA</strong> — evolve architecture with SUT; avoid bolt-on implementations</item>
+          <item><strong>Naming conventions</strong> — keep consistent with previously defined standards</item>
+          <item><strong>Evaluate existing scripts</strong> — decompose complex tests; eliminate infrequently-used tests</item>
+        </list>
+      </section>
+
+      <section id="s8-1-4">
+        <h2>8.1.4 Test Automation Tool Opportunities</h2>
+        <paragraph>Beyond testing, automation tools can assist with:</paragraph>
+
+        <table>
+          <row><cell>Activity</cell><cell>How Automation Helps</cell></row>
+          <row><cell><strong>Environment setup/control</strong></cell><cell>Automated user creation via web service endpoints; infrastructure setup and cleanup scripts</cell></row>
+          <row><cell><strong>Data aging</strong></cell><cell>Manipulate test data (e.g., keep date fields current)</cell></row>
+          <row><cell><strong>Screenshot/video generation</strong></cell><cell>Built-in tool capabilities for release documentation or marketing purposes</cell></row>
+        </table>
+      </section>
+
+      <key-box>
+        <heading>Agent Summary — Daily Application Tips</heading>
+        <list type="check">
+          <item><strong>Review your test histogram monthly</strong> — identify the top-10 flakiest tests and refactor them. Fragile tests cost more in investigation time than they save in execution.</item>
+          <item><strong>Replace hard-coded waits with dynamic polling</strong> — <code>sleep(5000)</code> is the #1 cause of flaky tests. Use explicit waits with timeouts instead. Your suite will be faster and more reliable.</item>
+          <item><strong>Consolidate duplicate test steps into library functions</strong> — if three tests all "log in as admin," that's one function, not three copies. When the login flow changes, you fix one place.</item>
+          <item><strong>Use schema validation for API tests</strong> — one schema check replaces 20 individual assertions. When the API contract changes, the schema tells you exactly what broke.</item>
+          <item><strong>Make changes incrementally</strong> — when restructuring testware, deploy to a small subset first. Run a limited set of tests to verify no side effects before full rollout.</item>
+          <item><strong>Leverage automation for non-test tasks</strong> — use your test scripts to set up environments, create test users, age data, and clean up. This saves hours of manual prep per sprint.</item>
+          <item><strong>Pilot new library versions before adopting</strong> — run representative sample tests against the new version. A "minor" update that breaks your locator strategy is not minor.</item>
+          <item><strong>Eliminate dead tests</strong> — if a test hasn't run in 6 months or tests a removed feature, delete it. A smaller, focused suite is faster and easier to maintain.</item>
+        </list>
+      </key-box>
+    </chapter>
+
+  </chapters>
+
+  <toc>
+    <item id="ch1">Ch 1: Introduction and Objectives for Test Automation</item>
+    <item id="ch2">Ch 2: Preparing for Test Automation</item>
+    <item id="ch3">Ch 3: Test Automation Architecture</item>
+    <item id="ch4">Ch 4: Implementing Test Automation</item>
+    <item id="ch5">Ch 5: Implementation and Deployment Strategies</item>
+    <item id="ch6">Ch 6: Test Automation Reporting and Metrics</item>
+    <item id="ch7">Ch 7: Verifying the Test Automation Solution</item>
+    <item id="ch8">Ch 8: Continuous Improvement</item>
+  </toc>
+
+  <footer-text>ISTQB CTAL-TAE v2.0 (2024) — Test Automation Engineering Study Guide</footer-text>
+</syllabus>
