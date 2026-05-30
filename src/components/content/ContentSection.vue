@@ -1,7 +1,7 @@
 <template>
   <section :id="block.id">
-    <ContentRenderer :blocks="block.content" />
     <StarButton :section-id="block.id" :section-title="extractedTitle" />
+    <ContentRenderer :blocks="block.content" />
   </section>
 </template>
 

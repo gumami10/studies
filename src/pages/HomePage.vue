@@ -1,7 +1,6 @@
 <template>
   <header>
-    <h1>ISTQB CTAL-AT Study Guide</h1>
-    <p class="subtitle">Advanced Level Agile Tester (v2.0) — Chapter navigation</p>
+    <h1>QA Hero study guide</h1>
     <AppNav />
   </header>
 
@@ -42,12 +41,9 @@
       />
     </div>
   </main>
-
-  <AppFooter />
 </template>
 
 <script setup lang="ts">
 import AppNav from '@/components/layout/AppNav.vue'
-import AppFooter from '@/components/layout/AppFooter.vue'
 import ChapterCard from '@/components/ui/ChapterCard.vue'
 </script>

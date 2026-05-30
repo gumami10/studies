@@ -27,7 +27,7 @@ const links = computed(() => {
   const result = []
   if (route.name !== 'home') result.push({ to: '/', label: 'Home' })
   if (route.name !== 'starred') {
-    result.push({ to: '/starred', label: `Starred Sections (${store.starredCount})` })
+    result.push({ to: '/starred', label: 'Starred Sections' })
   }
   chapters.forEach((ch) => {
     if (ch.to !== route.path) result.push(ch)

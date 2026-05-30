@@ -37,18 +37,6 @@ describe('AppNav', () => {
     expect(wrapper.find('a[href="/chapters"]').exists()).toBe(false)
   })
 
-  it('shows star count in link', async () => {
-    const store = useStarredStore()
-    store.toggle('1', 'T', 'X', '<p>x</p>')
-    store.toggle('2', 'T2', 'X', '<p>x</p>')
-
-    router.push('/chapters')
-    await router.isReady()
-
-    const wrapper = mount(AppNav, { global: { plugins: [router, pinia] } })
-    expect(wrapper.html()).toContain('Starred Sections (2)')
-  })
-
   it('hides Home link when on home page', async () => {
     router.push('/')
     await router.isReady()

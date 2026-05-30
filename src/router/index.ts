@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
     name: 'chapters',
     component: ContentPage,
     meta: {
-      title: 'ISTQB CTAL-AT Study Guide',
+      title: 'QA Hero study guide',
       subtitle: 'Advanced Level Agile Tester (v2.0) — Chapter-by-Chapter Review',
       tocTitle: 'Syllabus Chapters',
       highlightKey: 'ctal-at-highlights-ch1',

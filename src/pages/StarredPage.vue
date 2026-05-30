@@ -15,7 +15,6 @@
     </template>
   </main>
 
-  <AppFooter>Generated from ISTQB CTAL-AT Syllabus v2.0 — Starred Review</AppFooter>
   <ToTopButton />
 </template>
 
@@ -23,7 +22,6 @@
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { useStarredStore } from '@/stores/starred'
 import AppNav from '@/components/layout/AppNav.vue'
-import AppFooter from '@/components/layout/AppFooter.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 

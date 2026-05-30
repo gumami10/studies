@@ -13,7 +13,7 @@ describe('AppHeader', () => {
     const wrapper = mount(AppHeader, {
       global: { plugins: [pinia, router] }
     })
-    expect(wrapper.find('h1').text()).toBe('ISTQB CTAL-AT Study Guide')
+    expect(wrapper.find('h1').text()).toBe('QA Hero study guide')
     expect(wrapper.find('.subtitle').text()).toContain('Advanced Level Agile Tester')
   })
 

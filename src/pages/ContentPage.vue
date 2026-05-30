@@ -20,7 +20,6 @@
     </template>
   </main>
 
-  <AppFooter>{{ data.footerText }}</AppFooter>
   <HighlightToolbar
     :show="toolbarShow"
     :position="toolbarPosition"
@@ -37,7 +36,6 @@ import { useHighlightsStore } from '@/stores/highlights'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 import type { ChapterData } from '@/types'
 import AppNav from '@/components/layout/AppNav.vue'
-import AppFooter from '@/components/layout/AppFooter.vue'
 import TableOfContents from '@/components/toc/TableOfContents.vue'
 import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'

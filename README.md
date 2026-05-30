@@ -1,4 +1,4 @@
-# ISTQB CTAL-AT Study Guide
+# QA Hero study guide
 
 A personal study companion for the **ISTQB Certified Tester Advanced Level — Agile Technical Tester (CTAL-AT)** certification.
 
@@ -68,4 +68,4 @@ src/
 
 ---
 
-*Personal project for QA study and exam preparation.*
+_Personal project for QA study and exam preparation._
