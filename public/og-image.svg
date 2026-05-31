@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e94560"/>
+      <stop offset="100%" stop-color="#ff6b6b"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <rect x="80" y="80" width="1040" height="470" rx="20" fill="none" stroke="url(#accent)" stroke-width="4"/>
+  
+  <text x="600" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    QA Hero
+  </text>
+  
+  <text x="600" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#b8c5d6" text-anchor="middle">
+    Study Guide for ISTQB CTAL Certifications
+  </text>
+  
+  <text x="600" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#8899aa" text-anchor="middle">
+    CTAL-AT • CTAL-TAE • Quality Metrics • Code Review
+  </text>
+  
+  <circle cx="600" cy="500" r="8" fill="url(#accent)"/>
+  <text x="600" y="530" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#667788" text-anchor="middle">
+    Interactive • Highlight • Star • Review
+  </text>
+</svg>

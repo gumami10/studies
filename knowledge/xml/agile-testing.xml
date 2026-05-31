@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <chapters>
+
+    <!-- ============================================================ -->
+    <!-- PART I: INTRODUCTION                                          -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch1">
+      <meta>
+        <badge>Part I - Chapter 1</badge>
+        <badge>Foundation</badge>
+      </meta>
+      <title>What Is Agile Testing, Anyway?</title>
+
+      <section id="s1-1">
+        <h2>1.1 Defining Agile Testing</h2>
+        <paragraph>Agile testing is <strong>not just testing on an agile project</strong>. It encompasses business-facing tests that define features, tests that critique the product, and everything beyond unit/component testing: functional, system, load, performance, security, stress, usability, exploratory, end-to-end, and user acceptance testing.</paragraph>
+        <paragraph>Core practices include <strong>test-driven development (TDD)</strong>, where the programmer writes a test for a tiny bit of functionality, sees it fail, writes the code that makes it pass, then moves on. Programmers also write integration tests to ensure small units work together.</paragraph>
+
+        <key-box>
+          <heading>Key Terminology</heading>
+          <glossary>
+            <term>Customer Team</term>
+            <definition>Business experts, product owners, domain experts, analysts — everyone on the "business" side. They write stories, provide examples, and collaborate throughout each iteration.</definition>
+            <term>Developer Team</term>
+            <definition>Everyone involved with delivering code: programmers, sysadmins, architects, DBAs, testers. Agile principles encourage team members to take on multiple activities.</definition>
+            <term>Business-Facing Tests</term>
+            <definition>Tests that define the business experts' desired features and functionality, expressed in domain language. Synonym: customer-facing tests.</definition>
+            <term>Technology-Facing Tests</term>
+            <definition>Tests described in programmer terms and jargon, falling into the programmer's domain (coined by Brian Marick).</definition>
+          </glossary>
+        </key-box>
+      </section>
+
+      <section id="s1-2">
+        <h2>1.2 Traditional vs. Agile Testing</h2>
+
+        <compare>
+          <card type="neg">
+            <heading>Traditional (Waterfall) Testing</heading>
+            <list type="ul">
+              <item>Testing happens at the end, right before release</item>
+              <item>Testing gets "squished" because coding takes longer than expected</item>
+              <item>Requirements are frozen; changes deferred to next release</item>
+              <item>Testers study requirements docs, write test plans, then wait for work</item>
+              <item>Testers act as gatekeepers of quality</item>
+              <item>Long development cycles (months to a year)</item>
+              <item>Focused on conformance to requirements</item>
+            </list>
+          </card>
+          <card type="pos">
+            <heading>Agile Testing</heading>
+            <list type="ul">
+              <item>Testing is iterative and incremental — each increment tested as soon as finished</item>
+              <item>Story is not "done" until it has been tested</item>
+              <item>Requirements evolve; changes welcomed between iterations</item>
+              <item>Tests written collaboratively days or hours before coding begins</item>
+              <item>Whole team responsible for quality</item>
+              <item>Short iterations (1-4 weeks)</item>
+              <item>Focused on delivering business value and customer-needed quality</item>
+            </list>
+          </card>
+        </compare>
+      </section>
+
+      <section id="s1-3">
+        <h2>1.3 Whole-Team Approach</h2>
+        <paragraph>The biggest difference in agile vs. traditional development. Quality is <strong>not</strong> owned by testers alone — the entire team feels responsible for delivering high-quality software.</paragraph>
+        <list type="check">
+          <item>Everyone on the team gets "test-infected"</item>
+          <item>Tests from unit level up drive coding, help learn how the app should work, and signal when a task is "done"</item>
+          <item>Any task can be completed by any team member or pair</item>
+          <item>The whole team thinks constantly about designing for testability</item>
+          <item>Constant collaboration: testers with programmers, customers, and specialists</item>
+          <item>Anyone can ask for and receive help</item>
+          <item>It's all about quality — not speed</item>
+        </list>
+
+        <key-box>
+          <heading>Critical Insight</heading>
+          <paragraph>Some folks new to agile perceive it as all about speed. The fact is, <strong>it's all about quality</strong> — and if it's not, question whether it's really an "agile" team.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch2">
+      <meta>
+        <badge>Part I - Chapter 2</badge>
+        <badge>Principles</badge>
+      </meta>
+      <title>Ten Principles for Agile Testers</title>
+
+      <section id="s2-1">
+        <h2>2.1 The Agile Testing Mind-Set</h2>
+        <paragraph>An agile tester doesn't see herself as a quality police officer. She's ready to gather and share information, help customers express requirements, and provide feedback on progress.</paragraph>
+        <list type="ul">
+          <item><strong>Customer-focused</strong> — sees the system from the user's viewpoint</item>
+          <item><strong>Results-oriented</strong> — passionate about delivering business value</item>
+          <item><strong>Craftsman-like</strong> — takes pride in quality work</item>
+          <item><strong>Collaborative</strong> — works with everyone on the team</item>
+          <item><strong>Eager to learn</strong> — continually grows professionally</item>
+          <item><strong>Creative</strong> — open to ideas, willing to take on any task</item>
+        </list>
+        <paragraph><em>"Without the attitude, the skill is nothing."</em> — Janet Gregory</paragraph>
+      </section>
+
+      <section id="s2-2">
+        <h2>2.2 The Ten Principles</h2>
+
+        <key-box>
+          <heading>1. Provide Continuous Feedback</heading>
+          <paragraph>The tester's role as "information provider" is inherently valuable. Help the product owner articulate requirements as examples and tests. Run tests early and often for meaningful feedback. Use big visible charts to display progress.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>2. Deliver Value to the Customer</heading>
+          <paragraph>Focus on delivering the most critical functionality first. Identify the "thin slice" of necessary functionality, complete those tasks first, then flesh out the rest. Avoid scope creep — an innocent request can add a lot of complexity.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>3. Enable Face-to-Face Communication</heading>
+          <paragraph>Use the <strong>"Power of Three"</strong> rule: all discussions about a feature need a programmer, a tester, and the product owner. Testers help customers and developers achieve a common language. Use examples to develop this shared language.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>4. Have Courage</heading>
+          <paragraph>Courage to fail fast and learn. Courage to let others make mistakes. Courage to ask for help. Courage to climb out of your silo and join team responsibility for success or failure.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>5. Keep It Simple</heading>
+          <paragraph>Do the simplest thing that could possibly work. Test "just enough" with the lightest-weight tools. Push tests to the lowest level possible for fast feedback. Time-box exploratory testing side trips.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>6. Practice Continuous Improvement</heading>
+          <paragraph>Participate in retrospectives. Keep an "impediment backlog." Try new tools and practices. Short iterations make it easy to experiment. Learn new skills — attend user groups, read articles, join mailing lists.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>7. Respond to Change</heading>
+          <paragraph>Welcome change even when it's uncomfortable. Automated testing is the key to handling changing requirements. No agile team will succeed doing only manual testing.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>8. Self-Organize</heading>
+          <paragraph>The team creates its own approach and commits to it. When the team creates the plan, members adopt a new attitude toward testing. The highest-priority issues are problems for the whole team to solve.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>9. Focus on People</heading>
+          <paragraph>Projects succeed when good people are allowed to do their best work. Agile teams give all members equal weight. Testing knowledge is one component of the team's ability to deliver value.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>10. Enjoy</heading>
+          <paragraph>Working on a collaborative team where everyone takes responsibility for quality is a tester's Utopia. Agile development rewards the agile tester's passion for her work.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s2-3">
+        <h2>2.3 How Agile Testers Add Value</h2>
+        <list type="ul">
+          <item>Think from both stakeholder and technical perspectives</item>
+          <item>Help customers articulate requirements as tests</item>
+          <item>Raise questions that flush out hidden assumptions</item>
+          <item>Consider non-functional requirements (performance, security, reliability)</item>
+          <item>Keep the testing approach simple and lightweight</item>
+          <item>Verify minimum testing was completed by end of iteration</item>
+        </list>
+
+        <key-box>
+          <heading>Peril: Not Being Part of the Team</heading>
+          <paragraph>If you're not invited to planning sessions, stand-ups, or design meetings — or if you attend but don't speak up — your team is at risk. Hidden assumptions go undetected, ripple effects are missed, and communication breaks down. <strong>Invite yourself</strong> to meetings, sit near developers, pair test, and make yourself indispensable.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- PART II: ORGANIZATIONAL CHALLENGES                            -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch3">
+      <meta>
+        <badge>Part II - Chapter 3</badge>
+        <badge>Culture</badge>
+      </meta>
+      <title>Cultural Challenges</title>
+
+      <section id="s3-1">
+        <h2>3.1 Organizational Culture</h2>
+        <paragraph>Organizational culture is defined by its values, norms, and assumptions. It governs how people communicate, interrelate, and make decisions. Culture too frequently is not considered when implementing agile, leaving people wondering why it didn't work.</paragraph>
+
+        <h4>Quality Philosophy</h4>
+        <list type="ul">
+          <item>Does the organization tolerate poor quality or value it?</item>
+          <item>If any one group has assumed ownership of quality, they must learn to share it</item>
+          <item>Whole-team ownership of quality requires a mind shift from "owning" to "participating"</item>
+        </list>
+
+        <h4>Sustainable Pace</h4>
+        <paragraph>Work at a consistent pace that sustains constant velocity. A 40-hour week is normal for XP teams. If overtime is needed, the <strong>whole team</strong> should work extra, not just testers.</paragraph>
+
+        <h4>Customer Relationships</h4>
+        <paragraph>Move from vendor-supplier to <strong>partnership</strong>. Agile depends on close customer involvement. Have representative domain experts while keeping all stakeholders informed.</paragraph>
+      </section>
+
+      <section id="s3-2">
+        <h2>3.2 Barriers to Agile Adoption by Test/QA Teams</h2>
+        <table>
+          <row><cell>Barrier</cell><cell>Description</cell></row>
+          <row><cell><strong>Loss of Identity</strong></cell><cell>Fear of losing QA identity, job security, support structure when dispersed into dev teams</cell></row>
+          <row><cell><strong>Additional Roles</strong></cell><cell>Missing specialists or expertise key to success; need time and training to understand new roles</cell></row>
+          <row><cell><strong>Lack of Training</strong></cell><cell>Testers put into dev units without training — many quit within months</cell></row>
+          <row><cell><strong>Not Understanding Agile</strong></cell><cell>"Mini-waterfall" — squeezing traditional SDLC phases into short iterations; same problems, faster</cell></row>
+          <row><cell><strong>Past Experience</strong></cell><cell>"Methodology du jour" fatigue; reverting to bad habits under stress</cell></row>
+          <row><cell><strong>Cultural Differences</strong></cell><cell>Each role transitions from a different perspective; need rules and guidelines to communicate</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Tester Bill of Rights</heading>
+          <list type="check">
+            <item>Right to bring up testing, quality, and process issues at any time</item>
+            <item>Right to ask questions and receive timely answers</item>
+            <item>Right to ask for and receive help from anyone on the project</item>
+            <item>Right to estimate testing tasks included in story estimates</item>
+            <item>Right to the tools needed to perform testing tasks</item>
+            <item>Right to expect the entire team to be responsible for quality</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s3-3">
+        <h2>3.3 Introducing Change</h2>
+        <list type="ul">
+          <item><strong>Talk about fears</strong> — use retrospectives; teach that it's acceptable to be fearful</item>
+          <item><strong>Give team ownership</strong> — let the team customize its approach; self-organizing teams make better plans</item>
+          <item><strong>Celebrate success</strong> — acknowledge every achievement, however small</item>
+        </list>
+
+        <h4>Change Doesn't Come Easy — Tips</h4>
+        <list type="ul">
+          <item><strong>Be patient</strong> — help the team make baby steps; focus on tiny positive increments</item>
+          <item><strong>Let them feel pain</strong> — when suggestions are rebuffed and the team fails, bring them up again</item>
+          <item><strong>Build credibility</strong> — show value by going to programmers with issues directly, not via bug reports</item>
+          <item><strong>Professional development</strong> — learn new tools, languages, attend conferences</item>
+          <item><strong>Beware quality police mentality</strong> — be a collaborator, not an enforcer</item>
+          <item><strong>Vote with your feet</strong> — if nothing works despite best efforts, find a better team</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch4">
+      <meta>
+        <badge>Part II - Chapter 4</badge>
+        <badge>Team Structure</badge>
+      </meta>
+      <title>Team Logistics</title>
+
+      <section id="s4-1">
+        <h2>4.1 Team Structure</h2>
+
+        <h4>Independent QA Teams vs. Integrated Teams</h4>
+        <paragraph>Teams often confuse "independent" with "separate." Separate reporting, budgets, and processes create division, friction, and an "us vs. them" attitude. Instead, think of a <strong>community of testers</strong> — a learning organization for career development and sharing ideas, while testers are integrated into project teams.</paragraph>
+
+        <key-box>
+          <heading>Integration Best Practices</heading>
+          <list type="check">
+            <item>Testers need training on pair testing, working with incomplete requirements, and automation</item>
+            <item>It can take up to six months for testers to feel confident with the new process</item>
+            <item>Pairing programmers and testers improves communication about product quality</item>
+            <item>One budget, one schedule — no "testing time" to cut if functionality isn't finished</item>
+            <item>Testing tasks must be given the same attention as coding tasks</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s4-2">
+        <h2>4.2 Resources and Hiring</h2>
+
+        <h4>Tester-Developer Ratio</h4>
+        <paragraph>There is <strong>no "right" ratio</strong>. It depends on application complexity, tester skill set, and tools used. Ratios from 1:20 to 1:1 have all worked. Rather than focus on a ratio, evaluate the testing skills needed and find appropriate resources.</paragraph>
+
+        <h4>Hiring an Agile Tester</h4>
+        <list type="ul">
+          <item>Attitude is more important than specific technical skills</item>
+          <item>Look for: collaboration, exploratory testing, scripting experience, self-organizing ability</item>
+          <item>Screen out "quality police" mentality</item>
+          <item>Passion for learning is paramount</item>
+          <item>Post in less obvious places (agile user groups, language mailing lists)</item>
+        </list>
+      </section>
+
+      <section id="s4-3">
+        <h2>4.3 Building a Team</h2>
+        <list type="ul">
+          <item><strong>Self-organizing teams</strong> make the best progress when empowered to solve their own problems</item>
+          <item><strong>Every member has equal value</strong> — testers must be invited to all meetings; if forgotten, invite yourself</item>
+          <item><strong>Performance and rewards</strong> should promote team collaboration, not undermine it</item>
+          <item><strong>Celebrate every success</strong> — gold stars, high-fives, team lunches</item>
+          <item>Co-locate teams when possible; use candy dishes and creative approaches to bridge physical gaps</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch5">
+      <meta>
+        <badge>Part II - Chapter 5</badge>
+        <badge>Processes</badge>
+      </meta>
+      <title>Transitioning Typical Processes</title>
+
+      <section id="s5-1">
+        <h2>5.1 Metrics</h2>
+
+        <h4>Lean Measurements</h4>
+        <list type="ul">
+          <item><strong>Cycle time</strong> — time from concept to cash; focus on repeatedly and reliably delivering value</item>
+          <item><strong>Financial return</strong> — measure ROI to ensure best value delivery</item>
+          <item><strong>Customer delight</strong> — simple ways to measure whether customers are delighted</item>
+        </list>
+
+        <h4>Good Uses of Metrics</h4>
+        <list type="check">
+          <item>As guideposts — telling the team when it's getting off track or on the right track</item>
+          <item>To track milestones toward team goals</item>
+          <item>As a motivating force (e.g., celebrating test count milestones)</item>
+          <item>Big visible charts are the most effective way to display metrics</item>
+        </list>
+
+        <h4>What NOT to Do</h4>
+        <list type="ul">
+          <item>Don't use metrics to judge individual or team performance</item>
+          <item>Don't measure for the sake of producing numbers</item>
+          <item>Lines of code, defect counts per person — these can be twisted into any interpretation</item>
+          <item>Figure each metric's ROI: does the effort of collecting justify the value?</item>
+        </list>
+      </section>
+
+      <section id="s5-2">
+        <h2>5.2 Defect Tracking</h2>
+
+        <compare>
+          <card type="pos">
+            <heading>Reasons to Use a DTS</heading>
+            <list type="ul">
+              <item>Convenience — details, screen prints, supplemental docs in one place</item>
+              <item>Knowledge base — look up old issues and their resolutions</item>
+              <item>Intermittent bugs — capture investigation progress over time</item>
+              <item>Large/distributed teams — shared visibility across teams</item>
+              <item>Customer support — track what was fixed in each release</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Reasons to Avoid a DTS</heading>
+            <list type="ul">
+              <item>Doesn't promote direct communication between programmers and testers</item>
+              <item>Writing detailed steps is time-consuming waste</item>
+              <item>Defects become inventory — a "secret backlog"</item>
+              <item>How much easier to just talk to the programmer and show the bug</item>
+            </list>
+          </card>
+        </compare>
+
+        <key-box>
+          <heading>Keep Your Focus</heading>
+          <paragraph>The main target is delivering the best quality product with value to the business. If talking and fixing right away works, do that. If you need a DTS for analysis, use it. Whatever works for your <strong>whole team</strong>.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s5-3">
+        <h2>5.3 Test Planning</h2>
+        <paragraph><strong>Test Strategy</strong> = long-term, static document that seldom changes. Covers overall test approach: practices, automation, environments, tools. Good for compliance and onboarding.</paragraph>
+        <paragraph><strong>Test Plan</strong> = unique to each project. The power of planning is identifying issues, dependencies, and risks — not producing a document. Whether you create a document or not, the planning must be done.</paragraph>
+        <paragraph>Traceability in agile: build functionality in tiny steps, work closely together, test each story as it's coded. Link source code check-in comments to tests or requirements. Tools like FitNesse integrate tests directly with requirements.</paragraph>
+      </section>
+
+      <section id="s5-4">
+        <h2>5.4 Existing Processes and Models</h2>
+        <paragraph>Audits (SAS 70, SOX), CMMI, and ITIL <strong>can coexist</strong> with agile. Write story cards for audit support activities. Use retrospectives for constant process improvement (maps to CMMI). Separate measurement goals from means to improve those measurements.</paragraph>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- PART III: THE AGILE TESTING QUADRANTS                        -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch6">
+      <meta>
+        <badge>Part III - Chapter 6</badge>
+        <badge>Core Framework</badge>
+      </meta>
+      <title>The Purpose of Testing — Agile Testing Quadrants</title>
+
+      <section id="s6-1">
+        <h2>6.1 The Four Quadrants (Brian Marick)</h2>
+        <paragraph>The quadrant numbering does <strong>not</strong> imply order of execution. Timing depends on project risks, customer goals, legacy vs. greenfield, and resource availability.</paragraph>
+
+        <table>
+          <row><cell>Quadrant</cell><cell>Purpose</cell><cell>Orientation</cell><cell>Automation</cell></row>
+          <row><cell><strong>Q1</strong></cell><cell>Support the team (drive design)</cell><cell>Technology-facing</cell><cell>Automated</cell></row>
+          <row><cell><strong>Q2</strong></cell><cell>Support the team (drive features)</cell><cell>Business-facing</cell><cell>Automated &amp; Manual</cell></row>
+          <row><cell><strong>Q3</strong></cell><cell>Critique the product</cell><cell>Business-facing</cell><cell>Manual</cell></row>
+          <row><cell><strong>Q4</strong></cell><cell>Critique the product</cell><cell>Technology-facing</cell><cell>Tools</cell></row>
+        </table>
+      </section>
+
+      <section id="s6-2">
+        <h2>6.2 Tests that Support the Team (Q1 &amp; Q2)</h2>
+
+        <h4>Quadrant 1 — Technology-Facing</h4>
+        <list type="ul">
+          <item>Unit tests and component tests via TDD</item>
+          <item>Automated with xUnit family tools</item>
+          <item>Measure internal quality of code</item>
+          <item>Run with every code check-in for instant feedback</item>
+          <item>Not intended for customer use</item>
+        </list>
+
+        <h4>Quadrant 2 — Business-Facing</h4>
+        <list type="ul">
+          <item>Define external quality and desired features</item>
+          <item>Derived from customer examples; written in domain language</item>
+          <item>Each test verifies a business satisfaction condition</item>
+          <item>Most should be automated for quick feedback</item>
+          <item>Includes mock-ups and wireframes for GUI validation</item>
+        </list>
+      </section>
+
+      <section id="s6-3">
+        <h2>6.3 Tests that Critique the Product (Q3 &amp; Q4)</h2>
+
+        <h4>Quadrant 3 — Business-Facing</h4>
+        <list type="ul">
+          <item>Emulate how a real user would work the application</item>
+          <item>Exploratory testing, usability testing, scenario testing, UAT</item>
+          <item>Manual testing that only a human can do</item>
+          <item>Many of the most serious bugs are found here</item>
+        </list>
+
+        <h4>Quadrant 4 — Technology-Facing</h4>
+        <list type="ul">
+          <item>Performance, load, stress, security, scalability, "ility" testing</item>
+          <item>May require specialized tools and expertise</item>
+          <item>Should be considered at every step, not left until the end</item>
+          <item>Often more important than functionality (e.g., 1-minute response time kills UX)</item>
+        </list>
+      </section>
+
+      <section id="s6-4">
+        <h2>6.4 Knowing When a Story Is Done</h2>
+        <paragraph>Use all four quadrants as a checklist. Use "stock" cards on the story board (unit test card, end-to-end card, security card, UI review card) to ensure all types are considered. The combination of tests from all four quadrants lets the team know when each feature has met the customer's criteria.</paragraph>
+
+        <key-box>
+          <heading>Managing Technical Debt</heading>
+          <paragraph>Technical debt builds up when teams take shortcuts, skip tests, or hack quick fixes. Each quadrant plays a role in keeping it manageable. By minimizing debt, a team has time and resources for quality testing.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>Context-Driven Testing Principles</heading>
+          <list type="check">
+            <item>The value of any practice depends on its context</item>
+            <item>Good practices in context, but no best practices</item>
+            <item>People working together are the most important part of any project</item>
+            <item>Projects unfold in often unpredictable ways</item>
+            <item>The product is a solution — if the problem isn't solved, the product doesn't work</item>
+            <item>Good software testing is a challenging intellectual process</item>
+          </list>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch7">
+      <meta>
+        <badge>Part III - Chapter 7</badge>
+        <badge>Quadrant 1</badge>
+      </meta>
+      <title>Technology-Facing Tests that Support the Team</title>
+
+      <section id="s7-1">
+        <h2>7.1 Purpose and Foundation</h2>
+        <paragraph>Without TDD, automated unit/component tests, and continuous integration, it's hard to deliver value in a timely manner. All other quadrants can't make up for inadequacies here.</paragraph>
+        <list type="ul">
+          <item>TDD is more about <strong>design</strong> than testing — code developed test-first is naturally designed for testability</item>
+          <item>Minimizes bugs that must be caught later</item>
+          <item>When post-development testing is occupied with unit-level bugs, there's no time for serious business issues</item>
+        </list>
+      </section>
+
+      <section id="s7-2">
+        <h2>7.2 Benefits</h2>
+        <list type="check">
+          <item><strong>Go faster and do more</strong> — speed is a long-term side effect of high internal quality</item>
+          <item><strong>Make testers' jobs easier</strong> — testers waste little time finding low-level bugs; can focus on exploratory testing and higher-level scenarios</item>
+          <item><strong>Design for testability</strong> — layered architectures, ports and adapters pattern, mock objects</item>
+          <item><strong>Timely feedback</strong> — continuous build should finish within 10 minutes</item>
+        </list>
+
+        <key-box>
+          <heading>Speeding Up Builds</heading>
+          <list type="ul">
+            <item>Use fake/mock objects instead of actual databases at unit level</item>
+            <item>Move longer-running tests to a secondary build process</item>
+            <item>Run tests in parallel</item>
+            <item>Use standard, unchanging test data sets</item>
+            <item>Distribute tasks across multiple build machines</item>
+            <item>Upgrade hardware and software</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s7-3">
+        <h2>7.3 Legacy Systems</h2>
+        <list type="ul">
+          <item><strong>Strangler application</strong> — code new stories test-first in new architecture while maintaining old system; gradually convert</item>
+          <item><strong>Legacy code rescue</strong> — Michael Feathers' techniques from <em>Working Effectively with Legacy Code</em></item>
+          <item>Test "minutes afterward" when test-first isn't possible</item>
+          <item>Let agile principles guide your approach to enabling automated testing</item>
+        </list>
+      </section>
+
+      <section id="s7-4">
+        <h2>7.4 What If the Team Doesn't Do These Tests?</h2>
+        <list type="ul">
+          <item><strong>Testers</strong>: use change patterns from <em>Fearless Change</em> — "Ask for Help," "Brown Bag" sessions, "Guru on Your Side"</item>
+          <item><strong>Managers</strong>: make quality the goal; provide expert training; budget time for refactoring and tool upgrades</item>
+          <item><strong>Team</strong>: raise issues at retrospectives; suggest experimenting for a few iterations</item>
+          <item>Don't have testers write unit tests — TDD is a design activity for the person writing the code</item>
+        </list>
+      </section>
+
+      <section id="s7-5">
+        <h2>7.5 Essential Toolkit</h2>
+        <table>
+          <row><cell>Category</cell><cell>Examples</cell></row>
+          <row><cell>Source Code Control</cell><cell>Git, SVN, Perforce — essential for any development; include test scripts in version control</cell></row>
+          <row><cell>IDEs</cell><cell>IntelliJ, Eclipse, VS Code — support refactoring, TDD, integration with source control</cell></row>
+          <row><cell>Build Tools</cell><cell>Ant, Maven, Gradle, Nant — create deployable packages</cell></row>
+          <row><cell>Build Automation (CI)</cell><cell>Jenkins, Hudson, Bamboo, TeamCity — run tests on every check-in</cell></row>
+          <row><cell>Unit Test Tools</cell><cell>JUnit, NUnit, pytest, RSpec — language-specific xUnit family</cell></row>
+        </table>
+      </section>
+    </chapter>
+
+    <chapter id="ch8">
+      <meta>
+        <badge>Part III - Chapter 8</badge>
+        <badge>Quadrant 2</badge>
+      </meta>
+      <title>Business-Facing Tests that Support the Team</title>
+
+      <section id="s8-1">
+        <h2>8.1 Driving Development with Business-Facing Tests</h2>
+        <paragraph>Stories are only a starting point for a conversation. Business-facing tests address requirements, provide the big picture and enough detail to guide coding, and express requirements in a language both customer and dev teams understand.</paragraph>
+        <paragraph>The formula: <strong>Story + Conversation + Examples = Tests that drive coding</strong></paragraph>
+      </section>
+
+      <section id="s8-2">
+        <h2>8.2 Eliciting Requirements</h2>
+        <h4>Ask Questions</h4>
+        <list type="ul">
+          <item>What problem are we trying to solve?</item>
+          <item>How will the story bring value to the business?</item>
+          <item>Who are the end users? What value will they get?</item>
+          <item>What's the worst thing that could happen? (generates risk-based tests)</item>
+          <item>What's the best thing that could happen? (generates happy path tests)</item>
+          <item>How do we know we're done?</item>
+        </list>
+
+        <h4>Use Examples</h4>
+        <paragraph>Ask the customer to draw pictures, provide concrete data, show how features should look. Examples form the basis for tests. Capture examples in executable format.</paragraph>
+
+        <h4>Conditions of Satisfaction</h4>
+        <list type="ul">
+          <item>Business satisfaction conditions</item>
+          <item>Impact on existing functions (website, documents, reports)</item>
+          <item>Legal considerations</item>
+          <item>Data migration needs</item>
+          <item>Internal and external communications</item>
+        </list>
+      </section>
+
+      <section id="s8-3">
+        <h2>8.3 Thin Slices, Small Chunks</h2>
+        <paragraph>Start with the <strong>"thin slice"</strong> (steel thread, tracer bullet) — the most stripped-down happy path from end to end. After it works, add layers of functionality incrementally.</paragraph>
+        <paragraph>The pattern: <strong>write tests → write code → run tests → learn</strong>, building on each pass.</paragraph>
+
+        <key-box>
+          <heading>Ripple Effects</heading>
+          <paragraph>Each story drops like a stone into the application. Make a list of all parts of the system that might be affected. Check each "test point" for additional requirements and test cases. A small story might have wide-ranging impact.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="s8-4">
+        <h2>8.4 Tests Mitigate Risk</h2>
+        <list type="ul">
+          <item>Start with the happy path, then define highest-risk scenarios</item>
+          <item>Ask programmers about post conditions, fragile code areas, and system interactions</item>
+          <item>Don't get so involved in detailed test cases that you lose the big picture</item>
+          <item>Time-box the time spent writing tests before coding starts</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch9">
+      <meta>
+        <badge>Part III - Chapter 9</badge>
+        <badge>Q2 Toolkit</badge>
+      </meta>
+      <title>Toolkit for Business-Facing Tests</title>
+
+      <section id="s9-1">
+        <h2>9.1 Tools to Elicit Requirements</h2>
+        <table>
+          <row><cell>Tool</cell><cell>Purpose</cell></row>
+          <row><cell><strong>Checklists</strong></cell><cell>Product owner story checklists covering satisfaction conditions, impacts, legal, data migration</cell></row>
+          <row><cell><strong>Mind Maps</strong></cell><cell>Brainstorm ideas, explore feature implications on whiteboard or paper</cell></row>
+          <row><cell><strong>Spreadsheets</strong></cell><cell>Define examples using tools familiar to business domain (especially financial calculations)</cell></row>
+          <row><cell><strong>Mock-ups</strong></cell><cell>Paper prototypes, whiteboard drawings, modified existing screenshots</cell></row>
+          <row><cell><strong>Flow Diagrams</strong></cell><cell>Capture workflows and decision trees; tie multiple stories together</cell></row>
+          <row><cell><strong>Wikis</strong></cell><cell>Share test cases, decisions, mock-ups; co-locate narrative and executable tests</cell></row>
+        </table>
+      </section>
+
+      <section id="s9-2">
+        <h2>9.2 Tools for Automating Tests</h2>
+
+        <h4>Below the GUI</h4>
+        <list type="ul">
+          <item><strong>Fit / FitNesse</strong> — customers specify expectations in tables; programmers write fixtures; color-coded results</item>
+          <item><strong>BDD tools</strong> (easyb, RSpec, JBehave) — use "should" language; executable documentation in domain language</item>
+          <item><strong>xUnit tools</strong> — some teams use JUnit/NUnit for business-facing tests with custom frameworks on top</item>
+        </list>
+
+        <h4>Through the GUI</h4>
+        <list type="ul">
+          <item><strong>Selenium</strong> — HTML tables or coded in multiple languages; runs in real browsers</item>
+          <item><strong>Watir</strong> — Ruby library for automating browsers; supports DSL creation</item>
+          <item><strong>Canoo WebTest</strong> — XML-specified steps; no logic means you don't have to test the test</item>
+          <item><strong>Home-brewed frameworks</strong> — built on open source tools; tailored to exact project needs</item>
+        </list>
+      </section>
+
+      <section id="s9-3">
+        <h2>9.3 Strategies for Writing Tests</h2>
+        <list type="check">
+          <item><strong>Build incrementally</strong> — start with simple happy path, add complexity after it passes</item>
+          <item><strong>Keep tests passing</strong> — once a test passes, it shouldn't fail unless requirements change; fix broken builds immediately</item>
+          <item><strong>Use design patterns</strong> — Build/Operate/Check, time-based, event-based patterns</item>
+          <item><strong>Keyword and data-driven</strong> — pre-defined action words + data tables for maintainable, reusable tests</item>
+          <item><strong>One business rule per test</strong> — confine each test to one condition</item>
+        </list>
+
+        <key-box>
+          <heading>Testability</heading>
+          <paragraph>Code design and test design are complementary and interdependent. You can't write tests without testable code, and you can't write code without well-designed tests. Always consider coding and testing together.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch10">
+      <meta>
+        <badge>Part III - Chapter 10</badge>
+        <badge>Quadrant 3</badge>
+      </meta>
+      <title>Business-Facing Tests that Critique the Product</title>
+
+      <section id="s10-1">
+        <h2>10.1 Critiquing the Product</h2>
+        <paragraph>No matter how hard we try to get it right, people make mistakes. Critiquing is constructive — reviewing software to learn how to improve it. This is primarily <strong>manual testing that only a human can do</strong>.</paragraph>
+        <paragraph>You won't have time for Q3 tests if you haven't automated Q1 and Q2.</paragraph>
+      </section>
+
+      <section id="s10-2">
+        <h2>10.2 Key Techniques</h2>
+
+        <h4>Demonstrations</h4>
+        <list type="ul">
+          <item>Show customers what you're developing early and often</item>
+          <item>End-of-iteration demos let business users revise priorities</item>
+          <item>Informal demos during development are even more productive</item>
+        </list>
+
+        <h4>Scenario Testing</h4>
+        <list type="ul">
+          <item>"Soap opera testing" — real-life scenarios, exaggerated and compressed into quick sequences</item>
+          <item>Use realistic data from customers; trace data flow through the system</item>
+          <item>Flow diagrams help identify common scenarios and test end-to-end</item>
+        </list>
+
+        <h4>Exploratory Testing (ET)</h4>
+        <paragraph>Simultaneous test design, execution, and learning. Not ad hoc — it's a sophisticated, thoughtful approach. Combines learning, test design, and test execution into one approach.</paragraph>
+        <list type="check">
+          <item>Starts with a charter defining what to explore</item>
+          <item>Requires critical thinking, interpreting results, following "smells"</item>
+          <item>Take notes for reproducibility</item>
+          <item>Emphasizes variation over repetition</item>
+          <item>Session-based testing provides structure with time-boxed sessions and charters</item>
+          <item>Reveals areas needing more automated tests and generates new story ideas</item>
+        </list>
+
+        <h4>Usability Testing</h4>
+        <list type="ul">
+          <item>Navigation, tabbing order, workflow intuitiveness</item>
+          <item>Wizard of Oz testing — paper prototypes with a human "playing the computer"</item>
+          <item>Check out the competition for comparison</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch11">
+      <meta>
+        <badge>Part III - Chapter 11</badge>
+        <badge>Quadrant 4</badge>
+      </meta>
+      <title>Critiquing the Product Using Technology-Facing Tests</title>
+
+      <section id="s11-1">
+        <h2>11.1 "ility" Testing</h2>
+        <table>
+          <row><cell>Quality Attribute</cell><cell>Key Considerations</cell></row>
+          <row><cell><strong>Security</strong></cell><cell>Test early; threat modeling, penetration testing, authentication, authorization, data protection</cell></row>
+          <row><cell><strong>Maintainability</strong></cell><cell>Code readability, documentation, modular design, test coverage</cell></row>
+          <row><cell><strong>Interoperability</strong></cell><cell>Integration with other systems, API compatibility, data exchange formats</cell></row>
+          <row><cell><strong>Compatibility</strong></cell><cell>Browser versions, OS platforms, device types, backward compatibility</cell></row>
+          <row><cell><strong>Reliability</strong></cell><cell>Uptime requirements, failure recovery, concurrent user handling</cell></row>
+          <row><cell><strong>Installability</strong></cell><cell>Installation scripts, upgrades, rollback procedures, configuration</cell></row>
+        </table>
+      </section>
+
+      <section id="s11-2">
+        <h2>11.2 Performance, Load, and Scalability</h2>
+        <list type="ul">
+          <item><strong>Scalability</strong> — can the architecture handle growth? Test early with production-level loads</item>
+          <item><strong>Performance and load</strong> — establish baselines; automate with tools (JMeter, etc.)</item>
+          <item>Know nonfunctional requirements before coding — easier to design with them in mind</item>
+          <item>Don't leave load/usability testing to the end when it might be too late</item>
+          <item>Use TDD to check nonfunctional requirements (e.g., capacity) for quick feedback</item>
+        </list>
+
+        <key-box>
+          <heading>Test Environments</heading>
+          <paragraph>Performance tests need environments that mirror production as closely as possible. Memory management, database performance, and network conditions all affect results.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch12">
+      <meta>
+        <badge>Part III - Chapter 12</badge>
+        <badge>Integration</badge>
+      </meta>
+      <title>Summary of Testing Quadrants</title>
+
+      <section id="s12-1">
+        <h2>12.1 Putting It All Together</h2>
+        <paragraph>A system test example demonstrates how all quadrants work together in practice:</paragraph>
+        <list type="check">
+          <item><strong>Q1</strong>: Unit tests (TDD), component tests — automated, fast feedback</item>
+          <item><strong>Q2</strong>: Acceptance tests from customer examples — automated functional tests, API tests, web services tests</item>
+          <item><strong>Q3</strong>: Exploratory testing, scenario testing, data feed testing, end-to-end tests, UAT, documentation review</item>
+          <item><strong>Q4</strong>: Reliability, performance testing — tools and automation</item>
+        </list>
+
+        <key-box>
+          <heading>Using the Quadrants</heading>
+          <list type="ul">
+            <item>Use as a checklist to ensure all testing bases are covered</item>
+            <item>Document test code and report results clearly</item>
+            <item>Examine: Are we using unit tests for design? Do business-facing tests match expectations? Are we budgeting time for exploratory testing? Do we consider performance and security early enough?</item>
+            <item>Experiment and use retrospectives to keep improving</item>
+          </list>
+        </key-box>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- PART IV: AUTOMATION                                           -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch13">
+      <meta>
+        <badge>Part IV - Chapter 13</badge>
+        <badge>Automation Rationale</badge>
+      </meta>
+      <title>Why Automate and What Holds Us Back</title>
+
+      <section id="s13-1">
+        <h2>13.1 Why Automate?</h2>
+        <list type="check">
+          <item><strong>Manual testing takes too long</strong> — can't keep up with short iterations</item>
+          <item><strong>Manual processes are error prone</strong> — humans make mistakes in repetitive tasks</item>
+          <item><strong>Frees people for their best work</strong> — testers focus on exploratory and high-value testing</item>
+          <item><strong>Automated regression tests provide a safety net</strong> — courage to refactor and change</item>
+          <item><strong>Early and frequent feedback</strong> — know immediately when something breaks</item>
+          <item><strong>Tests are great documentation</strong> — executable, always up-to-date specification</item>
+          <item><strong>ROI and payback</strong> — initial investment pays off over many iterations</item>
+        </list>
+      </section>
+
+      <section id="s13-2">
+        <h2>13.2 Barriers to Automation</h2>
+        <table>
+          <row><cell>Barrier</cell><cell>Overcoming It</cell></row>
+          <row><cell>Programmer attitude — "Why automate?"</cell><cell>Show ROI; demonstrate time saved on regression</cell></row>
+          <row><cell>The "Hump of Pain" (learning curve)</cell><cell>Invest in training; pair with experienced automators</cell></row>
+          <row><cell>Initial investment</cell><cell>Start small; build incrementally; demonstrate value early</cell></row>
+          <row><cell>Code always in flux</cell><cell>Push tests to lower levels; use stable APIs</cell></row>
+          <row><cell>Legacy code</cell><cell>Strangler pattern; start with smoke tests; add coverage gradually</cell></row>
+          <row><cell>Fear</cell><cell>Start with simplest tests; celebrate early wins</cell></row>
+          <row><cell>Old habits</cell><cell>Use retrospectives; let team feel the pain of manual testing</cell></row>
+        </table>
+      </section>
+    </chapter>
+
+    <chapter id="ch14">
+      <meta>
+        <badge>Part IV - Chapter 14</badge>
+        <badge>Automation Strategy</badge>
+      </meta>
+      <title>An Agile Test Automation Strategy</title>
+
+      <section id="s14-1">
+        <h2>14.1 The Test Automation Pyramid</h2>
+        <paragraph>The pyramid guides the proportion of tests at each level:</paragraph>
+        <list type="ul">
+          <item><strong>Base (largest)</strong>: Unit and component tests — fast, cheap, numerous</item>
+          <item><strong>Middle</strong>: API/integration tests — test business logic without GUI</item>
+          <item><strong>Top (smallest)</strong>: GUI tests — slow, expensive, brittle but necessary</item>
+        </list>
+        <paragraph>Deviating from the pyramid increases cost and maintenance burden.</paragraph>
+      </section>
+
+      <section id="s14-2">
+        <h2>14.2 What to Automate</h2>
+
+        <compare>
+          <card type="pos">
+            <heading>Automate</heading>
+            <list type="ul">
+              <item>CI builds and deploys</item>
+              <item>Unit and component tests</item>
+              <item>API / web services tests</item>
+              <item>Tests behind the GUI</item>
+              <item>GUI smoke tests and critical paths</item>
+              <item>Load tests</item>
+              <item>Repetitive tasks</item>
+              <item>Data creation and setup</item>
+              <item>Comparisons (expected vs. actual)</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Don't Automate</heading>
+            <list type="ul">
+              <item>Usability testing — requires human judgment</item>
+              <item>Exploratory testing — requires human intellect</item>
+              <item>Tests that will never fail — waste of effort</item>
+              <item>One-off tests — ROI doesn't justify</item>
+            </list>
+          </card>
+        </compare>
+      </section>
+
+      <section id="s14-3">
+        <h2>14.3 Developing a Strategy</h2>
+        <list type="check">
+          <item><strong>Where does it hurt most?</strong> — automate the biggest pain points first</item>
+          <item><strong>Multi-layered approach</strong> — unit, API, GUI layers with appropriate tools at each</item>
+          <item><strong>Think about test design and maintenance</strong> — design patterns, DSL, modularity</item>
+          <item><strong>Choose the right tools</strong> — based on team skills, technology, budget, not the latest fad</item>
+          <item><strong>Keep it simple</strong> — simplest tests that verify functionality</item>
+          <item><strong>Whole-team approach</strong> — programmers help automate; testers help design</item>
+          <item><strong>Apply agile coding practices to tests</strong> — refactor, TDD for test code, code reviews</item>
+        </list>
+
+        <key-box>
+          <heading>Supplying Test Data</heading>
+          <list type="ul">
+            <item>Use data generation tools for test data</item>
+            <item>Avoid database access in unit tests — use mocks/fakes for speed</item>
+            <item>When database access is unavoidable, use dedicated test schemas with canonical data</item>
+            <item>Keep test data unchanging and canonical for reliable regression tests</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="s14-4">
+        <h2>14.4 Managing Automated Tests</h2>
+        <list type="ul">
+          <item><strong>Organize tests</strong> — by feature, layer, or test type; include in source code control</item>
+          <item><strong>Organize results</strong> — color-coded pass/fail; email notifications; big visible charts</item>
+          <item>Tests are code — apply the same standards: refactoring, reviews, version control</item>
+        </list>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- PART V: AN ITERATION IN THE LIFE OF A TESTER                 -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch15">
+      <meta>
+        <badge>Part V - Chapter 15</badge>
+        <badge>Release Planning</badge>
+      </meta>
+      <title>Tester Activities in Release or Theme Planning</title>
+
+      <section id="s15-1">
+        <h2>15.1 Sizing and Prioritizing Stories</h2>
+        <list type="ul">
+          <item>Testers contribute to story sizing by identifying testing complexity and effort</item>
+          <item>Consider testing implications when prioritizing: risk, dependencies, third-party involvement</item>
+          <item>Focus on value — what delivers the most business value first?</item>
+          <item>System-wide impact: think about how stories affect the larger application</item>
+        </list>
+      </section>
+
+      <section id="s15-2">
+        <h2>15.2 Test Planning for Releases</h2>
+        <list type="check">
+          <item>Types of testing needed (functional, performance, security, etc.)</item>
+          <item>Infrastructure requirements (test environments, test data)</item>
+          <item>Test results tracking and communication</item>
+          <item>Lightweight alternatives: test matrices, spreadsheets, whiteboards, automated test lists</item>
+        </list>
+
+        <key-box>
+          <heading>Visibility and Communication</heading>
+          <paragraph>Track test tasks and status on the story board. Communicate test results with big visible charts. Release metrics (burndown charts, test coverage) help the team and management gauge progress.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch16">
+      <meta>
+        <badge>Part V - Chapter 16</badge>
+        <badge>Preparation</badge>
+      </meta>
+      <title>Hit the Ground Running</title>
+
+      <section id="s16-1">
+        <h2>16.1 Be Proactive Before the Iteration</h2>
+        <list type="ul">
+          <item><strong>Advance clarity</strong> — help customers prepare examples and conditions of satisfaction before planning</item>
+          <item><strong>Customers speak with one voice</strong> — resolve conflicting requirements early</item>
+          <item><strong>Story size</strong> — help break stories into appropriate sizes</item>
+          <item><strong>Examples</strong> — gather examples that will become tests</item>
+          <item>Consider test strategies, prioritize defects, identify needed resources</item>
+        </list>
+
+        <key-box>
+          <heading>Benefits vs. Risks of Advance Preparation</heading>
+          <paragraph>Benefits: faster iteration start, fewer surprises, better estimates. Risks: wasted time if stories are re-prioritized. Distributed teams especially need extra feedback cycles before the iteration starts.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch17">
+      <meta>
+        <badge>Part V - Chapter 17</badge>
+        <badge>Iteration Planning</badge>
+      </meta>
+      <title>Iteration Kickoff</title>
+
+      <section id="s17-1">
+        <h2>17.1 Iteration Planning Activities</h2>
+        <list type="check">
+          <item>Learn story details — consider all viewpoints (business, end user, production support, programmer)</item>
+          <item>Write task cards — include testing tasks alongside coding tasks</item>
+          <item>Decide workload — what can the team realistically commit to?</item>
+          <item>Ensure stories are testable — if you can't test it, you can't call it done</item>
+        </list>
+      </section>
+
+      <section id="s17-2">
+        <h2>17.2 Collaborating on Tests</h2>
+        <list type="ul">
+          <item>Write high-level tests and examples with customers during planning</item>
+          <item>Review tests with customers to verify they capture desired behavior</item>
+          <item>Review tests with programmers to ensure they're automatable and aligned with code design</item>
+          <item>Test cases become living documentation of system behavior</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch18">
+      <meta>
+        <badge>Part V - Chapter 18</badge>
+        <badge>Core Work</badge>
+      </meta>
+      <title>Coding and Testing</title>
+
+      <section id="s18-1">
+        <h2>18.1 Driving Development</h2>
+        <list type="ul">
+          <item><strong>Start simple</strong> — test the happy path first, then add complexity</item>
+          <item><strong>Assess risk</strong> — identify variations, edge cases, and fragile areas</item>
+          <item><strong>Coding and testing progress together</strong> — not separate activities</item>
+          <item><strong>Power of Three</strong> — programmer, tester, and customer discuss each feature</item>
+          <item><strong>Focus on one story</strong> at a time</item>
+        </list>
+      </section>
+
+      <section id="s18-2">
+        <h2>18.2 Collaboration Practices</h2>
+        <list type="check">
+          <item><strong>Pair testing</strong> — tester and programmer test together at one workstation</item>
+          <item><strong>"Show Me"</strong> — demonstrate working features to customers early</item>
+          <item><strong>Talk to customers</strong> — clarify requirements as questions arise</item>
+          <item><strong>Understand the business</strong> — learn the customer's daily work</item>
+        </list>
+      </section>
+
+      <section id="s18-3">
+        <h2>18.3 Dealing with Bugs</h2>
+        <list type="ul">
+          <item><strong>Is it a defect or a feature?</strong> — discuss with the customer</item>
+          <item><strong>Zero bug tolerance</strong> — fix bugs found during the iteration immediately</item>
+          <item><strong>Decide which bugs to log</strong> — if shown to programmer and fixed right away, maybe no need</item>
+          <item><strong>Choose when to fix</strong> — critical bugs now; others as stories in the backlog</item>
+          <item>Technical debt accumulates when bugs are deferred</item>
+        </list>
+      </section>
+
+      <section id="s18-4">
+        <h2>18.4 Regression Tests and Metrics</h2>
+        <list type="ul">
+          <item><strong>Keep the build green</strong> — highest priority when a test fails</item>
+          <item><strong>Keep the build quick</strong> — address slowdowns immediately</item>
+          <item>Build the regression suite incrementally — add tests for each story</item>
+          <item>Check the "big picture" — don't forget system-wide testing</item>
+          <item>Iteration metrics: track progress with burndown charts, test pass rates, defect trends</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch19">
+      <meta>
+        <badge>Part V - Chapter 19</badge>
+        <badge>Iteration Close</badge>
+      </meta>
+      <title>Wrap Up the Iteration</title>
+
+      <section id="s19-1">
+        <h2>19.1 Iteration Demo</h2>
+        <paragraph>Demonstrate completed stories to stakeholders. Get feedback. This is a form of critiquing the product — business users see what was delivered and revise priorities.</paragraph>
+      </section>
+
+      <section id="s19-2">
+        <h2>19.2 Retrospectives</h2>
+        <list type="check">
+          <item><strong>Start, Stop, Continue</strong> — what should we start doing, stop doing, continue doing?</item>
+          <item>Focus on one or two improvements at a time</item>
+          <item>Improvement ideas become task cards for the next iteration</item>
+          <item>Testers raise testing-related issues for the whole team to address</item>
+          <item><strong>Celebrate successes</strong> — acknowledgment is important for change to stick</item>
+        </list>
+
+        <key-box>
+          <heading>Key Retrospective Practice</heading>
+          <paragraph>The team uses yesterday's experience to do a better job tomorrow. This is a way for the team to provide feedback to itself for continual improvement. Keep an impediment backlog for persistent issues.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch20">
+      <meta>
+        <badge>Part V - Chapter 20</badge>
+        <badge>Delivery</badge>
+      </meta>
+      <title>Successful Delivery</title>
+
+      <section id="s20-1">
+        <h2>20.1 The End Game</h2>
+        <list type="ul">
+          <item><strong>Plan enough time for testing</strong> — don't squeeze testing at the end</item>
+          <item>Test on a staging environment that mirrors production</item>
+          <item>Final nonfunctional testing (performance, security)</item>
+          <item>Integration with external applications</item>
+          <item>Data conversion and database updates</item>
+          <item>Installation testing</item>
+        </list>
+      </section>
+
+      <section id="s20-2">
+        <h2>20.2 Customer Testing and Release</h2>
+        <list type="ul">
+          <item><strong>UAT</strong> — customers workout new features; gather new story ideas</item>
+          <item><strong>Alpha/Beta testing</strong> — broader user feedback before general release</item>
+          <item><strong>Release acceptance criteria</strong> — define what "ready to ship" means</item>
+          <item>Communication with all stakeholders about what's included and what's outstanding</item>
+          <item>Understand impact to business — production support, training, documentation</item>
+        </list>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- PART VI: SUMMARY                                              -->
+    <!-- ============================================================ -->
+
+    <chapter id="ch21">
+      <meta>
+        <badge>Part VI - Chapter 21</badge>
+        <badge>Key Takeaways</badge>
+      </meta>
+      <title>Key Success Factors</title>
+
+      <section id="s21-1">
+        <h2>The Seven Key Success Factors</h2>
+
+        <key-box>
+          <heading>SF1: Use the Whole-Team Approach</heading>
+          <paragraph>Quality is everyone's responsibility. Testers, programmers, customers, and specialists collaborate constantly. Any team member can take on any testing task.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>SF2: Adopt an Agile Testing Mind-Set</heading>
+          <paragraph>Customer-focused, results-oriented, collaborative, eager to learn. Attitude counts more than skill. Drive development with tests, not documents.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>SF3: Automate Regression Testing</heading>
+          <paragraph>No agile team succeeds with only manual testing. Follow the test automation pyramid. Automate at the lowest level possible. Keep builds green and fast.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>SF4: Provide and Obtain Feedback</heading>
+          <paragraph>Continuous feedback drives the project forward. Fast builds, big visible charts, demos, retrospectives. The tester's role as information provider is central.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>SF5: Build a Foundation of Core Practices</heading>
+          <list type="check">
+            <item>Continuous integration with automated builds</item>
+            <item>Reliable test environments</item>
+            <item>Manage technical debt aggressively</item>
+            <item>Work incrementally — thin slices, small chunks</item>
+            <item>Coding and testing are part of one process</item>
+            <item>Synergy between practices — they reinforce each other</item>
+          </list>
+        </key-box>
+
+        <key-box>
+          <heading>SF6: Collaborate with Customers</heading>
+          <paragraph>Close involvement throughout each iteration. Help them express requirements as tests. Achieve advance clarity. One voice of the customer.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>SF7: Look at the Big Picture</heading>
+          <paragraph>Don't get lost in individual stories. Consider system-wide impact, ripple effects, nonfunctional requirements. Use all four testing quadrants as a checklist.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <!-- ============================================================ -->
+    <!-- AGENT SUMMARY — Practical Daily Work Application              -->
+    <!-- ============================================================ -->
+
+    <chapter id="agent-summary">
+      <meta>
+        <badge>Agent Summary</badge>
+        <badge>Practical Application</badge>
+      </meta>
+      <title>Agile Testing — Practical Daily Work Guide</title>
+
+      <section id="as-1">
+        <h2>Mind-Set Shifts for Daily Work</h2>
+        <list type="check">
+          <item><strong>Quality is a team sport</strong> — never say "that's the tester's job." Every team member owns quality. Raise testing issues in stand-ups and retrospectives.</item>
+          <item><strong>Attitude over skill</strong> — be collaborative, curious, and proactive. Sit with developers, invite yourself to meetings, ask questions constantly.</item>
+          <item><strong>Tests are specifications</strong> — write tests to define what the code should do, not just to verify it after the fact. Tests drive development.</item>
+          <item><strong>Embrace change</strong> — requirements will change. Automation is the safety net that makes change sustainable.</item>
+          <item><strong>Fail fast, learn faster</strong> — have courage to experiment. Short iterations give you frequent chances to evaluate and improve.</item>
+        </list>
+      </section>
+
+      <section id="as-2">
+        <h2>Practices to Apply Every Day</h2>
+
+        <key-box>
+          <heading>The Power of Three</heading>
+          <paragraph>For every feature discussion, include a <strong>programmer</strong>, a <strong>tester</strong>, and the <strong>product owner</strong>. This prevents hidden assumptions, missed requirements, and communication breakdowns. If you see two people discussing a feature, butt in.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>Thin Slices First</heading>
+          <paragraph>Always start with the simplest happy path that goes end-to-end. Get it working, then add complexity layer by layer. Pattern: <strong>write test → write code → run tests → learn → repeat</strong>.</paragraph>
+        </key-box>
+
+        <key-box>
+          <heading>Ask the Right Questions</heading>
+          <list type="ul">
+            <item>"What's the worst thing that could happen?" — identifies risks</item>
+            <item>"What's the best thing that could happen?" — defines the happy path</item>
+            <item>"How do we know we're done?" — establishes acceptance criteria</item>
+            <item>"What parts of the system does this story touch?" — reveals ripple effects</item>
+            <item>"What are the post conditions?" — uncovers hidden side effects</item>
+          </list>
+        </key-box>
+
+        <key-box>
+          <heading>Use the Quadrants as a Daily Checklist</heading>
+          <paragraph>For every story, ask: Do we have unit tests (Q1)? Business-facing tests (Q2)? Have we done exploratory testing (Q3)? Have we considered performance and security (Q4)? Use "stock" task cards on the board to remind the team.</paragraph>
+        </key-box>
+      </section>
+
+      <section id="as-3">
+        <h2>Automation Rules of Thumb</h2>
+        <list type="check">
+          <item><strong>Follow the pyramid</strong>: many unit tests, fewer integration/API tests, minimal GUI tests</item>
+          <item><strong>Push tests to the lowest level</strong> — if you can test at the API level, don't test through the GUI</item>
+          <item><strong>Builds must be fast</strong> — unit build under 10 minutes; if it creeps up, fix it immediately</item>
+          <item><strong>Never comment out a failing test</strong> — fix the build. "Tests are not temporary!"</item>
+          <item><strong>Tests are code</strong> — refactor them, review them, version control them</item>
+          <item><strong>Start automating today</strong> — even a simple smoke test suite adds enormous value</item>
+        </list>
+      </section>
+
+      <section id="as-4">
+        <h2>Communication and Collaboration</h2>
+        <list type="check">
+          <item><strong>Face-to-face over tools</strong> — walk to someone's desk instead of sending a message. Use candy dishes to attract developers.</item>
+          <item><strong>Show, don't tell</strong> — demo working features to customers early and often. Do informal demos mid-iteration.</item>
+          <item><strong>Pair test</strong> — sit with a programmer to reproduce bugs faster than writing a defect report</item>
+          <item><strong>Use examples as a common language</strong> — spreadsheets, whiteboard drawings, mock-ups bridge the gap between business and technical teams</item>
+          <item><strong>Big visible charts</strong> — display test counts, build status, burndown charts where everyone can see</item>
+        </list>
+      </section>
+
+      <section id="as-5">
+        <h2>Dealing with Bugs and Technical Debt</h2>
+        <list type="ul">
+          <item><strong>Zero bug tolerance within the iteration</strong> — if you find a bug during development, fix it now</item>
+          <item><strong>Talk before logging</strong> — show the bug to the programmer directly; write a unit test to reproduce it; fix it. Skip the DTS when possible.</item>
+          <item><strong>Track technical debt</strong> — advocate for "engineering sprints" to pay it down. Frame it in ROI terms for management.</item>
+          <item><strong>Use retrospectives</strong> — if bugs are leaking to production, ask the team "what can we do differently?"</item>
+        </list>
+      </section>
+
+      <section id="as-6">
+        <h2>Continuous Improvement Habits</h2>
+        <list type="check">
+          <item><strong>Keep an impediment backlog</strong> — track what's slowing the team down; prioritize and address items</item>
+          <item><strong>Experiment constantly</strong> — try a new tool, technique, or practice for 2-3 iterations; evaluate results in retrospectives</item>
+          <item><strong>Learn continuously</strong> — attend user groups, read blogs, join mailing lists, learn a scripting language</item>
+          <item><strong>Celebrate small wins</strong> — gold stars, high-fives, team lunches. Acknowledgment makes change stick.</item>
+          <item><strong>Be a change agent</strong> — use patterns from <em>Fearless Change</em>: "Ask for Help," "Brown Bag," "Guru on Your Side"</item>
+        </list>
+      </section>
+
+      <section id="as-7">
+        <h2>Metrics that Matter</h2>
+        <table>
+          <row><cell>Good Metric</cell><cell>Why It Matters</cell></row>
+          <row><cell>Cycle time (concept to cash)</cell><cell>Measures team's ability to deliver value repeatedly</cell></row>
+          <row><cell>Build pass rate and speed</cell><cell>Indicates code health and feedback speed</cell></row>
+          <row><cell>Automated test count trend</cell><cell>Shows growing safety net over time</cell></row>
+          <row><cell>Production defect rate</cell><cell>Measures whether quality practices are working</cell></row>
+          <row><cell>Burndown charts</cell><cell>Tracks iteration progress; flags problems early</cell></row>
+        </table>
+
+        <key-box>
+          <heading>Metrics Anti-Patterns</heading>
+          <list type="ul">
+            <item>Never use metrics to judge individual performance</item>
+            <item>Don't measure lines of code or defects per person</item>
+            <item>Don't collect metrics you won't act on</item>
+            <item>Focus on the goal, not the number</item>
+          </list>
+        </key-box>
+      </section>
+
+      <section id="as-8">
+        <h2>Quick Reference: What to Do Monday Morning</h2>
+        <list type="check">
+          <item>Invite yourself to the planning meeting if you haven't been</item>
+          <item>Ask the product owner for examples of the next story's desired behavior</item>
+          <item>Propose the "Power of Three" rule to your team</item>
+          <item>Write one automated test for the happy path of the current story</item>
+          <item>Check: is there a continuous build running? If not, make it your first task to set one up</item>
+          <item>Do 30 minutes of exploratory testing on the latest build — take notes</item>
+          <item>At the retrospective, raise one testing improvement idea</item>
+          <item>Start doing it — today!</item>
+        </list>
+      </section>
+    </chapter>
+
+  </chapters>
+
+  <toc>
+    <item id="ch1">Ch 1: What Is Agile Testing, Anyway?</item>
+    <item id="ch2">Ch 2: Ten Principles for Agile Testers</item>
+    <item id="ch3">Ch 3: Cultural Challenges</item>
+    <item id="ch4">Ch 4: Team Logistics</item>
+    <item id="ch5">Ch 5: Transitioning Typical Processes</item>
+    <item id="ch6">Ch 6: The Purpose of Testing — Agile Testing Quadrants</item>
+    <item id="ch7">Ch 7: Technology-Facing Tests that Support the Team</item>
+    <item id="ch8">Ch 8: Business-Facing Tests that Support the Team</item>
+    <item id="ch9">Ch 9: Toolkit for Business-Facing Tests</item>
+    <item id="ch10">Ch 10: Business-Facing Tests that Critique the Product</item>
+    <item id="ch11">Ch 11: Critiquing the Product Using Technology-Facing Tests</item>
+    <item id="ch12">Ch 12: Summary of Testing Quadrants</item>
+    <item id="ch13">Ch 13: Why Automate and What Holds Us Back</item>
+    <item id="ch14">Ch 14: An Agile Test Automation Strategy</item>
+    <item id="ch15">Ch 15: Tester Activities in Release Planning</item>
+    <item id="ch16">Ch 16: Hit the Ground Running</item>
+    <item id="ch17">Ch 17: Iteration Kickoff</item>
+    <item id="ch18">Ch 18: Coding and Testing</item>
+    <item id="ch19">Ch 19: Wrap Up the Iteration</item>
+    <item id="ch20">Ch 20: Successful Delivery</item>
+    <item id="ch21">Ch 21: Key Success Factors</item>
+    <item id="agent-summary">Agent Summary: Practical Daily Work Guide</item>
+  </toc>
+
+  <footer-text>Agile Testing: A Practical Guide for Testers and Agile Teams — Lisa Crispin &amp; Janet Gregory (2009)</footer-text>
+</syllabus>

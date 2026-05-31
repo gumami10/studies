@@ -273,6 +273,18 @@ if (isMain) {
     `export default ${JSON.stringify(taData, null, 2)}\n`,
   )
 
+  const agileTestingData = convertFile(resolve(XML_DIR, 'agile-testing.xml'))
+  writeFileSync(
+    resolve(DATA_DIR, 'agile-testing.js'),
+    `export default ${JSON.stringify(agileTestingData, null, 2)}\n`,
+  )
+
+  const moreAgileTestingData = convertFile(resolve(XML_DIR, 'more-agile-testing.xml'))
+  writeFileSync(
+    resolve(DATA_DIR, 'more-agile-testing.js'),
+    `export default ${JSON.stringify(moreAgileTestingData, null, 2)}\n`,
+  )
+
   console.log('Conversion complete!')
   console.log(
     `  data/ctal-at.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`,
@@ -288,5 +300,11 @@ if (isMain) {
   )
   console.log(
     `  data/ctal-ta.js (${taData.chapters.length} chapters, ${taData.toc.length} toc items)`,
+  )
+  console.log(
+    `  data/agile-testing.js (${agileTestingData.chapters.length} chapters, ${agileTestingData.toc.length} toc items)`,
+  )
+  console.log(
+    `  data/more-agile-testing.js (${moreAgileTestingData.chapters.length} chapters, ${moreAgileTestingData.toc.length} toc items)`,
   )
 }

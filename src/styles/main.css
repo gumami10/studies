@@ -49,6 +49,31 @@ h1 {
   font-size: 1.8rem;
 }
 
+.landing-hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.landing-hero h1 {
+  font-size: 3.2rem;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-subtitle {
+  color: var(--muted);
+  font-size: 1.15rem;
+  margin: 0 0 1.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .subtitle {
   color: var(--muted);
   margin: 0;
@@ -540,7 +565,8 @@ mark:focus-visible {
   color: var(--text);
   transition:
     border-color 0.2s,
-    box-shadow 0.2s;
+    box-shadow 0.2s,
+    transform 0.2s;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -549,6 +575,7 @@ mark:focus-visible {
 .chapter-card:hover {
   border-color: var(--accent);
   box-shadow: 0 0 0 1px var(--accent);
+  transform: translateY(-2px);
 }
 
 .chapter-card h2 {
@@ -561,6 +588,22 @@ mark:focus-visible {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.view-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: gap 0.2s;
+}
+
+.chapter-card:hover .view-more {
+  gap: 0.5rem;
 }
 
 .to-top-btn {

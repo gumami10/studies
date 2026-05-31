@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <chapters>
+
+    <chapter id="ch1">
+      <meta>
+        <badge>Part I</badge>
+        <badge>Introduction</badge>
+        <badge>Ch 1–2</badge>
+      </meta>
+      <title>Evolution of Agile Testing &amp; Organizational Culture</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Testing in agile is an <strong>activity, not a phase</strong> — it is everyone's responsibility</item>
+          <item>Agile testing evolved from lone testers on XP teams to whole-team quality ownership</item>
+          <item>Organizational culture is the #1 enabler (or blocker) of agile testing success</item>
+          <item>Quality focus leads to sustainable pace; speed-first creates technical debt gridlock</item>
+        </list>
+      </key-box>
+      <section id="s1-1">
+        <h2>1.1 How Agile Testing Evolved</h2>
+        <paragraph>Agile testing started with individual testers on XP teams where testing wasn't even mentioned. It evolved through several key milestones:</paragraph>
+        <list type="ul">
+          <item><strong>Driving development with examples</strong> — Brian Marick, Joshua Kerievsky pioneered story tests; Ward Cunningham created Fit</item>
+          <item><strong>BDD</strong> — Dan North introduced behavior-driven development, paving the way for modern tools</item>
+          <item><strong>Agile testing quadrants</strong> — Brian Marick's matrix adapted into the quadrants model for planning all test types</item>
+          <item><strong>Generalizing specialists</strong> — T-shaped skills with depth and breadth replace siloed roles</item>
+          <item><strong>Business analysis integration</strong> — BAs bring discovery skills; UX designers bring user research</item>
+          <item><strong>DevOps convergence</strong> — Development, operations, and testing blend for shorter release cycles</item>
+        </list>
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Testing is an activity that is crucial to product success and is of interest to every member of the product team — from stakeholders through to operations and support.</paragraph>
+        </key-box>
+      </section>
+      <section id="s1-2">
+        <h2>1.2 Organizational Culture</h2>
+        <paragraph>Development teams adopt agile values quickly, but the business side often takes longer. For success, both must be in sync.</paragraph>
+        <key-box>
+          <heading>Quality vs. Speed</heading>
+          <paragraph>Companies that focus on <strong>quality</strong> achieve sustainable pace and consistent delivery. Companies that focus on <strong>speed first</strong> sacrifice quality, accumulate technical debt, and create a death spiral of ever-growing fragility.</paragraph>
+        </key-box>
+        <h3>Investing Time</h3>
+        <paragraph>Creativity requires time to think, learn, and experiment. Gojko Adzic notes great results happen when:</paragraph>
+        <list type="check">
+          <item>People know <strong>why</strong> they are doing their work</item>
+          <item>Organizations focus on delivering <strong>outcomes and impacts</strong>, not features</item>
+          <item>Teams decide what to do next based on <strong>immediate and direct feedback</strong></item>
+          <item>Everyone <strong>cares</strong></item>
+        </list>
+        <key-box>
+          <heading>Capacity Utilization (J-Curve)</heading>
+          <paragraph>Average queue size remains low until ~80% utilization, then rises sharply to infinity. <strong>Overutilization kills flow.</strong> The purpose of slack (e.g., 20% time) is to keep utilization below the critical threshold — not to fill it with innovation projects. "80 is the new 100" — if you mandate 20% time without understanding the theory, you just shrink capacity.</paragraph>
+        </key-box>
+      </section>
+      <section id="s1-3">
+        <h2>1.3 Learning Culture &amp; Transparency</h2>
+        <list type="ul">
+          <item><strong>Foster learning</strong> — Communities of practice, guilds, Lean Coffee sessions, pairing, hack weeks</item>
+          <item><strong>Short feedback loops</strong> — Transparency in decisions builds trust between teams and executives</item>
+          <item><strong>Educate the organization</strong> — Quantify the cost of technical debt; show executives business impact</item>
+          <item><strong>Managing testers</strong> — No one right answer; depends on context. Guilds work for small orgs; test managers as coaches for larger ones</item>
+        </list>
+        <key-box>
+          <heading>Summary</heading>
+          <list type="check">
+            <item>Focus on quality for long-term sustainable pace</item>
+            <item>Build slack by improving delivery capability and managing scope</item>
+            <item>Nurture a learning culture with time for experiments</item>
+            <item>Educate stakeholders on how good practices pay back</item>
+            <item>Make process visible to build trust</item>
+            <item>Celebrate successes, big and small</item>
+          </list>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch2">
+      <meta>
+        <badge>Part II</badge>
+        <badge>Learning</badge>
+        <badge>Ch 3–6</badge>
+      </meta>
+      <title>Learning for Better Testing</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Emphasize <strong>competencies over roles</strong> — "How can I help?" replaces "It's not my job"</item>
+          <item><strong>T-shaped skills</strong> — broad knowledge for collaboration + deep expertise for contribution</item>
+          <item><strong>Thinking skills</strong> (facilitation, feedback, problem solving) are as critical as technical skills</item>
+          <item>Learning is itself an <strong>agile, iterative process</strong> — not a big-bang event</item>
+        </list>
+      </key-box>
+      <section id="s2-1">
+        <h2>2.1 Roles &amp; Competencies</h2>
+        <h3>T-Shaped Skill Set</h3>
+        <paragraph>Testers need broad knowledge (architecture, coding concepts, databases, CI tools) plus deep testing expertise. Team members in other roles need basic testing concepts in their T-bar.</paragraph>
+        <key-box>
+          <heading>Square-Shaped Team</heading>
+          <paragraph>The true power of T-shaped individuals emerges when they combine into a <strong>square-shaped team</strong> — each tester brings unique deep skills with the same breadth, complementing each other to cover all challenges.</paragraph>
+        </key-box>
+        <h3>Generalizing Specialists</h3>
+        <paragraph>Not interchangeable generalists, but specialists who can <strong>appreciate, communicate with, and collaborate</strong> across disciplines. Key technique: learn the <strong>heuristics</strong> (rules of thumb) of other specialties to help with signal detection, even without deep expertise.</paragraph>
+        <h3>Hiring &amp; Onboarding</h3>
+        <list type="ul">
+          <item>Hire for <strong>attitude and curiosity</strong> — skills can be trained</item>
+          <item>Set realistic expectations: day 1, week 1, month 1 milestones</item>
+          <item><strong>Pairing</strong> is the best onboarding method — pair with testers, programmers, BAs, DevOps, business experts</item>
+          <item>Fresh eyes find bugs that veterans ignore — never discount what a new tester observes</item>
+        </list>
+      </section>
+      <section id="s2-2">
+        <h2>2.2 Thinking Skills for Testing</h2>
+        <table>
+          <row><cell>Skill</cell><cell>Key Points</cell></row>
+          <row><cell><strong>Facilitating</strong></cell><cell>Guide specification workshops; ensure each participant feels free to express ideas</cell></row>
+          <row><cell><strong>Problem Solving</strong></cell><cell>5 Whys, fishbone diagrams, impact maps — address root causes, not symptoms</cell></row>
+          <row><cell><strong>Feedback</strong></cell><cell>Focus on the work, not the person. Empathy is essential. Listen to learn.</cell></row>
+          <row><cell><strong>Business Domain</strong></cell><cell>Deep domain knowledge prevents bugs and generates feature ideas</cell></row>
+          <row><cell><strong>Coaching</strong></cell><cell>Guide others to solve their own problems; storytelling depersonalizes criticism</cell></row>
+          <row><cell><strong>Thinking Differently</strong></cell><cell>Recognize L-Mode (linear) vs R-Mode (intuitive); use the right mode for the situation</cell></row>
+          <row><cell><strong>Organizing</strong></cell><cell>Risk-based testing to focus on right tasks; avoid thrashing on repeated tests</cell></row>
+          <row><cell><strong>Collaborating</strong></cell><cell>Define goal → language → process → time-box → follow → assess → repeat</cell></row>
+        </table>
+      </section>
+      <section id="s2-3">
+        <h2>2.3 Technical Awareness</h2>
+        <list type="ul">
+          <item><strong>Guiding development with examples</strong> — ATDD, BDD, SBE turn customer examples into automated tests</item>
+          <item><strong>Automation &amp; coding</strong> — Use same IDE as coders; understand architecture; learn SOLID principles</item>
+          <item><strong>General technical skills</strong> — Monitor processes, read logs, basic SQL, command-line comfort</item>
+          <item><strong>Test environments</strong> — Know what code/data is on each environment; maintain visibility</item>
+          <item><strong>CI &amp; source control</strong> — Understand CI configurations; know which failures block your testing</item>
+          <item><strong>Quality attributes (Q4)</strong> — Security, performance, reliability — often the weakest testing area</item>
+          <item><strong>Test design techniques</strong> — State transitions, decision tables, domain testing</item>
+        </list>
+      </section>
+      <section id="s2-4">
+        <h2>2.4 How to Learn</h2>
+        <list type="ul">
+          <item><strong>Know your learning style</strong> — auditory, visual, kinesthetic; emotions affect intake</item>
+          <item><strong>Conferences &amp; meetups</strong> — Network with practitioners; hallway conversations are the most valuable</item>
+          <item><strong>Pairing</strong> — The fastest way to transfer skills; pair across roles and teams</item>
+          <item><strong>Communities of practice</strong> — Book clubs, journal clubs, lunch-and-learns</item>
+          <item><strong>Practice</strong> — Code retreats, testing dojos, Weekend Testing sessions</item>
+          <item><strong>Teach to learn</strong> — Teaching a skill to someone else is the best way to learn it yourself</item>
+        </list>
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>Learning is an agile process: add a bit more knowledge each iteration, build on it the next. Don't treat it as a big-bang event.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch3">
+      <meta>
+        <badge>Part III</badge>
+        <badge>Planning</badge>
+        <badge>Ch 7–8</badge>
+      </meta>
+      <title>Planning — Don't Forget the Big Picture</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Agile teams plan <strong>more</strong> than waterfall teams — in smaller chunks, just-in-time, with fast feedback</item>
+          <item>Use <strong>levels of precision</strong>: release → feature → story → task</item>
+          <item>The <strong>agile testing quadrants</strong> are a taxonomy, not a sequence</item>
+          <item>The <strong>automation pyramid</strong> guides where to automate for best ROI</item>
+        </list>
+      </key-box>
+      <section id="s3-1">
+        <h2>3.1 Levels of Precision for Planning</h2>
+        <table>
+          <row><cell>Level</cell><cell>Focus</cell><cell>Testing Considerations</cell></row>
+          <row><cell><strong>Product Release</strong></cell><cell>System impacts, end game</cell><cell>UAT, load, performance, integration, cross-team dependencies</cell></row>
+          <row><cell><strong>Feature</strong></cell><cell>Business capability</cell><cell>Acceptance tests, quality attributes, usability, mind maps of test ideas</cell></row>
+          <row><cell><strong>Story</strong></cell><cell>Small testable chunk</cell><cell>High-level acceptance tests, story tests, exploratory charters</cell></row>
+          <row><cell><strong>Task</strong></cell><cell>Piece of work</cell><cell>TDD — write test first, then code; less planning, more doing</cell></row>
+        </table>
+        <h3>Regression Testing</h3>
+        <paragraph>Automated regression tests don't happen by chance. Plan to update them as functionality changes. Organize by <strong>system functionality</strong>, not by story — story-based grouping becomes unmaintainable after six months.</paragraph>
+        <h3>Visualize Testing</h3>
+        <list type="ul">
+          <item><strong>Mind maps</strong> — Brainstorm test ideas; track progress with completion markers</item>
+          <item><strong>Test matrix</strong> — Rows = features, columns = test conditions; color-code progress</item>
+          <item><strong>One-page test plan</strong> — Keep it lightweight; mind maps satisfy even document-demanding managers</item>
+        </list>
+      </section>
+      <section id="s3-2">
+        <h2>3.2 Agile Testing Quadrants</h2>
+        <table>
+          <row><cell>Quadrant</cell><cell>Description</cell><cell>Examples</cell></row>
+          <row><cell><strong>Q1</strong></cell><cell>Technology-facing tests that <strong>guide development</strong></cell><cell>Unit tests, component tests, TDD</cell></row>
+          <row><cell><strong>Q2</strong></cell><cell>Business-facing tests that <strong>guide development</strong></cell><cell>Acceptance tests, examples, prototypes, simulations</cell></row>
+          <row><cell><strong>Q3</strong></cell><cell>Business-facing tests that <strong>critique the product</strong></cell><cell>Exploratory testing, UAT, usability testing</cell></row>
+          <row><cell><strong>Q4</strong></cell><cell>Technology-facing tests that <strong>critique the product</strong></cell><cell>Performance, security, load, scalability</cell></row>
+        </table>
+        <key-box>
+          <heading>Quadrant Misconceptions</heading>
+          <list type="ul">
+            <item>Numbering does <strong>not</strong> imply order — Q1 through Q4 is arbitrary</item>
+            <item>Left side = <strong>preventing defects</strong> before/during coding; right side = <strong>finding defects</strong></item>
+            <item>"Facing" refers to the <strong>language</strong> of the tests, not who runs them</item>
+            <item>Most teams use techniques from <strong>all quadrants concurrently</strong></item>
+          </list>
+        </key-box>
+        <h3>Alternative Quadrant Models</h3>
+        <compare>
+          <card type="pos">
+            <heading>Gojko Adzic's Version</heading>
+            <list type="ul">
+              <item>Replaces "guide/critique" with <strong>"checking expected results" vs "analyzing unknowns"</strong></item>
+              <item>Better for continuous delivery and lean startup contexts</item>
+              <item>Makes exploratory testing and production monitoring more visible</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Elisabeth Hendrickson's Version</heading>
+            <list type="ul">
+              <item>Replaces horizontal axis with <strong>"confirm" vs "investigate"</strong></item>
+              <item>Highlights the difference between verifying known behavior and discovering unknowns</item>
+              <item>Useful for teams that have matured beyond the original model</item>
+            </list>
+          </card>
+        </compare>
+        <h3>Other Planning Models</h3>
+        <list type="ul">
+          <item><strong>FURPS+</strong> — Functionality, Usability, Reliability, Performance, Supportability + constraints</item>
+          <item><strong>ACC Matrix</strong> — Attributes (adjectives), Components (nouns), Capabilities (verbs) for risk-based testing</item>
+          <item><strong>Automation Pyramid</strong> — Push tests to lowest level for fastest feedback and best ROI</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch4">
+      <meta>
+        <badge>Part IV</badge>
+        <badge>Business Value</badge>
+        <badge>Ch 9–11</badge>
+      </meta>
+      <title>Testing Business Value</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Testing is more than verifying code — it's about <strong>testing ideas, assumptions, and business value</strong></item>
+          <item>Start with <strong>"why"</strong> before "what" — understand the business problem before building</item>
+          <item><strong>Examples</strong> are the heart of guiding development — ATDD, BDD, SBE all start with conversations</item>
+          <item>Having conversations &gt; capturing conversations &gt; automating conversations</item>
+        </list>
+      </key-box>
+      <section id="s4-1">
+        <h2>4.1 Building the Right Thing</h2>
+        <h3>Start with "Why"</h3>
+        <paragraph>When we ask why customers want a feature, we're more likely to build the right thing. Customers often tell us <em>what</em> to implement without explaining the <em>problem</em> they're solving. Understanding the purpose often reveals simpler solutions.</paragraph>
+        <h3>Tools for Customer Engagement</h3>
+        <table>
+          <row><cell>Tool</cell><cell>Purpose</cell><cell>Key Questions</cell></row>
+          <row><cell><strong>Impact Mapping</strong></cell><cell>Identify alternative paths to business goals</cell><cell>Why? Who? How? What?</cell></row>
+          <row><cell><strong>Story Mapping</strong></cell><cell>Model features in 2D; identify MVP</cell><cell>What would personas do first? Next?</cell></row>
+          <row><cell><strong>7 Product Dimensions</strong></cell><cell>Explore all aspects of product needs</cell><cell>User, Interface, Action, Data, Control, Environment, Quality</cell></row>
+          <row><cell><strong>Lean Startup (BML)</strong></cell><cell>Build-measure-learn with fast feedback</cell><cell>What hypothesis can we test?</cell></row>
+        </table>
+        <key-box>
+          <heading>7 Product Dimensions</heading>
+          <list type="ul">
+            <item><strong>User</strong> — Who uses/benefits from the product?</item>
+            <item><strong>Interface</strong> — How do users connect with the product?</item>
+            <item><strong>Action</strong> — What are the product's capabilities?</item>
+            <item><strong>Data</strong> — What data is received, validated, stored?</item>
+            <item><strong>Control</strong> — What constraints/rules must be enforced?</item>
+            <item><strong>Environment</strong> — Where/how will it be used and deployed?</item>
+            <item><strong>Quality Attribute</strong> — What service levels for operational qualities?</item>
+          </list>
+        </key-box>
+      </section>
+      <section id="s4-2">
+        <h2>4.2 The Expanding Tester's Mindset</h2>
+        <paragraph>Blurred roles make jobs more interesting. Testers can learn from:</paragraph>
+        <list type="ul">
+          <item><strong>Business Analysis</strong> — Facilitate structured conversations; remember all product dimensions; start with "why"</item>
+          <item><strong>UX Design</strong> — Usability testing, paper prototypes, A/B testing, focus groups</item>
+          <item><strong>Documentation</strong> — Challenge ideas by articulating concepts; add "Create content" task to stories</item>
+        </list>
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>When you see a problem, take the initiative to get the right people together. Whoever has the initiative can lead the way — regardless of role.</paragraph>
+        </key-box>
+      </section>
+      <section id="s4-3">
+        <h2>4.3 Getting Examples (ATDD / BDD / SBE)</h2>
+        <table>
+          <row><cell>Approach</cell><cell>Focus</cell><cell>Key Characteristic</cell></row>
+          <row><cell><strong>ATDD</strong></cell><cell>Acceptance tests from examples</cell><cell>Tests define scope; story is "done" when checks pass</cell></row>
+          <row><cell><strong>BDD</strong></cell><cell>Behavior discovery via given_when_then</cell><cell>"Should" invites questioning assumptions; "test" presupposes known behavior</cell></row>
+          <row><cell><strong>SBE</strong></cell><cell>Executable specifications from key examples</cell><cell>Derive scope from goals → key examples → refine → automate → living documentation</cell></row>
+        </table>
+        <h3>Benefits of Examples</h3>
+        <list type="ul">
+          <item>Concrete examples make abstract requirements understandable for all roles</item>
+          <item>Reduce uncertainty about what to build; prevent defects before coding</item>
+          <item>DSL format enables automation as a side effect of specification</item>
+          <item>Programmers use examples for TDD; creates shared language across the team</item>
+        </list>
+        <h3>Potential Pitfalls</h3>
+        <compare>
+          <card type="neg">
+            <heading>Risks</heading>
+            <list type="ul">
+              <item><strong>Too much detail</strong> — overwhelms programmers; may signal design problems</item>
+              <item><strong>Lacking buy-in</strong> — stakeholders feel too busy; programmers prefer TDD only</item>
+              <item><strong>Too many regression tests</strong> — evaluate ROI before adding every test to CI suite</item>
+              <item><strong>Not enough known yet</strong> — spike first when requirements are emergent</item>
+            </list>
+          </card>
+          <card type="pos">
+            <heading>Mitigations</heading>
+            <list type="ul">
+              <item>Start with happy path; add complexity as coding progresses</item>
+              <item>Propose experiments; show benefits with short, focused meetings</item>
+              <item>Prune low-value tests from regression suites regularly</item>
+              <item>Use spike solutions for quick feedback when unknowns are high</item>
+            </list>
+          </card>
+        </compare>
+      </section>
+    </chapter>
+
+    <chapter id="ch5">
+      <meta>
+        <badge>Part V</badge>
+        <badge>Investigative</badge>
+        <badge>Ch 12–13</badge>
+      </meta>
+      <title>Investigative Testing</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Exploratory testing combines <strong>test design with test execution</strong> — learning about the application while testing</item>
+          <item>ET and automation are <strong>complementary</strong> — automation handles checking; ET finds what wasn't anticipated</item>
+          <item>Don't neglect <strong>non-functional testing</strong>: concurrency, i18n, security, UX, regression</item>
+        </list>
+      </key-box>
+      <section id="s5-1">
+        <h2>5.1 Exploratory Testing</h2>
+        <paragraph>Exploratory testers don't enter with predefined expected results. They compare system behavior against expectations based on experience, heuristics, and oracles.</paragraph>
+        <h3>Creating Test Charters</h3>
+        <key-box>
+          <heading>Charter Template (Hendrickson)</heading>
+          <paragraph><strong>Explore</strong> &lt;target&gt; <strong>With</strong> &lt;resources&gt; <strong>To discover</strong> &lt;information&gt;</paragraph>
+          <paragraph>Good charters are prompts: they suggest sources of inspiration without dictating precise actions or outcomes. Better to have multiple concise charters than one broad one.</paragraph>
+        </key-box>
+        <h3>Generating Charter Ideas</h3>
+        <table>
+          <row><cell>Technique</cell><cell>Description</cell></row>
+          <row><cell><strong>Personas</strong></cell><cell>Test as different user types — security-worried user, help desk admin, bad customer</cell></row>
+          <row><cell><strong>Tours</strong></cell><cell>Visit software "landmarks" in different sequences; combine with personas</cell></row>
+          <row><cell><strong>Journeys</strong></cell><cell>Take personas through complete workflows to test end-to-end flow</cell></row>
+          <row><cell><strong>Risk-based</strong></cell><cell>Target architectural risks identified by programmers</cell></row>
+          <row><cell><strong>Bad Customer</strong></cell><cell>Invalid input, time changes, unusual uses, too much, stop halfway, wrong assumptions</cell></row>
+        </table>
+        <h3>Managing Charters</h3>
+        <compare>
+          <card type="pos">
+            <heading>SBTM (Session-Based)</heading>
+            <list type="ul">
+              <item>Time-boxed sessions (30–90 min)</item>
+              <item>Charter → explore uninterrupted → record → debrief</item>
+              <item>Good for training new testers via debrief feedback</item>
+              <item>Can compress regression testing to fit within an iteration</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>TBTM (Thread-Based)</heading>
+            <list type="ul">
+              <item>Organized around threads of activity, not time boxes</item>
+              <item>More flexible for rapidly changing priorities</item>
+              <item>Mind maps track threads, notes, defects, and status</item>
+              <item>Naturally focuses testing on problem/risk areas as discovered</item>
+            </list>
+          </card>
+        </compare>
+        <h3>Group Exploration</h3>
+        <list type="ul">
+          <item><strong>Group hugs</strong> — Whole team explores concurrently; diversity creates different discoveries</item>
+          <item>Especially valuable for <strong>concurrency testing</strong> and major releases</item>
+          <item><strong>Trinity Testing</strong> — Programmer + tester + BA for fast multi-perspective feedback</item>
+        </list>
+        <h3>Where ET Fits in Agile</h3>
+        <table>
+          <row><cell>Level</cell><cell>ET Focus</cell></row>
+          <row><cell><strong>Release</strong></cell><cell>Integration testing, high-risk workflows, tours, end game</cell></row>
+          <row><cell><strong>Feature</strong></cell><cell>Complete feature workflow, interaction with other apps, group hugs</cell></row>
+          <row><cell><strong>Story</strong></cell><cell>Boundary conditions, variations, development risks</cell></row>
+          <row><cell><strong>Task</strong></cell><cell>Programmer exploration during coding, tester-programmer pairing</cell></row>
+        </table>
+      </section>
+      <section id="s5-2">
+        <h2>5.2 Other Types of Testing</h2>
+        <table>
+          <row><cell>Type</cell><cell>Key Points</cell></row>
+          <row><cell><strong>Concurrency</strong></cell><cell>Test simultaneous updates; use group hugs + automated regression tests; timing issues are subtle</cell></row>
+          <row><cell><strong>Internationalization (i18n)</strong></cell><cell>System is <em>ready to be</em> translated; design encoding, formatting, string externalization into the system</cell></row>
+          <row><cell><strong>Localization (L10n)</strong></cell><cell>System <em>is</em> translated; use locals for localizations; beware unit conversions and cultural nuances</cell></row>
+          <row><cell><strong>Regression</strong></cell><cell>Automate for fast feedback; organize by functionality; consider testing in production for frequent releases</cell></row>
+          <row><cell><strong>UAT</strong></cell><cell>Bring users into development early; don't wait for end game; "making sure users can do their job"</cell></row>
+          <row><cell><strong>A/B Testing</strong></cell><cell>Two implementations in production; measure which performs better; iterate with fast feedback</cell></row>
+          <row><cell><strong>UX Testing</strong></cell><cell>Paper prototypes before coding; functional prototypes; contextual inquiry with real users</cell></row>
+        </table>
+      </section>
+    </chapter>
+
+    <chapter id="ch6">
+      <meta>
+        <badge>Part VI</badge>
+        <badge>Automation</badge>
+        <badge>Ch 14–17</badge>
+      </meta>
+      <title>Test Automation</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Automated test code is <strong>as valuable as production code</strong> — treat it with the same care</item>
+          <item>The <strong>whole team</strong> owns automation — not just testers</item>
+          <item>Push tests to the <strong>lowest level</strong> that makes sense for fastest feedback and best ROI</item>
+          <item>Make test technical debt <strong>visible</strong> and address the biggest problem first</item>
+        </list>
+      </key-box>
+      <section id="s6-1">
+        <h2>6.1 Technical Debt in Testing</h2>
+        <paragraph>Inadequate test automation creates a vicious cycle: no time → skip Q3/Q4 testing → more regression failures → less time for guiding development → wrong features built.</paragraph>
+        <key-box>
+          <heading>Making Debt Visible</heading>
+          <list type="check">
+            <item>Write task cards for test maintenance and failure investigation</item>
+            <item>Track time spent on test maintenance; reflect in story estimates</item>
+            <item>Use red sticky notes on blocked story cards for bugs</item>
+            <item>Make CI build status prominent; broken builds = visible debt</item>
+          </list>
+        </key-box>
+        <key-box>
+          <heading>Zero-Tolerance Bug Strategy (Paddy Power)</heading>
+          <paragraph>When a bug is found during exploratory testing, the programmer <strong>drops everything and fixes it immediately</strong>. No bug tracking tool. No prioritization meetings. The card doesn't progress until the bug is fixed and buried. Result: no known bugs in production.</paragraph>
+        </key-box>
+      </section>
+      <section id="s6-2">
+        <h2>6.2 Pyramids of Automation</h2>
+        <table>
+          <row><cell>Layer</cell><cell>Tests</cell><cell>Feedback Speed</cell></row>
+          <row><cell><strong>Unit (base)</strong></cell><cell>TDD, component tests</cell><cell>Fastest — every commit</cell></row>
+          <row><cell><strong>API/Service (middle)</strong></cell><cell>Business rules, integration tests</cell><cell>Fast — no UI overhead</cell></row>
+          <row><cell><strong>UI (top)</strong></cell><cell>Workflow tests, end-to-end</cell><cell>Slowest — brittle, expensive</cell></row>
+          <row><cell><strong>Manual/ET (cloud)</strong></cell><cell>Exploratory, usability</cell><cell>Cannot be fully automated</cell></row>
+        </table>
+        <h3>Alternative Pyramid Forms</h3>
+        <list type="ul">
+          <item><strong>No unit tests</strong> — Replace with programmer-owned integration tests when code is data-focused</item>
+          <item><strong>JavaScript-heavy</strong> — Expanded top layer for complex front-end logic; hourglass shape</item>
+          <item><strong>Eye of Providence</strong> — Exploratory testing as the capstone ensuring confidence in automated tests</item>
+          <item><strong>Test Volcano</strong> — Without automation at lower levels, lava (debt) builds until eruption buries the team</item>
+          <item><strong>Expanded pyramid</strong> — Add dimensions for tools, test types, and quality attributes on each face</item>
+        </list>
+      </section>
+      <section id="s6-3">
+        <h2>6.3 Design Patterns &amp; Approaches</h2>
+        <key-box>
+          <heading>Simple Rules for Test Automation</heading>
+          <list type="check">
+            <item>Each test has a <strong>single clear purpose</strong></item>
+            <item><strong>DRY</strong> — Extract duplication into macros and modules</item>
+            <item>Use <strong>Arrange-Act-Assert</strong> pattern at all levels</item>
+            <item>Treat test code with same design care as production code</item>
+            <item>Document your team's test design patterns for consistency</item>
+          </list>
+        </key-box>
+        <h3>Three-Level Approach for UI Automation</h3>
+        <table>
+          <row><cell>Level</cell><cell>What</cell><cell>Example</cell></row>
+          <row><cell><strong>Business rule</strong></cell><cell>What the test demonstrates</cell><cell>Free shipping for orders over $50</cell></row>
+          <row><cell><strong>UI workflow</strong></cell><cell>High-level user activities</cell><cell>Create order qualifying for free shipping</cell></row>
+          <row><cell><strong>Technical activity</strong></cell><cell>Technical steps to exercise</cell><cell>Open page, type in fields, click buttons</cell></row>
+        </table>
+        <h3>Page Object Pattern</h3>
+        <paragraph>Encapsulate each page as an object with its elements and operations. When the UI changes, update only the Page Object — not every test that uses it. Operations return Page Objects (e.g., login returns dashboard).</paragraph>
+        <h3>Test Data Management</h3>
+        <key-box>
+          <heading>Data Strategy</heading>
+          <list type="check">
+            <item>Tests must <strong>create their own data</strong> before running</item>
+            <item>Tests must <strong>clean up data</strong> after execution</item>
+            <item>Use <strong>randomized but realistic</strong> data (Ruby Faker, jdefault)</item>
+            <item>Never rely on shared, long-lived test data — it becomes untrustworthy</item>
+          </list>
+        </key-box>
+      </section>
+      <section id="s6-4">
+        <h2>6.4 Selecting Automation Solutions</h2>
+        <list type="ul">
+          <item><strong>Decide how tests should look first</strong>, then find tools — not the other way around</item>
+          <item>Choose frameworks that <strong>foster collaboration</strong> between testers and programmers</item>
+          <item>Use <strong>bake-offs</strong> — two pairs try different approaches; team evaluates results</item>
+          <item>For large orgs: define <strong>classes of acceptable tools</strong> for consistency with autonomy</item>
+          <item>Not every test needs to run in CI — slow suites can run nightly or pre-release</item>
+          <item><strong>Push automation to lowest level</strong>; refactor architecture if needed to enable it</item>
+        </list>
+        <key-box>
+          <heading>Collaborative vs Non-Collaborative Tools</heading>
+          <paragraph>Collaborative tools: tests in version control, readable by business, written by programmers + testers together, integrated with CI. Non-collaborative: record-and-playback, proprietary formats, tester-only, separate from code.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="ch7">
+      <meta>
+        <badge>Part VII</badge>
+        <badge>Context</badge>
+        <badge>Ch 18–23</badge>
+      </meta>
+      <title>Context-Specific Agile Testing</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item>Agile principles apply in <strong>any context</strong> — enterprise, distributed, mobile, regulated, data, DevOps</item>
+          <item>Context magnifies challenges but doesn't change fundamentals</item>
+          <item>Adapt practices to your situation; don't blindly copy others</item>
+        </list>
+      </key-box>
+      <section id="s7-1">
+        <h2>7.1 Enterprise Agile Testing</h2>
+        <list type="ul">
+          <item><strong>System test team</strong> — Tests the integrated product end-to-end in production-like environments</item>
+          <item><strong>Extended sprint test team</strong> — Takes accepted stories + automated tests; runs on extended compatibility configs</item>
+          <item><strong>Consistent tooling</strong> — Common CI across teams; automated regression catches integration issues on check-in</item>
+          <item><strong>Version control</strong> — Prefer all teams on same code base; reduces integration and testing risks</item>
+          <item><strong>Managing dependencies</strong> — Use "Ready" status on stories; remove dependencies before pulling into iteration</item>
+          <item><strong>Test architects</strong> — Coordinate testing across teams; evolve automation strategy</item>
+        </list>
+        <key-box>
+          <heading>Dell's Agile Testing Journey</heading>
+          <list type="ul">
+            <item>Started with pilot project (programmers only) → proved value → integrated testers</item>
+            <item>Shifted from UI-only automation to <strong>service-level automation first</strong></item>
+            <item>Removed requirement to log all defects → encouraged real-time collaboration</item>
+            <item>Added Q4 testing (longevity, scalability, performance baselining)</item>
+            <item>Result: Test is now a full partner in the entire software development process</item>
+          </list>
+        </key-box>
+      </section>
+      <section id="s7-2">
+        <h2>7.2 Distributed Teams</h2>
+        <table>
+          <row><cell>Challenge</cell><cell>Strategies</cell></row>
+          <row><cell><strong>Cultural differences</strong></cell><cell>Coaching on both sides; prepare ideas via email first; don't use "cultural issues" as excuse</cell></row>
+          <row><cell><strong>Language barriers</strong></cell><cell>Speak slowly; paraphrase; summarize decisions in writing; avoid slang</cell></row>
+          <row><cell><strong>Time zones</strong></cell><cell>Overlap hours for collaboration; async tools for everything else; record meetings</cell></row>
+          <row><cell><strong>Dependencies</strong></cell><cell>Visualize dependencies; plan cross-team integration points early</cell></row>
+        </table>
+        <list type="ul">
+          <item><strong>Collaborate through tests</strong> — Tests become the shared language across locations</item>
+          <item><strong>Tools</strong> — Video conferencing, shared wikis, mind-mapping tools, Google Docs for real-time collaboration</item>
+        </list>
+      </section>
+      <section id="s7-3">
+        <h2>7.3 Mobile, Embedded &amp; Regulated</h2>
+        <h3>Mobile &amp; Embedded</h3>
+        <list type="ul">
+          <item>Testing is <strong>critical</strong> — high risk for safety and market success</item>
+          <item>Use Page Objects for mobile UI automation; test on real devices</item>
+          <item>Embedded systems require hardware-in-the-loop testing; plan for longer feedback cycles</item>
+        </list>
+        <h3>Regulated Environments</h3>
+        <key-box>
+          <heading>The "Lack of Documentation" Myth</heading>
+          <paragraph>Agile does <strong>not</strong> mean no documentation. Automated tests provide living documentation. Traceability can be achieved through test-to-requirement mapping. Agile can meet regulatory demands — the key is making testing activities and their artifacts visible.</paragraph>
+        </key-box>
+      </section>
+      <section id="s7-4">
+        <h2>7.4 Data Warehouses, BI &amp; DevOps</h2>
+        <h3>Data Warehouses &amp; BI</h3>
+        <list type="ul">
+          <item>Data is the critical asset — test data quality, not just code quality</item>
+          <item>Use agile principles: incremental delivery, short feedback loops</item>
+          <item>Big Data requires specialized testing approaches for volume, velocity, variety</item>
+        </list>
+        <h3>Testing &amp; DevOps</h3>
+        <list type="ul">
+          <item>DevOps blends development, operations, and testing for faster delivery</item>
+          <item>Testers add value through: monitoring production, defining quality gates in deployment pipelines, testing infrastructure as code</item>
+          <item>Shared responsibility for quality across the entire delivery chain</item>
+        </list>
+      </section>
+    </chapter>
+
+    <chapter id="ch8">
+      <meta>
+        <badge>Part VIII</badge>
+        <badge>In Practice</badge>
+        <badge>Ch 24–25</badge>
+      </meta>
+      <title>Agile Testing in Practice</title>
+      <key-box>
+        <heading>Key Ideas</heading>
+        <list type="check">
+          <item><strong>Visualize</strong> testing to communicate importance and drive continuous improvement</item>
+          <item>Build <strong>confidence</strong> through a combination of checking and exploring</item>
+          <item>Create a <strong>shared vision</strong> for testing that involves the whole team</item>
+        </list>
+      </key-box>
+      <section id="s8-1">
+        <h2>8.1 Visualize Your Testing</h2>
+        <list type="ul">
+          <item><strong>Communicate importance</strong> — Make testing visible to stakeholders through dashboards, mind maps, test matrices</item>
+          <item><strong>Continuous improvement</strong> — Track test maintenance time, failure investigation time, coverage gaps</item>
+          <item><strong>Test results visibility</strong> — CI dashboards, big visible charts, shared documents for exploratory sessions</item>
+        </list>
+        <key-box>
+          <heading>Big Visible Charts for Testing</heading>
+          <paragraph>Claire Moss's evolution: personal bug board → severity-based → site-map clustering → integrated into sprint backlog. Each iteration revealed team needs and drove process improvement. The chart itself became a testing tool that opened communication.</paragraph>
+        </key-box>
+      </section>
+      <section id="s8-2">
+        <h2>8.2 Putting It All Together</h2>
+        <h3>Confidence-Building Practices</h3>
+        <table>
+          <row><cell>Practice</cell><cell>Contribution</cell></row>
+          <row><cell><strong>Use examples</strong></cell><cell>Shared understanding; prevents defects before coding</cell></row>
+          <row><cell><strong>Exploratory testing</strong></cell><cell>Finds what wasn't anticipated; critiques the product</cell></row>
+          <row><cell><strong>Feature testing</strong></cell><cell>Verifies end-to-end business value delivery</cell></row>
+          <row><cell><strong>Continual learning</strong></cell><cell>Adapts to changing technology and business needs</cell></row>
+          <row><cell><strong>Context sensitivity</strong></cell><cell>Adapts practices to the specific situation</cell></row>
+          <row><cell><strong>Keep it real</strong></cell><cell>Focus on actual business value, not process compliance</cell></row>
+        </table>
+        <h3>Create a Shared Vision</h3>
+        <paragraph>The whole team — stakeholders, programmers, testers, designers, DevOps — must share ownership of quality. Testing is not a phase or a role; it's an activity woven into every aspect of software development.</paragraph>
+        <key-box>
+          <heading>The Agile Testing Mindset</heading>
+          <list type="check">
+            <item>Testing is an <strong>activity, not a phase</strong></item>
+            <item>Quality is the <strong>whole team's responsibility</strong></item>
+            <item>Start with <strong>examples and conversations</strong> before code</item>
+            <item><strong>Automate</strong> regression checks at the lowest effective level</item>
+            <item><strong>Explore</strong> to find what automated tests can't</item>
+            <item><strong>Visualize</strong> testing status for the whole team</item>
+            <item><strong>Experiment</strong> — try small changes, evaluate, iterate</item>
+            <item><strong>Adapt</strong> practices to your context — there is no one right way</item>
+          </list>
+        </key-box>
+      </section>
+    </chapter>
+
+  </chapters>
+  <toc>
+    <item id="ch1">Evolution &amp; Culture</item>
+    <item id="ch2">Learning for Better Testing</item>
+    <item id="ch3">Planning</item>
+    <item id="ch4">Testing Business Value</item>
+    <item id="ch5">Investigative Testing</item>
+    <item id="ch6">Test Automation</item>
+    <item id="ch7">Context-Specific Testing</item>
+    <item id="ch8">Putting It All Together</item>
+  </toc>
+  <footer-text>Based on "More Agile Testing: Learning Journeys for the Whole Team" by Janet Gregory &amp; Lisa Crispin (Addison-Wesley, 2015)</footer-text>
+</syllabus>

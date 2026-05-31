@@ -4,12 +4,19 @@ import metricsData from '../../data/quality-metrics.js'
 import taeData from '../../data/ctal-tae.js'
 import codeReviewData from '../../data/code-review.js'
 import taData from '../../data/ctal-ta.js'
+import agileTestingData from '../../data/agile-testing.js'
+import moreAgileTestingData from '../../data/more-agile-testing.js'
 
 const ContentPage = () => import('@/pages/ContentPage.vue')
 
 const routes: RouteRecordRaw[] = [
   { path: '/index.html', redirect: '/' },
-  { path: '/', name: 'home', component: () => import('@/pages/HomePage.vue') },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('@/pages/HomePage.vue'),
+    meta: { footerAttribution: 'none' },
+  },
   {
     path: '/chapters',
     name: 'chapters',
@@ -20,6 +27,7 @@ const routes: RouteRecordRaw[] = [
       tocTitle: 'Syllabus Chapters',
       highlightKey: 'ctal-at-highlights-ch1',
       data: chaptersData,
+      footerAttribution: 'istqb',
     },
   },
   {
@@ -32,6 +40,7 @@ const routes: RouteRecordRaw[] = [
       tocTitle: 'Metrics Reference',
       highlightKey: 'ctal-at-highlights-metrics',
       data: metricsData,
+      footerAttribution: 'none',
     },
   },
   {
@@ -44,6 +53,7 @@ const routes: RouteRecordRaw[] = [
       tocTitle: 'Syllabus Chapters',
       highlightKey: 'ctal-tae-highlights',
       data: taeData,
+      footerAttribution: 'istqb',
     },
   },
   {
@@ -56,6 +66,7 @@ const routes: RouteRecordRaw[] = [
       tocTitle: 'Syllabus Chapters',
       highlightKey: 'ctal-ta-highlights',
       data: taData,
+      footerAttribution: 'istqb',
     },
   },
   {
@@ -68,6 +79,33 @@ const routes: RouteRecordRaw[] = [
       tocTitle: 'Research Sections',
       highlightKey: 'code-review-highlights',
       data: codeReviewData,
+      footerAttribution: 'none',
+    },
+  },
+  {
+    path: '/agile-testing',
+    name: 'agile-testing',
+    component: ContentPage,
+    meta: {
+      title: 'Agile Testing',
+      subtitle: 'A Practical Guide for Testers and Agile Teams — Gregory & Crispin (2009)',
+      tocTitle: 'Book Parts',
+      highlightKey: 'agile-testing-highlights',
+      data: agileTestingData,
+      footerAttribution: 'crispin-gregory',
+    },
+  },
+  {
+    path: '/more-agile-testing',
+    name: 'more-agile-testing',
+    component: ContentPage,
+    meta: {
+      title: 'More Agile Testing',
+      subtitle: 'Learning Journeys for the Whole Team — Gregory & Crispin (2015)',
+      tocTitle: 'Book Parts',
+      highlightKey: 'more-agile-testing-highlights',
+      data: moreAgileTestingData,
+      footerAttribution: 'crispin-gregory',
     },
   },
   { path: '/starred', name: 'starred', component: () => import('@/pages/StarredPage.vue') },

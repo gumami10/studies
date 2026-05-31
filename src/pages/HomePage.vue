@@ -1,7 +1,7 @@
 <template>
-  <header>
-    <h1>QA Hero study guide</h1>
-    <AppNav />
+  <header class="landing-hero">
+    <h1>QA Hero</h1>
+    <p class="landing-subtitle">Interactive study guide for ISTQB Advanced Level certifications</p>
   </header>
 
   <main>
@@ -32,18 +32,9 @@
         description="Analyzing review strategies across top 11 open source repositories"
       />
     </div>
-
-    <div style="margin-top: 2rem">
-      <ChapterCard
-        to="/starred"
-        title="Starred Sections"
-        description="Review your saved study highlights"
-      />
-    </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import AppNav from '@/components/layout/AppNav.vue'
 import ChapterCard from '@/components/ui/ChapterCard.vue'
 </script>
