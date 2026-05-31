@@ -47,7 +47,12 @@ export function useHighlightToolbar() {
   }
 
   function getTextOffset(el: HTMLElement, node: Node, offset: number): number {
-    if (node.nodeType !== Node.TEXT_NODE) return 0
+    if (node.nodeType !== Node.TEXT_NODE) {
+      const normalized = _normalizeToText(node, offset)
+      node = normalized.node
+      offset = normalized.offset
+      if (node.nodeType !== Node.TEXT_NODE) return 0
+    }
     let count = 0
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
     let n: Node | null
@@ -300,6 +305,22 @@ export function useHighlightToolbar() {
     show.value = false
   }
 
+  function highlightSelection(color: string) {
+    const sel = window.getSelection()
+    const text = (sel?.toString() || '').trim()
+    const contentArea = document.getElementById('content-area')
+    if (!text || !contentArea || !sel?.rangeCount) return false
+
+    const range = sel.getRangeAt(0)
+    if (!contentArea.contains(range.commonAncestorContainer)) return false
+
+    currentRange.value = range
+    currentText.value = text
+    applyHighlight(color)
+    show.value = false
+    return true
+  }
+
   onMounted(() => {
     document.addEventListener('mouseup', onMouseUp)
     document.addEventListener('click', onClick)
@@ -319,5 +340,6 @@ export function useHighlightToolbar() {
     removeFromSelection,
     restoreHighlights,
     checkSelection,
+    highlightSelection,
   }
 }

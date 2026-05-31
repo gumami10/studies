@@ -21,6 +21,8 @@ const chapters = [
   { to: '/tae', label: 'TAE' },
   { to: '/ta', label: 'TA' },
   { to: '/code-review', label: 'Code Review' },
+  { to: '/agile-testing', label: 'Agile Testing' },
+  { to: '/more-agile-testing', label: 'More Agile Testing' },
 ]
 
 const links = computed(() => {

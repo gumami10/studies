@@ -26,11 +26,12 @@
     @apply="applyHighlight"
     @remove="removeFromSelection"
   />
+  <MobileToolbar :highlight-selection="highlightSelection" />
   <ToTopButton />
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
@@ -40,6 +41,7 @@ import TableOfContents from '@/components/toc/TableOfContents.vue'
 import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'
 import HighlightToolbar from '@/components/ui/HighlightToolbar.vue'
+import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 
 const route = useRoute()
@@ -52,11 +54,12 @@ const {
   applyHighlight,
   removeFromSelection,
   restoreHighlights,
+  highlightSelection,
 } = useHighlightToolbar()
 
 function init() {
   store.setKey(meta.value.highlightKey as string)
-  restoreHighlights()
+  nextTick(() => restoreHighlights())
 }
 
 onMounted(init)

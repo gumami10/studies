@@ -31,6 +31,16 @@
         title="Code Review Research"
         description="Analyzing review strategies across top 11 open source repositories"
       />
+      <ChapterCard
+        to="/agile-testing"
+        title="Agile Testing"
+        description="A Practical Guide for Testers and Agile Teams — Gregory & Crispin (2009)"
+      />
+      <ChapterCard
+        to="/more-agile-testing"
+        title="More Agile Testing"
+        description="Learning Journeys for the Whole Team — Gregory & Crispin (2015)"
+      />
     </div>
   </main>
 </template>
