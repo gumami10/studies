@@ -2,6 +2,7 @@
   <div class="table-wrap">
     <table>
       <tr v-for="(row, ri) in block.rows" :key="ri">
+        <!-- eslint-disable vue/no-v-html -->
         <component
           :is="ri === 0 ? 'th' : 'td'"
           v-for="(cell, ci) in row.cells"
@@ -9,6 +10,7 @@
           :colspan="cell.span"
           v-html="cell.html"
         />
+        <!-- eslint-enable vue/no-v-html -->
       </tr>
     </table>
   </div>

@@ -1,5 +1,6 @@
 <template>
   <div class="key-box">
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <h4 v-if="block.heading" v-html="block.heading" />
     <template v-for="(child, i) in block.content" :key="i">
       <component :is="resolveComponent(child.type)" :block="child" />

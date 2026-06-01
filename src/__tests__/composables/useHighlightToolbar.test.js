@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { defineComponent, nextTick } from 'vue'
+import { defineComponent } from 'vue'
 import { setActivePinia, createPinia } from 'pinia'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 
@@ -70,8 +70,7 @@ describe('useHighlightToolbar', () => {
   })
 
   it('restoreHighlights returns early when no items', () => {
-    const store = wrapper.vm.restoreHighlights?.()
-    // Should not throw, just return void
+    wrapper.vm.restoreHighlights?.()
     expect(true).toBe(true)
   })
 })

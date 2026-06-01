@@ -1,6 +1,8 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <component :is="tag" v-if="tag !== 'heading'" v-html="block.text" />
   <h4 v-else v-html="block.text" />
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <script setup lang="ts">

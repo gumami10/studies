@@ -10,10 +10,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStarredStore } from '@/stores/starred'
 
 const route = useRoute()
-const store = useStarredStore()
 
 const chapters = [
   { to: '/chapters', label: 'CTAL-AT' },

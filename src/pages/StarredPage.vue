@@ -10,6 +10,7 @@
     <template v-else>
       <div v-for="(items, source) in store.bySource" :key="source" class="source-group">
         <div class="source-badge">From: {{ source }}</div>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-for="item in items" :id="item.id" :key="item.id" ref="itemRefs" v-html="item.html" />
       </div>
     </template>

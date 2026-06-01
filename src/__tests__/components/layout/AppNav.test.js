@@ -3,7 +3,6 @@ import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import { createRouter, createWebHistory } from 'vue-router'
 import AppNav from '@/components/layout/AppNav.vue'
-import { useStarredStore } from '@/stores/starred'
 
 const routes = [
   { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
