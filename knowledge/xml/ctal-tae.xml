@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>ctal-tae</id>
+    <path>/tae</path>
+    <name>tae</name>
+    <nav-label>TAE</nav-label>
+    <title>ISTQB CTAL-TAE Study Guide</title>
+    <subtitle>Advanced Level Test Automation Engineering (v2.0) — Chapter-by-Chapter Review</subtitle>
+    <toc-title>Syllabus Chapters</toc-title>
+    <home-description>Test Automation Engineering — architecture, design, and implementation</home-description>
+    <home-order>3</home-order>
+    <highlight-key>ctal-tae-highlights</highlight-key>
+    <footer-attribution>istqb</footer-attribution>
+  </manifest>
+<chapters>
 
     <chapter id="ch1">
       <meta>

@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>more-agile-testing</id>
+    <path>/more-agile-testing</path>
+    <name>more-agile-testing</name>
+    <nav-label>More Agile Testing</nav-label>
+    <title>More Agile Testing</title>
+    <subtitle>Learning Journeys for the Whole Team — Gregory &amp; Crispin (2015)</subtitle>
+    <toc-title>Book Parts</toc-title>
+    <home-description>Learning Journeys for the Whole Team — Gregory &amp; Crispin (2015)</home-description>
+    <home-order>7</home-order>
+    <highlight-key>more-agile-testing-highlights</highlight-key>
+    <footer-attribution>crispin-gregory</footer-attribution>
+  </manifest>
+<chapters>
 
     <chapter id="ch1">
       <meta>

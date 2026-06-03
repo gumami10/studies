@@ -10,27 +10,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useContentCatalog } from '@/composables/useContentCatalog'
 
 const route = useRoute()
-
-const chapters = [
-  { to: '/chapters', label: 'CTAL-AT' },
-  { to: '/metrics', label: 'Quality Metrics' },
-  { to: '/tae', label: 'TAE' },
-  { to: '/ta', label: 'TA' },
-  { to: '/code-review', label: 'Code Review' },
-  { to: '/agile-testing', label: 'Agile Testing' },
-  { to: '/more-agile-testing', label: 'More Agile Testing' },
-]
+const { list } = useContentCatalog()
 
 const links = computed(() => {
-  const result = []
+  const result: { to: string; label: string }[] = []
   if (route.name !== 'home') result.push({ to: '/', label: 'Home' })
   if (route.name !== 'starred') {
     result.push({ to: '/starred', label: 'Starred Sections' })
   }
-  chapters.forEach((ch) => {
-    if (ch.to !== route.path) result.push(ch)
+  list.forEach((k) => {
+    if (k.path !== route.path) result.push({ to: k.path, label: k.navLabel })
   })
   return result
 })

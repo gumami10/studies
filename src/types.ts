@@ -21,3 +21,23 @@ export interface ChapterData {
 }
 
 export type ComponentMap = Record<string, Component>
+
+export type FooterAttribution = 'istqb' | 'crispin-gregory' | 'none'
+
+export interface KnowledgeManifest {
+  id: string
+  path: string
+  name: string
+  navLabel: string
+  title: string
+  subtitle: string
+  tocTitle: string
+  homeDescription: string
+  homeOrder: number
+  highlightKey: string
+  footerAttribution: FooterAttribution
+}
+
+export type KnowledgeCatalog = Record<string, KnowledgeManifest>
+
+export type ChapterModuleMap = Record<string, ChapterData>

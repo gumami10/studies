@@ -1,8 +1,38 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'fs'
 import { resolve } from 'path'
 
 const XML_DIR = resolve('knowledge/xml')
 const DATA_DIR = resolve('data')
+
+const MANIFEST_FIELDS = [
+  'id',
+  'path',
+  'name',
+  'navLabel',
+  'title',
+  'subtitle',
+  'tocTitle',
+  'homeDescription',
+  'homeOrder',
+  'highlightKey',
+  'footerAttribution',
+]
+
+const MANIFEST_TAG_TO_KEY = {
+  id: 'id',
+  path: 'path',
+  name: 'name',
+  'nav-label': 'navLabel',
+  title: 'title',
+  subtitle: 'subtitle',
+  'toc-title': 'tocTitle',
+  'home-description': 'homeDescription',
+  'home-order': 'homeOrder',
+  'highlight-key': 'highlightKey',
+  'footer-attribution': 'footerAttribution',
+}
+
+const FOOTER_ATTRIBUTIONS = new Set(['istqb', 'crispin-gregory', 'none'])
 
 export function parseXml(xml) {
   const tagRegex = /<(\/?)(\w[\w-]*)((?:\s+[^>]*?)?)\s*(\/?)>/g
@@ -192,11 +222,64 @@ export function transformNode(node) {
   return null
 }
 
-export function convertFile(filepath) {
-  const root = parseXml(readFileSync(filepath, 'utf-8'))
+export function extractManifest(root) {
   const syllabus = root.children.find((c) => c.type === 'element' && c.tag === 'syllabus')
-  if (!syllabus) throw new Error(`No <syllabus> root found in ${filepath}`)
+  if (!syllabus) throw new Error('No <syllabus> root found')
 
+  const manifestEl = syllabus.children.find((c) => c.type === 'element' && c.tag === 'manifest')
+  if (!manifestEl) {
+    throw new Error('Missing <manifest> element. Every knowledge XML must declare one.')
+  }
+
+  const result = {}
+  const present = new Set()
+  for (const child of manifestEl.children) {
+    if (child.type !== 'element') continue
+    const key = MANIFEST_TAG_TO_KEY[child.tag]
+    if (!key) {
+      throw new Error(`Unknown <${child.tag}> inside <manifest>`)
+    }
+    if (present.has(key)) {
+      throw new Error(`Duplicate <${child.tag}> inside <manifest>`)
+    }
+    const text = getTextContent(child)
+    if (text === '') {
+      throw new Error(`Empty <${child.tag}> inside <manifest>`)
+    }
+    result[key] = key === 'homeOrder' ? Number(text) : text
+    present.add(key)
+  }
+
+  for (const field of MANIFEST_FIELDS) {
+    if (!present.has(field)) {
+      throw new Error(`Missing required <${manifestFieldToTag(field)}> in <manifest>`)
+    }
+  }
+
+  if (!FOOTER_ATTRIBUTIONS.has(result.footerAttribution)) {
+    throw new Error(
+      `<footer-attribution> must be one of ${[...FOOTER_ATTRIBUTIONS].join(', ')}, got '${result.footerAttribution}'`,
+    )
+  }
+
+  if (!Number.isFinite(result.homeOrder)) {
+    throw new Error(`<home-order> must be a number, got '${result.homeOrder}'`)
+  }
+
+  return result
+}
+
+function manifestFieldToTag(field) {
+  const entry = Object.entries(MANIFEST_TAG_TO_KEY).find(([, k]) => k === field)
+  return entry ? entry[0] : field
+}
+
+export function convertFile(filepath) {
+  const xml = readFileSync(filepath, 'utf-8')
+  const root = parseXml(xml)
+  const manifest = extractManifest(root)
+
+  const syllabus = root.children.find((c) => c.type === 'element' && c.tag === 'syllabus')
   const chaptersEl = syllabus.children.find((c) => c.type === 'element' && c.tag === 'chapters')
   const tocEl = syllabus.children.find((c) => c.type === 'element' && c.tag === 'toc')
   const footerEl = syllabus.children.find((c) => c.type === 'element' && c.tag === 'footer-text')
@@ -235,7 +318,7 @@ export function convertFile(filepath) {
 
   const footerText = footerEl ? getTextContent(footerEl) : ''
 
-  return { chapters, toc, footerText }
+  return { chapters, toc, footerText, manifest }
 }
 
 const isMain = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/^.*[\\/]/, ''))
@@ -243,68 +326,30 @@ const isMain = process.argv[1] && import.meta.url.endsWith(process.argv[1].repla
 if (isMain) {
   mkdirSync(DATA_DIR, { recursive: true })
 
-  const chaptersData = convertFile(resolve(XML_DIR, 'ctal-at.xml'))
-  writeFileSync(
-    resolve(DATA_DIR, 'ctal-at.js'),
-    `export default ${JSON.stringify(chaptersData, null, 2)}\n`,
-  )
+  const xmlFiles = readdirSync(XML_DIR).filter((f) => f.endsWith('.xml'))
+  const catalog = {}
 
-  const metricsData = convertFile(resolve(XML_DIR, 'quality-metrics.xml'))
-  writeFileSync(
-    resolve(DATA_DIR, 'quality-metrics.js'),
-    `export default ${JSON.stringify(metricsData, null, 2)}\n`,
-  )
+  for (const xml of xmlFiles) {
+    const name = xml.replace(/\.xml$/, '')
+    const data = convertFile(resolve(XML_DIR, xml))
+    writeFileSync(
+      resolve(DATA_DIR, `${name}.js`),
+      `export default ${JSON.stringify({ chapters: data.chapters, toc: data.toc, footerText: data.footerText }, null, 2)}\n`,
+    )
+    catalog[data.manifest.id] = data.manifest
+    console.log(
+      `  data/${name}.js (${data.chapters.length} chapters, ${data.toc.length} toc items)`,
+    )
+  }
 
-  const taeData = convertFile(resolve(XML_DIR, 'ctal-tae.xml'))
   writeFileSync(
-    resolve(DATA_DIR, 'ctal-tae.js'),
-    `export default ${JSON.stringify(taeData, null, 2)}\n`,
+    resolve(DATA_DIR, 'manifest.js'),
+    `export default ${JSON.stringify(catalog, null, 2)}\n`,
   )
-
-  const codeReviewData = convertFile(resolve(XML_DIR, 'code-review.xml'))
   writeFileSync(
-    resolve(DATA_DIR, 'code-review.js'),
-    `export default ${JSON.stringify(codeReviewData, null, 2)}\n`,
+    resolve(DATA_DIR, 'manifest.d.ts'),
+    `import type { KnowledgeCatalog } from '../src/types'\ndeclare const _default: KnowledgeCatalog\nexport default _default\n`,
   )
-
-  const taData = convertFile(resolve(XML_DIR, 'ctal-ta-chapters-1-5.xml'))
-  writeFileSync(
-    resolve(DATA_DIR, 'ctal-ta.js'),
-    `export default ${JSON.stringify(taData, null, 2)}\n`,
-  )
-
-  const agileTestingData = convertFile(resolve(XML_DIR, 'agile-testing.xml'))
-  writeFileSync(
-    resolve(DATA_DIR, 'agile-testing.js'),
-    `export default ${JSON.stringify(agileTestingData, null, 2)}\n`,
-  )
-
-  const moreAgileTestingData = convertFile(resolve(XML_DIR, 'more-agile-testing.xml'))
-  writeFileSync(
-    resolve(DATA_DIR, 'more-agile-testing.js'),
-    `export default ${JSON.stringify(moreAgileTestingData, null, 2)}\n`,
-  )
-
+  console.log(`  data/manifest.js (${Object.keys(catalog).length} knowledge modules)`)
   console.log('Conversion complete!')
-  console.log(
-    `  data/ctal-at.js (${chaptersData.chapters.length} chapters, ${chaptersData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/quality-metrics.js (${metricsData.chapters.length} chapters, ${metricsData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/ctal-tae.js (${taeData.chapters.length} chapters, ${taeData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/code-review.js (${codeReviewData.chapters.length} chapters, ${codeReviewData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/ctal-ta.js (${taData.chapters.length} chapters, ${taData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/agile-testing.js (${agileTestingData.chapters.length} chapters, ${agileTestingData.toc.length} toc items)`,
-  )
-  console.log(
-    `  data/more-agile-testing.js (${moreAgileTestingData.chapters.length} chapters, ${moreAgileTestingData.toc.length} toc items)`,
-  )
 }

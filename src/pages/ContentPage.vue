@@ -1,12 +1,12 @@
 <template>
   <header>
-    <h1>{{ meta.title }}</h1>
-    <p class="subtitle">{{ meta.subtitle }}</p>
+    <h1>{{ manifest.title }}</h1>
+    <p class="subtitle">{{ manifest.subtitle }}</p>
     <AppNav />
   </header>
 
   <div class="toc">
-    <h2>{{ meta.tocTitle }}</h2>
+    <h2>{{ manifest.tocTitle }}</h2>
     <TableOfContents :items="data.toc" />
   </div>
 
@@ -35,7 +35,8 @@ import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
-import type { ChapterData } from '@/types'
+import { useContentCatalog } from '@/composables/useContentCatalog'
+import type { ChapterData, KnowledgeManifest } from '@/types'
 import AppNav from '@/components/layout/AppNav.vue'
 import TableOfContents from '@/components/toc/TableOfContents.vue'
 import ContentRenderer from '@/components/content/ContentRenderer.vue'
@@ -45,9 +46,8 @@ import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 
 const route = useRoute()
-const meta = computed(() => route.meta)
-const data = computed(() => meta.value.data as ChapterData)
 const store = useHighlightsStore()
+const { findById, getChapterData } = useContentCatalog()
 const {
   show: toolbarShow,
   position: toolbarPosition,
@@ -57,8 +57,20 @@ const {
   highlightSelection,
 } = useHighlightToolbar()
 
+const knowledgeId = computed(() => route.meta.knowledgeId as string)
+const manifest = computed<KnowledgeManifest>(() => {
+  const k = findById(knowledgeId.value)
+  if (!k) throw new Error(`No manifest for knowledgeId: ${knowledgeId.value}`)
+  return k
+})
+const data = computed<ChapterData>(() => {
+  const d = getChapterData(knowledgeId.value)
+  if (!d) throw new Error(`No chapter data for knowledgeId: ${knowledgeId.value}`)
+  return d
+})
+
 function init() {
-  store.setKey(meta.value.highlightKey as string)
+  store.setKey(manifest.value.highlightKey)
   nextTick(() => restoreHighlights())
 }
 

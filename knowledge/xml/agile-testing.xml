@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>agile-testing</id>
+    <path>/agile-testing</path>
+    <name>agile-testing</name>
+    <nav-label>Agile Testing</nav-label>
+    <title>Agile Testing</title>
+    <subtitle>A Practical Guide for Testers and Agile Teams — Gregory &amp; Crispin (2009)</subtitle>
+    <toc-title>Book Parts</toc-title>
+    <home-description>A Practical Guide for Testers and Agile Teams — Gregory &amp; Crispin (2009)</home-description>
+    <home-order>6</home-order>
+    <highlight-key>agile-testing-highlights</highlight-key>
+    <footer-attribution>crispin-gregory</footer-attribution>
+  </manifest>
+<chapters>
 
     <!-- ============================================================ -->
     <!-- PART I: INTRODUCTION                                          -->

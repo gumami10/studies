@@ -1,10 +1,32 @@
 import { describe, it, expect } from 'vitest'
-import { parseXml, getTextContent, renderInlineHtml, transformNode, convertFile } from '../../scripts/convert-xml.mjs'
+import {
+  parseXml,
+  getTextContent,
+  renderInlineHtml,
+  transformNode,
+  convertFile,
+  extractManifest,
+} from '../../scripts/convert-xml.mjs'
 import { writeFileSync, mkdirSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+const validManifest = `
+  <manifest>
+    <id>test</id>
+    <path>/test</path>
+    <name>test</name>
+    <nav-label>Test</nav-label>
+    <title>Test Title</title>
+    <subtitle>Test subtitle</subtitle>
+    <toc-title>Test TOC</toc-title>
+    <home-description>Test blurb</home-description>
+    <home-order>1</home-order>
+    <highlight-key>test-highlights</highlight-key>
+    <footer-attribution>none</footer-attribution>
+  </manifest>`
 
 describe('parseXml', () => {
   it('parses simple XML', () => {
@@ -34,10 +56,10 @@ describe('parseXml', () => {
     const tree = parseXml('<div><p>Outer</p><div><p>Inner</p></div></div>')
     const outer = tree.children[0]
     expect(outer.tag).toBe('div')
-    expect(outer.children.filter(c => c.type === 'element')[0].tag).toBe('p')
-    const innerDiv = outer.children.filter(c => c.type === 'element')[1]
+    expect(outer.children.filter((c) => c.type === 'element')[0].tag).toBe('p')
+    const innerDiv = outer.children.filter((c) => c.type === 'element')[1]
     expect(innerDiv.tag).toBe('div')
-    expect(innerDiv.children.filter(c => c.type === 'element')[0].tag).toBe('p')
+    expect(innerDiv.children.filter((c) => c.type === 'element')[0].tag).toBe('p')
   })
 
   it('handles empty input', () => {
@@ -77,7 +99,8 @@ describe('renderInlineHtml', () => {
   it('renders plain text', () => {
     const tree = parseXml('<p>Hello World</p>')
     const p = tree.children[0]
-    expect(renderInlineHtml(p.children)).toBe('Hello World')
+    const result = renderInlineHtml(p.children)
+    expect(result).toBe('Hello World')
   })
 
   it('renders inline tags as HTML', () => {
@@ -98,7 +121,8 @@ describe('renderInlineHtml', () => {
   it('collapses whitespace', () => {
     const tree = parseXml('<p>  Hello    World  </p>')
     const p = tree.children[0]
-    expect(renderInlineHtml(p.children)).toBe('Hello World')
+    const result = renderInlineHtml(p.children)
+    expect(result).toBe('Hello World')
   })
 
   it('preserves span tags', () => {
@@ -128,7 +152,9 @@ describe('transformNode', () => {
   })
 
   it('transforms section', () => {
-    const result = transformNode(parseFirst('<section id="s1"><h2>Title</h2><paragraph>Body</paragraph></section>'))
+    const result = transformNode(
+      parseFirst('<section id="s1"><h2>Title</h2><paragraph>Body</paragraph></section>'),
+    )
     expect(result.type).toBe('section')
     expect(result.id).toBe('s1')
     expect(result.content).toHaveLength(2)
@@ -137,7 +163,9 @@ describe('transformNode', () => {
   })
 
   it('transforms list', () => {
-    const result = transformNode(parseFirst('<list type="ol"><item>First</item><item>Second</item></list>'))
+    const result = transformNode(
+      parseFirst('<list type="ol"><item>First</item><item>Second</item></list>'),
+    )
     expect(result.type).toBe('list')
     expect(result.listType).toBe('ol')
     expect(result.items).toHaveLength(2)
@@ -150,7 +178,9 @@ describe('transformNode', () => {
   })
 
   it('transforms table', () => {
-    const result = transformNode(parseFirst('<table><row><cell>Cell 1</cell><cell>Cell 2</cell></row></table>'))
+    const result = transformNode(
+      parseFirst('<table><row><cell>Cell 1</cell><cell>Cell 2</cell></row></table>'),
+    )
     expect(result.type).toBe('table')
     expect(result.rows).toHaveLength(1)
     expect(result.rows[0].cells).toHaveLength(2)
@@ -158,14 +188,20 @@ describe('transformNode', () => {
   })
 
   it('transforms key-box', () => {
-    const result = transformNode(parseFirst('<key-box><heading>Key Point</heading><paragraph>Details</paragraph></key-box>'))
+    const result = transformNode(
+      parseFirst('<key-box><heading>Key Point</heading><paragraph>Details</paragraph></key-box>'),
+    )
     expect(result.type).toBe('key-box')
     expect(result.heading).toBe('Key Point')
     expect(result.content).toHaveLength(1)
   })
 
   it('transforms compare cards', () => {
-    const result = transformNode(parseFirst('<compare><card type="pos"><paragraph>Good</paragraph></card><card type="neg"><paragraph>Bad</paragraph></card></compare>'))
+    const result = transformNode(
+      parseFirst(
+        '<compare><card type="pos"><paragraph>Good</paragraph></card><card type="neg"><paragraph>Bad</paragraph></card></compare>',
+      ),
+    )
     expect(result.type).toBe('compare')
     expect(result.cards).toHaveLength(2)
     expect(result.cards[0].cardType).toBe('pos')
@@ -173,7 +209,11 @@ describe('transformNode', () => {
   })
 
   it('transforms glossary', () => {
-    const result = transformNode(parseFirst('<glossary><term>TDD</term><definition>Test-Driven Development</definition></glossary>'))
+    const result = transformNode(
+      parseFirst(
+        '<glossary><term>TDD</term><definition>Test-Driven Development</definition></glossary>',
+      ),
+    )
     expect(result.type).toBe('glossary')
     expect(result.terms).toHaveLength(1)
     expect(result.definitions).toHaveLength(1)
@@ -198,10 +238,153 @@ describe('transformNode', () => {
   })
 })
 
+describe('extractManifest', () => {
+  function withManifest(extra = '') {
+    return parseXml(`<syllabus>${validManifest}${extra}</syllabus>`)
+  }
+
+  it('extracts a valid manifest', () => {
+    const m = extractManifest(withManifest())
+    expect(m).toEqual({
+      id: 'test',
+      path: '/test',
+      name: 'test',
+      navLabel: 'Test',
+      title: 'Test Title',
+      subtitle: 'Test subtitle',
+      tocTitle: 'Test TOC',
+      homeDescription: 'Test blurb',
+      homeOrder: 1,
+      highlightKey: 'test-highlights',
+      footerAttribution: 'none',
+    })
+  })
+
+  it('parses home-order as a number', () => {
+    const m = extractManifest(withManifest())
+    expect(m.homeOrder).toBe(1)
+    expect(typeof m.homeOrder).toBe('number')
+  })
+
+  it('throws when <syllabus> is missing', () => {
+    const root = parseXml('<not-syllabus></not-syllabus>')
+    expect(() => extractManifest(root)).toThrow('No <syllabus> root found')
+  })
+
+  it('throws when <manifest> is missing', () => {
+    const root = parseXml('<syllabus><chapters></chapters></syllabus>')
+    expect(() => extractManifest(root)).toThrow('Missing <manifest> element')
+  })
+
+  it('throws on a missing required field', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id>
+          <path>/x</path>
+          <name>x</name>
+          <nav-label>X</nav-label>
+          <title>X</title>
+          <subtitle>X</subtitle>
+          <toc-title>X</toc-title>
+          <home-description>X</home-description>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('Missing required <home-order>')
+  })
+
+  it('throws on an empty field', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id></id>
+          <path>/x</path>
+          <name>x</name>
+          <nav-label>X</nav-label>
+          <title>X</title>
+          <subtitle>X</subtitle>
+          <toc-title>X</toc-title>
+          <home-description>X</home-description>
+          <home-order>1</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('Empty <id>')
+  })
+
+  it('throws on an unknown footer-attribution', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id><path>/x</path><name>x</name><nav-label>X</nav-label>
+          <title>X</title><subtitle>X</subtitle><toc-title>X</toc-title>
+          <home-description>X</home-description><home-order>1</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>banana</footer-attribution>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('<footer-attribution> must be one of')
+  })
+
+  it('throws on a non-numeric home-order', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id><path>/x</path><name>x</name><nav-label>X</nav-label>
+          <title>X</title><subtitle>X</subtitle><toc-title>X</toc-title>
+          <home-description>X</home-description><home-order>abc</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('<home-order> must be a number')
+  })
+
+  it('throws on a duplicate field', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id><id>y</id>
+          <path>/x</path><name>x</name><nav-label>X</nav-label>
+          <title>X</title><subtitle>X</subtitle><toc-title>X</toc-title>
+          <home-description>X</home-description><home-order>1</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('Duplicate <id>')
+  })
+
+  it('throws on an unknown manifest child tag', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id><path>/x</path><name>x</name><nav-label>X</nav-label>
+          <title>X</title><subtitle>X</subtitle><toc-title>X</toc-title>
+          <home-description>X</home-description><home-order>1</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+          <bogus>oops</bogus>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('Unknown <bogus>')
+  })
+})
+
 describe('convertFile', () => {
-  it('converts a full syllabus XML', () => {
+  it('converts a full syllabus XML with manifest', () => {
     const tmpFile = resolve(__dirname, '__test_syllabus.xml')
     const xml = `<syllabus>
+${validManifest}
       <chapters>
         <chapter id="ch1">
           <meta><badge>K1</badge></meta>
@@ -220,27 +403,33 @@ describe('convertFile', () => {
     writeFileSync(tmpFile, xml)
 
     const result = convertFile(tmpFile)
-    
+
     expect(result.chapters).toHaveLength(1)
     expect(result.chapters[0].id).toBe('ch1')
     expect(result.chapters[0].title).toBe('Chapter One')
     expect(result.chapters[0].meta.badges).toHaveLength(1)
     expect(result.chapters[0].content).toHaveLength(1)
-    
+
     expect(result.toc).toHaveLength(1)
     expect(result.toc[0].id).toBe('sec-1')
     expect(result.toc[0].status).toBe('active')
-    
+
     expect(result.footerText).toBe('Footer content')
+
+    expect(result.manifest.id).toBe('test')
+    expect(result.manifest.path).toBe('/test')
+    expect(result.manifest.homeOrder).toBe(1)
   })
 
   it('handles missing toc and footer', () => {
     const tmpFile = resolve(__dirname, '__test_minimal.xml')
-    writeFileSync(tmpFile, '<syllabus><chapters></chapters></syllabus>')
+    const xml = `<syllabus>${validManifest}<chapters></chapters></syllabus>`
+    writeFileSync(tmpFile, xml)
     const result = convertFile(tmpFile)
     expect(result.chapters).toHaveLength(0)
     expect(result.toc).toHaveLength(0)
     expect(result.footerText).toBe('')
+    expect(result.manifest.id).toBe('test')
   })
 
   it('throws on missing syllabus root', () => {
@@ -251,7 +440,8 @@ describe('convertFile', () => {
 
   it('parses chapter with implicit empty meta', () => {
     const tmpFile = resolve(__dirname, '__test_nometa.xml')
-    writeFileSync(tmpFile, '<syllabus><chapters><chapter id="ch"><title>No Meta</title></chapter></chapters></syllabus>')
+    const xml = `<syllabus>${validManifest}<chapters><chapter id="ch"><title>No Meta</title></chapter></chapters></syllabus>`
+    writeFileSync(tmpFile, xml)
     const result = convertFile(tmpFile)
     expect(result.chapters[0].meta).toEqual({ type: 'meta', badges: [] })
   })

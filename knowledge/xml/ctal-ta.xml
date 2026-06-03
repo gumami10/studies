@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>ctal-ta</id>
+    <path>/ta</path>
+    <name>ta</name>
+    <nav-label>TA</nav-label>
+    <title>ISTQB CTAL-TA Study Guide</title>
+    <subtitle>Advanced Level Test Analyst (v4.0) — Chapters 1–5</subtitle>
+    <toc-title>Syllabus Chapters</toc-title>
+    <home-description>Test Analyst — test process, risk-based testing, techniques, quality characteristics, defect prevention</home-description>
+    <home-order>4</home-order>
+    <highlight-key>ctal-ta-highlights</highlight-key>
+    <footer-attribution>istqb</footer-attribution>
+  </manifest>
+<chapters>
     <chapter id="ch1">
       <meta>
         <badge>Chapter 1</badge>

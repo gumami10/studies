@@ -40,36 +40,35 @@ package.json          # Dependencies: vue, vue-router, pinia, vite
 vite.config.ts        # Vite config with @ alias → src/
 tsconfig.json         # TypeScript config (strict, bundler module resolution)
 eslint.config.js      # ESLint flat config (Vue + TS + Prettier)
+CONTEXT.md            # Domain language (knowledge module, knowledge manifest, ...)
 data/                 # JS data modules (generated from XML)
-  ctal-at.js          # Structured content for CTAL-AT
-  quality-metrics.js  # Structured content for quality metrics
-  ctal-tae.js         # Structured content for CTAL-TAE
-  code-review.js      # Structured content for code review research
+  manifest.js         # KnowledgeCatalog — generated aggregate of all <manifest> elements
+  manifest.d.ts       # Type declaration for manifest.js
+  <id>.js             # Chapter data for one knowledge module
 scripts/
-  convert-xml.mjs     # XML → JS data conversion script
+  convert-xml.mjs     # XML → JS data conversion script (also emits manifest)
+  migrate-add-manifest.mjs  # One-shot: synthesised <manifest> blocks for the 7 legacy XMLs
 knowledge/            # Study materials (PDFs, MDs, XML source-of-truth)
   xml/
-    ctal-at.xml
-    quality-metrics.xml
-    ctal-tae.xml
-    code-review.xml
+    <id>.xml          # One XML per knowledge module; filename = <id> from <manifest>
 src/
   main.ts             # createApp, Pinia, Router bootstrap
   App.vue             # Root: <router-view /> + ToTopButton
-  types.ts            # Shared TypeScript interfaces (ContentBlock, TocItem, ChapterData)
+  types.ts            # Shared TypeScript interfaces (ChapterData, KnowledgeManifest, KnowledgeCatalog, ...)
   env.d.ts            # Vue SFC + Vite type declarations
-  router/index.ts     # 6 routes (home, chapters, metrics, tae, code-review, starred)
+  router/index.ts     # buildRouter(catalog) + default export. Routes are data, not code.
   stores/
     highlights.ts     # Pinia store: per-page highlight CRUD + localStorage
     starred.ts        # Pinia store: starred sections CRUD + localStorage
   composables/
-    useScroll.ts      # Scroll-to-top button visibility + behavior
+    useContentCatalog.ts    # Catalog access: list, findById, getChapterData (single seam for everything)
+    useScroll.ts            # Scroll-to-top button visibility + behavior
     useHighlightToolbar.ts  # Selection, toolbar positioning, apply/restore highlights
   utils/
     storage.ts        # localStorage wrappers (get/set/available)
     sanitize.ts       # HTML sanitization (DOMParser-based)
   components/
-    layout/           # AppHeader, AppFooter, AppNav (router-link-based nav)
+    layout/           # AppHeader, AppFooter, AppNav (reads from useContentCatalog)
     content/          # ContentRenderer (dynamic component map), ContentSection
                       # ContentParagraph, ContentHeading, ContentList,
                       # DataTable, KeyBox, CompareCards, GlossaryList, BadgeList
@@ -77,26 +76,25 @@ src/
                       # ChapterCard, LoadingSpinner, ErrorMessage, EmptyState
     toc/              # TableOfContents (with smooth scroll)
   pages/
-    HomePage.vue      # Chapter grid + nav
-    ContentPage.vue   # Generic content page (driven by route meta: title, subtitle, tocTitle, data, highlightKey)
+    HomePage.vue      # Chapter grid (reads from useContentCatalog)
+    ContentPage.vue   # Generic content page (driven by useContentCatalog from route.meta.knowledgeId)
     StarredPage.vue   # Saved sections by source, with unstar buttons
   styles/
     main.css          # Full design system
 ```
 
-## Adding a New Chapter/Page
+## Adding a New Knowledge Module
 
-1. Create XML in `knowledge/xml/` following the schema documented in `.agents/xml-schema.md`
-2. Run `npm run convert` to generate the JS data module
-3. Add a route in `src/router/index.ts` using `ContentPage` with meta: `{ title, subtitle, tocTitle, highlightKey, data }`
-4. Import the data module at the top of `router/index.ts`
-5. Add the nav link in `src/components/layout/AppNav.vue` and the home card in `src/pages/HomePage.vue`
+1. Create `knowledge/xml/<id>.xml` following the schema in `.agents/xml-schema.md`.
+   The XML must include a `<manifest>` block with all 11 required fields
+   (id, path, name, navLabel, title, subtitle, tocTitle, homeDescription, homeOrder,
+   highlightKey, footerAttribution). The convert script fails loudly if any are missing.
+2. Run `npm run convert`. The script reads every XML, writes `data/<id>.js` per chapter
+   set, and writes a single aggregated `data/manifest.js` (and `data/manifest.d.ts`).
+3. Done. The router, nav, home page, and footer all derive from the manifest.
 
-## Content Data Format
-
-Each JS data module exports `{ chapters: [...], toc: [...], footerText: '...' }`.
-Block types: `section`, `h2`, `h3`, `h4`, `heading`, `paragraph`, `list`, `table`,
-`key-box`, `compare`, `glossary`, `meta`. See `scripts/convert-xml.mjs` for the full mapping.
+The router file no longer needs per-knowledge edits. The nav, home page, and footer
+also no longer need per-knowledge edits. The only file per knowledge is the XML.
 
 ## Agent Notes
 

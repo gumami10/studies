@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>code-review</id>
+    <path>/code-review</path>
+    <name>code-review</name>
+    <nav-label>Code Review</nav-label>
+    <title>Code Review Research Plan</title>
+    <subtitle>Analyzing the Mind of Code Reviewers Across Top 11 Open Source Repositories</subtitle>
+    <toc-title>Research Sections</toc-title>
+    <home-description>Analyzing review strategies across top 11 open source repositories</home-description>
+    <home-order>5</home-order>
+    <highlight-key>code-review-highlights</highlight-key>
+    <footer-attribution>none</footer-attribution>
+  </manifest>
+<chapters>
     <chapter id="cr-executive-summary">
       <meta>
         <badge>Research Plan</badge>

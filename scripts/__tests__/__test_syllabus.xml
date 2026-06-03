@@ -1,4 +1,18 @@
 <syllabus>
+
+  <manifest>
+    <id>test</id>
+    <path>/test</path>
+    <name>test</name>
+    <nav-label>Test</nav-label>
+    <title>Test Title</title>
+    <subtitle>Test subtitle</subtitle>
+    <toc-title>Test TOC</toc-title>
+    <home-description>Test blurb</home-description>
+    <home-order>1</home-order>
+    <highlight-key>test-highlights</highlight-key>
+    <footer-attribution>none</footer-attribution>
+  </manifest>
       <chapters>
         <chapter id="ch1">
           <meta><badge>K1</badge></meta>

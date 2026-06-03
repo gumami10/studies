@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>quality-metrics</id>
+    <path>/metrics</path>
+    <name>metrics</name>
+    <nav-label>Quality Metrics</nav-label>
+    <title>Quality Metrics in Agile Testing</title>
+    <subtitle>ISTQB CTAL-AT (v2.0) — Consolidated metrics reference</subtitle>
+    <toc-title>Metrics Reference</toc-title>
+    <home-description>Coverage, monitoring, process improvement &amp; business-facing metrics</home-description>
+    <home-order>2</home-order>
+    <highlight-key>ctal-at-highlights-metrics</highlight-key>
+    <footer-attribution>none</footer-attribution>
+  </manifest>
+<chapters>
     <chapter id="quality-metrics">
       <meta>
         <badge>Quality Metrics</badge>

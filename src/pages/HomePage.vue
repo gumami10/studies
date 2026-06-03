@@ -7,39 +7,11 @@
   <main>
     <div class="chapter-grid">
       <ChapterCard
-        to="/chapters"
-        title="CTAL-AT"
-        description="Test Strategy, People & Teams, Test Management, Shift Left, Techniques, Automation"
-      />
-      <ChapterCard
-        to="/metrics"
-        title="Quality Metrics"
-        description="Coverage, monitoring, process improvement & business-facing metrics"
-      />
-      <ChapterCard
-        to="/tae"
-        title="CTAL-TAE"
-        description="Test Automation Engineering — architecture, design, and implementation"
-      />
-      <ChapterCard
-        to="/ta"
-        title="CTAL-TA"
-        description="Test Analyst — test process, risk-based testing, techniques, quality characteristics, defect prevention"
-      />
-      <ChapterCard
-        to="/code-review"
-        title="Code Review Research"
-        description="Analyzing review strategies across top 11 open source repositories"
-      />
-      <ChapterCard
-        to="/agile-testing"
-        title="Agile Testing"
-        description="A Practical Guide for Testers and Agile Teams — Gregory & Crispin (2009)"
-      />
-      <ChapterCard
-        to="/more-agile-testing"
-        title="More Agile Testing"
-        description="Learning Journeys for the Whole Team — Gregory & Crispin (2015)"
+        v-for="k in list"
+        :key="k.id"
+        :to="k.path"
+        :title="k.navLabel"
+        :description="k.homeDescription"
       />
     </div>
   </main>
@@ -47,4 +19,7 @@
 
 <script setup lang="ts">
 import ChapterCard from '@/components/ui/ChapterCard.vue'
+import { useContentCatalog } from '@/composables/useContentCatalog'
+
+const { list } = useContentCatalog()
 </script>

@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <syllabus>
-  <chapters>
+  <manifest>
+    <id>ctal-at</id>
+    <path>/chapters</path>
+    <name>chapters</name>
+    <nav-label>CTAL-AT</nav-label>
+    <title>QA Hero study guide</title>
+    <subtitle>Advanced Level Agile Tester (v2.0) — Chapter-by-Chapter Review</subtitle>
+    <toc-title>Syllabus Chapters</toc-title>
+    <home-description>Test Strategy, People &amp; Teams, Test Management, Shift Left, Techniques, Automation</home-description>
+    <home-order>1</home-order>
+    <highlight-key>ctal-at-highlights-ch1</highlight-key>
+    <footer-attribution>istqb</footer-attribution>
+  </manifest>
+<chapters>
     <chapter id="ch1">
       <meta>
         <badge>Chapter 1</badge>
