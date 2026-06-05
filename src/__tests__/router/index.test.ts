@@ -105,4 +105,70 @@ describe('buildRouter', () => {
   it('scrollBehavior returns top when no hash', () => {
     expect(router.currentRoute.value.hash).toBe('')
   })
+
+  it('scrollBehavior returns the bookmarked section when a bookmark exists for the knowledge', () => {
+    localStorage.setItem(
+      'ctal_at_bookmarks',
+      JSON.stringify({
+        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
+      }),
+    )
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = router.options.scrollBehavior?.(to, from, null)
+    expect(result).toEqual({ el: '#ch3', behavior: 'smooth' })
+  })
+
+  it('scrollBehavior falls back to top when the bookmark has no sectionId', () => {
+    localStorage.setItem('ctal_at_bookmarks', JSON.stringify({ alpha: { knowledgeId: 'alpha' } }))
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = router.options.scrollBehavior?.(to, from, null)
+    expect(result).toEqual({ top: 0 })
+  })
+
+  it('scrollBehavior falls back to top when no bookmark exists for the knowledge', () => {
+    localStorage.clear()
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = router.options.scrollBehavior?.(to, from, null)
+    expect(result).toEqual({ top: 0 })
+  })
+
+  it('scrollBehavior falls back to top for routes with no knowledgeId', () => {
+    localStorage.setItem(
+      'ctal_at_bookmarks',
+      JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
+    )
+    const to = {
+      hash: '',
+      meta: {},
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = router.options.scrollBehavior?.(to, from, null)
+    expect(result).toEqual({ top: 0 })
+  })
+
+  it('scrollBehavior prefers a hash over a bookmark', () => {
+    localStorage.setItem(
+      'ctal_at_bookmarks',
+      JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
+    )
+    const to = {
+      hash: '#ch9',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = router.options.scrollBehavior?.(to, from, null)
+    expect(result).toEqual({ el: '#ch9', behavior: 'smooth' })
+  })
 })

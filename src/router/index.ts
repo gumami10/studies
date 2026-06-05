@@ -1,6 +1,16 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw, type Router } from 'vue-router'
 import catalog from '../../data/manifest.js'
 import type { KnowledgeCatalog } from '@/types'
+import { storageGet } from '@/utils/storage'
+
+interface BookmarkEntry {
+  sectionId?: string
+  knowledgeId?: string
+  title?: string
+  timestamp?: number
+}
+
+const BOOKMARKS_STORAGE_KEY = 'ctal_at_bookmarks'
 
 const ContentPage = () => import('@/pages/ContentPage.vue')
 const HomePage = () => import('@/pages/HomePage.vue')
@@ -35,6 +45,14 @@ export function buildRouter(c: KnowledgeCatalog): Router {
     routes: [...baseRoutes, ...buildKnowledgeRoutes(c)],
     scrollBehavior(to) {
       if (to.hash) return { el: to.hash, behavior: 'smooth' }
+      const knowledgeId = to.meta.knowledgeId as string | undefined
+      if (knowledgeId) {
+        const bookmarks = storageGet<Record<string, BookmarkEntry>>(BOOKMARKS_STORAGE_KEY, {}) ?? {}
+        const bookmark = bookmarks[knowledgeId]
+        if (bookmark?.sectionId) {
+          return { el: '#' + bookmark.sectionId, behavior: 'smooth' }
+        }
+      }
       return { top: 0 }
     },
   })

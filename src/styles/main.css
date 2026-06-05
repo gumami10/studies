@@ -413,7 +413,7 @@ footer {
   transition: all 0.2s ease;
   margin-left: 0.75rem;
   position: sticky;
-  top: 1.5rem;
+  top: 4.5rem;
   z-index: 10;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -428,6 +428,36 @@ footer {
   color: var(--warn);
   border-color: var(--warn);
   background: rgba(251, 191, 36, 0.12);
+}
+
+.bookmark-btn {
+  float: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+  margin-right: 0.75rem;
+  position: sticky;
+  top: 1.5rem;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bookmark-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.bookmark-btn.bookmarked {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.12);
 }
 
 nav.top-nav {
@@ -770,6 +800,10 @@ mark:focus-visible {
     padding-top: 52px;
   }
 
+  .bookmark-btn {
+    top: 1rem;
+  }
+
   .star-btn {
     display: none;
   }
@@ -805,6 +839,7 @@ mark:focus-visible {
   }
 
   .star-btn,
+  .bookmark-btn,
   #highlight-toolbar,
   nav.top-nav,
   .to-top-btn,

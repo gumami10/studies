@@ -13,6 +13,11 @@
   <main id="content-area">
     <template v-for="chapter in data.chapters" :key="chapter.id">
       <article :id="chapter.id">
+        <BookmarkButton
+          :knowledge-id="knowledgeId"
+          :section-id="chapter.id"
+          :section-title="chapter.title || chapter.id"
+        />
         <BadgeList :block="chapter.meta" />
         <h2 v-if="chapter.title">{{ chapter.title }}</h2>
         <ContentRenderer :blocks="chapter.content" />
@@ -34,6 +39,7 @@
 import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
+import { useBookmarksStore } from '@/stores/bookmarks'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 import { useContentCatalog } from '@/composables/useContentCatalog'
 import type { ChapterData, KnowledgeManifest } from '@/types'
@@ -42,11 +48,13 @@ import TableOfContents from '@/components/toc/TableOfContents.vue'
 import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'
 import HighlightToolbar from '@/components/ui/HighlightToolbar.vue'
+import BookmarkButton from '@/components/ui/BookmarkButton.vue'
 import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 
 const route = useRoute()
 const store = useHighlightsStore()
+const bookmarks = useBookmarksStore()
 const { findById, getChapterData } = useContentCatalog()
 const {
   show: toolbarShow,
@@ -71,7 +79,10 @@ const data = computed<ChapterData>(() => {
 
 function init() {
   store.setKey(manifest.value.highlightKey)
-  nextTick(() => restoreHighlights())
+  bookmarks.load()
+  nextTick(() => {
+    restoreHighlights()
+  })
 }
 
 onMounted(init)
