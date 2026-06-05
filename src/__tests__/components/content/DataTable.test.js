@@ -10,10 +10,10 @@ describe('DataTable', () => {
           type: 'table',
           rows: [
             { cells: [{ html: 'Col 1' }, { html: 'Col 2' }] },
-            { cells: [{ html: 'A' }, { html: 'B' }] }
-          ]
-        }
-      }
+            { cells: [{ html: 'A' }, { html: 'B' }] },
+          ],
+        },
+      },
     })
     expect(wrapper.find('table').exists()).toBe(true)
   })
@@ -25,10 +25,10 @@ describe('DataTable', () => {
           type: 'table',
           rows: [
             { cells: [{ html: 'Header 1' }, { html: 'Header 2' }] },
-            { cells: [{ html: 'Data 1' }, { html: 'Data 2' }] }
-          ]
-        }
-      }
+            { cells: [{ html: 'Data 1' }, { html: 'Data 2' }] },
+          ],
+        },
+      },
     })
     const rows = wrapper.findAll('tr')
     expect(rows[0].findAll('th')).toHaveLength(2)
@@ -40,11 +40,9 @@ describe('DataTable', () => {
       props: {
         block: {
           type: 'table',
-          rows: [
-            { cells: [{ html: 'Wide', span: '2' }] }
-          ]
-        }
-      }
+          rows: [{ cells: [{ html: 'Wide', span: '2' }] }],
+        },
+      },
     })
     expect(wrapper.find('th').attributes('colspan')).toBe('2')
   })
@@ -54,18 +52,16 @@ describe('DataTable', () => {
       props: {
         block: {
           type: 'table',
-          rows: [
-            { cells: [{ html: '<strong>Bold</strong>' }] }
-          ]
-        }
-      }
+          rows: [{ cells: [{ html: '<strong>Bold</strong>' }] }],
+        },
+      },
     })
     expect(wrapper.find('th').html()).toContain('<strong>Bold</strong>')
   })
 
   it('renders empty table with no rows', () => {
     const wrapper = mount(DataTable, {
-      props: { block: { type: 'table', rows: [] } }
+      props: { block: { type: 'table', rows: [] } },
     })
     expect(wrapper.find('table').exists()).toBe(true)
     expect(wrapper.findAll('tr')).toHaveLength(0)

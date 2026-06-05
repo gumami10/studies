@@ -11,11 +11,13 @@
 
 <script setup lang="ts">
 import type { TocItem } from '@/types'
+import { centerScrollTopForElement } from '@/utils/scrollPosition'
 
 defineProps<{ items: TocItem[] }>()
 
 function scrollTo(id: string) {
   const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
+  if (!el) return
+  window.scrollTo({ top: centerScrollTopForElement(el), behavior: 'smooth' })
 }
 </script>

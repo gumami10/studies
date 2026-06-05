@@ -8,14 +8,14 @@ function createWrapper() {
   const Comp = defineComponent({
     setup() {
       return {
-        ...useHighlightToolbar()
+        ...useHighlightToolbar(),
       }
     },
-    template: '<div id="content-area"><p id="para">Some test text here</p></div>'
+    template: '<div id="content-area"><p id="para">Some test text here</p></div>',
   })
   return mount(Comp, {
     attachTo: document.body,
-    global: { plugins: [createPinia()] }
+    global: { plugins: [createPinia()] },
   })
 }
 
@@ -52,8 +52,10 @@ describe('useHighlightToolbar', () => {
     const removeSpy = vi.spyOn(document, 'removeEventListener')
 
     const Comp = defineComponent({
-      setup() { return { ...useHighlightToolbar() } },
-      template: '<div id="content-area" />'
+      setup() {
+        return { ...useHighlightToolbar() }
+      },
+      template: '<div id="content-area" />',
     })
     const w = mount(Comp, { attachTo: document.body, global: { plugins: [createPinia()] } })
     expect(addSpy).toHaveBeenCalledWith('mouseup', expect.any(Function))

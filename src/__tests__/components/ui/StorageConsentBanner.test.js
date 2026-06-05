@@ -40,9 +40,7 @@ describe('StorageConsentBanner', () => {
     const banner = wrapper.find('.consent-banner')
     expect(banner.attributes('role')).toBe('alert')
     expect(banner.attributes('aria-live')).toBe('polite')
-    expect(wrapper.find('.consent-dismiss').attributes('aria-label')).toBe(
-      'Dismiss privacy notice'
-    )
+    expect(wrapper.find('.consent-dismiss').attributes('aria-label')).toBe('Dismiss privacy notice')
     wrapper.unmount()
   })
 })

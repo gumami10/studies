@@ -8,10 +8,13 @@ describe('AppHeader', () => {
   it('renders title and subtitle', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
-    const router = createRouter({ history: createWebHistory(), routes: [{ path: '/', component: { template: '' } }] })
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: [{ path: '/', component: { template: '' } }],
+    })
 
     const wrapper = mount(AppHeader, {
-      global: { plugins: [pinia, router] }
+      global: { plugins: [pinia, router] },
     })
     expect(wrapper.find('h1').text()).toBe('QA Hero study guide')
     expect(wrapper.find('.subtitle').text()).toContain('Advanced Level Agile Tester')
@@ -20,10 +23,13 @@ describe('AppHeader', () => {
   it('includes AppNav', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
-    const router = createRouter({ history: createWebHistory(), routes: [{ path: '/', component: { template: '' } }] })
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: [{ path: '/', component: { template: '' } }],
+    })
 
     const wrapper = mount(AppHeader, {
-      global: { plugins: [pinia, router] }
+      global: { plugins: [pinia, router] },
     })
     expect(wrapper.findComponent({ name: 'AppNav' }).exists()).toBe(true)
   })

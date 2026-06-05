@@ -1,18 +1,23 @@
 <template>
-  <button
+  <Button
     class="star-btn"
     :class="{ starred }"
     type="button"
     :title="starred ? 'Unstar this section' : 'Star this section'"
     :aria-label="starred ? 'Unstar this section' : 'Star this section'"
+    :icon="starred ? 'pi pi-star-fill' : 'pi pi-star'"
+    severity="secondary"
+    text
+    rounded
+    size="small"
     @click="toggle"
-    v-text="starred ? '★' : '☆'"
   />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import Button from 'primevue/button'
 import { useStarredStore } from '@/stores/starred'
 
 const props = defineProps({
@@ -24,10 +29,14 @@ const store = useStarredStore()
 const route = useRoute()
 const starred = ref(false)
 
-onMounted(() => {
-  store.load()
-  starred.value = store.isStarred(props.sectionId)
-})
+watch(
+  () => props.sectionId,
+  (id) => {
+    store.load()
+    starred.value = store.isStarred(id)
+  },
+  { immediate: true },
+)
 
 function toggle() {
   const section = document.getElementById(props.sectionId)
@@ -50,3 +59,13 @@ function toggle() {
   starred.value = store.isStarred(props.sectionId)
 }
 </script>
+
+<style scoped>
+.star-btn.starred :deep(.p-button-icon) {
+  color: var(--p-amber-400);
+}
+
+.star-btn:hover :deep(.p-button-icon) {
+  color: var(--p-amber-300);
+}
+</style>

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import type { Router } from 'vue-router'
 import { buildRouter, buildKnowledgeRoutes } from '../../../src/router/index'
 import type { KnowledgeCatalog } from '../../../src/types'
@@ -65,14 +65,21 @@ describe('buildRouter', () => {
   let router: Router
 
   beforeEach(async () => {
+    localStorage.clear()
+    document.body.innerHTML = ''
     router = buildRouter(fixtureCatalog)
     router.push('/')
     await router.isReady()
   })
 
-  it('declares home, starred, and one route per knowledge', () => {
+  afterEach(() => {
+    localStorage.clear()
+    document.body.innerHTML = ''
+  })
+
+  it('declares home, starred, settings, and one route per knowledge', () => {
     const names = router.getRoutes().map((r: { name?: string | symbol | null }) => r.name)
-    expect(names).toEqual(expect.arrayContaining(['home', 'starred', 'alpha', 'beta']))
+    expect(names).toEqual(expect.arrayContaining(['home', 'starred', 'settings', 'alpha', 'beta']))
   })
 
   it('home route resolves', async () => {
@@ -83,6 +90,11 @@ describe('buildRouter', () => {
   it('starred route resolves', async () => {
     await router.push('/starred')
     expect(router.currentRoute.value.name).toBe('starred')
+  })
+
+  it('settings route resolves', async () => {
+    await router.push('/settings')
+    expect(router.currentRoute.value.name).toBe('settings')
   })
 
   it('knowledge route resolves and exposes knowledgeId in meta', async () => {
@@ -106,45 +118,156 @@ describe('buildRouter', () => {
     expect(router.currentRoute.value.hash).toBe('')
   })
 
-  it('scrollBehavior returns the bookmarked section when a bookmark exists for the knowledge', () => {
+  it('scrollBehavior centers the bookmarked section when a bookmark exists for the knowledge', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
       JSON.stringify({
         alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
       }),
     )
+    const el = document.createElement('section')
+    el.id = 'ch3'
+    el.getBoundingClientRect = () =>
+      ({
+        top: 200,
+        left: 0,
+        right: 0,
+        bottom: 600,
+        width: 0,
+        height: 400,
+        x: 0,
+        y: 200,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(el, 'offsetHeight', { configurable: true, value: 400 })
+    document.body.appendChild(el)
+
     const to = {
       hash: '',
       meta: { knowledgeId: 'alpha' },
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
-    const result = router.options.scrollBehavior?.(to, from, null)
-    expect(result).toEqual({ el: '#ch3', behavior: 'smooth' })
+    const result = await router.options.scrollBehavior?.(to, from, null)
+    const expectedTop = Math.max(0, 200 + window.scrollY - window.innerHeight / 2 + 200)
+    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+
+    document.body.removeChild(el)
   })
 
-  it('scrollBehavior falls back to top when the bookmark has no sectionId', () => {
+  it('scrollBehavior centers the chapter heading instead of the full chapter card', async () => {
+    localStorage.setItem(
+      'ctal_at_bookmarks',
+      JSON.stringify({
+        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
+      }),
+    )
+    const chapter = document.createElement('article')
+    chapter.id = 'ch3'
+    chapter.className = 'chapter'
+    chapter.getBoundingClientRect = () =>
+      ({
+        top: 200,
+        left: 0,
+        right: 0,
+        bottom: 2200,
+        width: 0,
+        height: 2000,
+        x: 0,
+        y: 200,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(chapter, 'offsetHeight', { configurable: true, value: 2000 })
+
+    const heading = document.createElement('h2')
+    heading.textContent = 'Chapter 3'
+    heading.getBoundingClientRect = () =>
+      ({
+        top: 260,
+        left: 0,
+        right: 0,
+        bottom: 300,
+        width: 0,
+        height: 40,
+        x: 0,
+        y: 260,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(heading, 'offsetHeight', { configurable: true, value: 40 })
+    chapter.appendChild(heading)
+    document.body.appendChild(chapter)
+
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = await router.options.scrollBehavior?.(to, from, null)
+    const expectedTop = Math.max(0, 260 + window.scrollY - window.innerHeight / 2 + 20)
+    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+
+    document.body.removeChild(chapter)
+  })
+
+  it('scrollBehavior falls back to top when the bookmark has no sectionId', async () => {
     localStorage.setItem('ctal_at_bookmarks', JSON.stringify({ alpha: { knowledgeId: 'alpha' } }))
     const to = {
       hash: '',
       meta: { knowledgeId: 'alpha' },
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
-    const result = router.options.scrollBehavior?.(to, from, null)
+    const result = await router.options.scrollBehavior?.(to, from, null)
     expect(result).toEqual({ top: 0 })
   })
 
-  it('scrollBehavior falls back to top when no bookmark exists for the knowledge', () => {
+  it('scrollBehavior falls back to top when no bookmark exists for the knowledge', async () => {
     localStorage.clear()
     const to = {
       hash: '',
       meta: { knowledgeId: 'alpha' },
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
-    const result = router.options.scrollBehavior?.(to, from, null)
+    const result = await router.options.scrollBehavior?.(to, from, null)
     expect(result).toEqual({ top: 0 })
   })
 
-  it('scrollBehavior falls back to top for routes with no knowledgeId', () => {
+  it('scrollBehavior falls back to auto-bookmark when no manual bookmark exists', async () => {
+    localStorage.clear()
+    localStorage.setItem(
+      'ctal_at_auto_bookmarks',
+      JSON.stringify({
+        alpha: { knowledgeId: 'alpha', sectionId: 'ch4', title: 'Ch 4', timestamp: 1 },
+      }),
+    )
+    const el = document.createElement('section')
+    el.id = 'ch4'
+    el.getBoundingClientRect = () =>
+      ({
+        top: 300,
+        left: 0,
+        right: 0,
+        bottom: 500,
+        width: 0,
+        height: 200,
+        x: 0,
+        y: 300,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(el, 'offsetHeight', { configurable: true, value: 200 })
+    document.body.appendChild(el)
+
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = await router.options.scrollBehavior?.(to, from, null)
+    const expectedTop = Math.max(0, 300 + window.scrollY - window.innerHeight / 2 + 100)
+    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+
+    document.body.removeChild(el)
+  })
+
+  it('scrollBehavior falls back to top for routes with no knowledgeId', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
       JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
@@ -154,21 +277,84 @@ describe('buildRouter', () => {
       meta: {},
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
-    const result = router.options.scrollBehavior?.(to, from, null)
+    const result = await router.options.scrollBehavior?.(to, from, null)
     expect(result).toEqual({ top: 0 })
   })
 
-  it('scrollBehavior prefers a hash over a bookmark', () => {
+  it('scrollBehavior prefers a hash over a bookmark', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
       JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
     )
+    const el = document.createElement('section')
+    el.id = 'ch9'
+    el.getBoundingClientRect = () =>
+      ({
+        top: 100,
+        left: 0,
+        right: 0,
+        bottom: 300,
+        width: 0,
+        height: 200,
+        x: 0,
+        y: 100,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(el, 'offsetHeight', { configurable: true, value: 200 })
+    document.body.appendChild(el)
+
     const to = {
       hash: '#ch9',
       meta: { knowledgeId: 'alpha' },
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
-    const result = router.options.scrollBehavior?.(to, from, null)
-    expect(result).toEqual({ el: '#ch9', behavior: 'smooth' })
+    const result = await router.options.scrollBehavior?.(to, from, null)
+    const expectedTop = Math.max(0, 100 + window.scrollY - window.innerHeight / 2 + 100)
+    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+
+    document.body.removeChild(el)
+  })
+
+  it('scrollBehavior prefers manual bookmark over auto-bookmark', async () => {
+    localStorage.clear()
+    localStorage.setItem(
+      'ctal_at_bookmarks',
+      JSON.stringify({
+        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
+      }),
+    )
+    localStorage.setItem(
+      'ctal_at_auto_bookmarks',
+      JSON.stringify({
+        alpha: { knowledgeId: 'alpha', sectionId: 'ch4', title: 'Ch 4', timestamp: 1 },
+      }),
+    )
+    const el3 = document.createElement('section')
+    el3.id = 'ch3'
+    el3.getBoundingClientRect = () =>
+      ({
+        top: 200,
+        left: 0,
+        right: 0,
+        bottom: 600,
+        width: 0,
+        height: 400,
+        x: 0,
+        y: 200,
+        toJSON: () => ({}),
+      }) as DOMRect
+    Object.defineProperty(el3, 'offsetHeight', { configurable: true, value: 400 })
+    document.body.appendChild(el3)
+
+    const to = {
+      hash: '',
+      meta: { knowledgeId: 'alpha' },
+    } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
+    const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
+    const result = await router.options.scrollBehavior?.(to, from, null)
+    const expectedTop = Math.max(0, 200 + window.scrollY - window.innerHeight / 2 + 200)
+    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+
+    document.body.removeChild(el3)
   })
 })

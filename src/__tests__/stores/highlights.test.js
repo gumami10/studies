@@ -86,7 +86,7 @@ describe('useHighlightsStore', () => {
     store.add({ id: '2' })
     store.add({ id: '3' })
     store.remove('2')
-    expect(store.items.map(i => i.id)).toEqual(['1', '3'])
+    expect(store.items.map((i) => i.id)).toEqual(['1', '3'])
     store.add({ id: '4' })
     expect(store.items).toHaveLength(3)
   })

@@ -1,7 +1,12 @@
 <template>
-  <header>
-    <h1>{{ manifest.title }}</h1>
-    <p class="subtitle">{{ manifest.subtitle }}</p>
+  <header class="page-header">
+    <div class="page-header-row">
+      <div class="page-header-text">
+        <h1>{{ manifest.title }}</h1>
+        <p class="subtitle">{{ manifest.subtitle }}</p>
+      </div>
+      <SettingsButton />
+    </div>
     <AppNav />
   </header>
 
@@ -12,12 +17,15 @@
 
   <main id="content-area">
     <template v-for="chapter in data.chapters" :key="chapter.id">
-      <article :id="chapter.id">
-        <BookmarkButton
-          :knowledge-id="knowledgeId"
-          :section-id="chapter.id"
-          :section-title="chapter.title || chapter.id"
-        />
+      <article :id="chapter.id" class="chapter">
+        <div class="section-actions">
+          <BookmarkButton
+            :knowledge-id="knowledgeId"
+            :section-id="chapter.id"
+            :section-title="chapter.title || chapter.id"
+          />
+          <StarButton :section-id="activeSectionId" :section-title="activeSectionTitle" />
+        </div>
         <BadgeList :block="chapter.meta" />
         <h2 v-if="chapter.title">{{ chapter.title }}</h2>
         <ContentRenderer :blocks="chapter.content" />
@@ -42,6 +50,9 @@ import { useHighlightsStore } from '@/stores/highlights'
 import { useBookmarksStore } from '@/stores/bookmarks'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 import { useContentCatalog } from '@/composables/useContentCatalog'
+import { useSectionTracker } from '@/composables/useSectionTracker'
+import { useChapterTracker } from '@/composables/useChapterTracker'
+import { useSettingsStore } from '@/stores/settings'
 import type { ChapterData, KnowledgeManifest } from '@/types'
 import AppNav from '@/components/layout/AppNav.vue'
 import TableOfContents from '@/components/toc/TableOfContents.vue'
@@ -49,13 +60,19 @@ import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'
 import HighlightToolbar from '@/components/ui/HighlightToolbar.vue'
 import BookmarkButton from '@/components/ui/BookmarkButton.vue'
+import StarButton from '@/components/ui/StarButton.vue'
 import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
+import SettingsButton from '@/components/ui/SettingsButton.vue'
 
 const route = useRoute()
 const store = useHighlightsStore()
 const bookmarks = useBookmarksStore()
+const settings = useSettingsStore()
 const { findById, getChapterData } = useContentCatalog()
+const { currentSectionId: activeSectionId, currentSectionTitle: activeSectionTitle } =
+  useSectionTracker()
+const { currentChapterId } = useChapterTracker()
 const {
   show: toolbarShow,
   position: toolbarPosition,
@@ -79,6 +96,7 @@ const data = computed<ChapterData>(() => {
 
 function init() {
   store.setKey(manifest.value.highlightKey)
+  settings.load()
   bookmarks.load()
   nextTick(() => {
     restoreHighlights()
@@ -87,4 +105,11 @@ function init() {
 
 onMounted(init)
 watch(() => route.name, init)
+
+watch(currentChapterId, (chapterId) => {
+  if (!chapterId || !settings.autoBookmark) return
+  const chapter = data.value.chapters.find((c) => c.id === chapterId)
+  if (!chapter) return
+  bookmarks.setAuto(knowledgeId.value, chapterId, chapter.title || chapterId)
+})
 </script>

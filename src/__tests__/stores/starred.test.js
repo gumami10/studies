@@ -32,7 +32,7 @@ describe('useStarredStore', () => {
       id: 'sec-1',
       title: 'My Section',
       source: 'CTAL-AT',
-      html: '<h2>My Section</h2>'
+      html: '<h2>My Section</h2>',
     })
   })
 
@@ -57,7 +57,7 @@ describe('useStarredStore', () => {
 
   it('load reads from localStorage', () => {
     const data = {
-      'sec-a': { id: 'sec-a', title: 'A', source: 'S', html: '<p>A</p>' }
+      'sec-a': { id: 'sec-a', title: 'A', source: 'S', html: '<p>A</p>' },
     }
     localStorage.setItem('ctal_at_starred', JSON.stringify(data))
 

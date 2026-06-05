@@ -10,7 +10,7 @@ describe('BookmarkButton', () => {
     localStorage.clear()
   })
 
-  it('renders unbookmarked (📑) initially', async () => {
+  it('renders unbookmarked icon initially', async () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const wrapper = mount(BookmarkButton, {
@@ -22,11 +22,11 @@ describe('BookmarkButton', () => {
       global: { plugins: [pinia] },
     })
     await nextTick()
-    expect(wrapper.text()).toContain('📑')
+    expect(wrapper.find('.pi-bookmark').exists()).toBe(true)
     expect(wrapper.find('.bookmarked').exists()).toBe(false)
   })
 
-  it('shows bookmarked (🔖) when chapter is already bookmarked', async () => {
+  it('shows bookmarked icon when chapter is already bookmarked', async () => {
     const data = {
       'study-a': {
         knowledgeId: 'study-a',
@@ -51,7 +51,7 @@ describe('BookmarkButton', () => {
 
     const store = useBookmarksStore()
     expect(store.isBookmarked('study-a', 'chapter-1')).toBe(true)
-    expect(wrapper.text()).toContain('🔖')
+    expect(wrapper.find('.pi-bookmark-fill').exists()).toBe(true)
     expect(wrapper.find('.bookmarked').exists()).toBe(true)
   })
 
@@ -73,7 +73,7 @@ describe('BookmarkButton', () => {
 
     const store = useBookmarksStore()
     expect(store.isBookmarked('study-a', 'chapter-1')).toBe(true)
-    expect(wrapper.text()).toContain('🔖')
+    expect(wrapper.find('.pi-bookmark-fill').exists()).toBe(true)
   })
 
   it('clicking the same chapter again removes the bookmark', async () => {
@@ -91,14 +91,14 @@ describe('BookmarkButton', () => {
 
     await wrapper.find('.bookmark-btn').trigger('click')
     await nextTick()
-    expect(wrapper.text()).toContain('🔖')
+    expect(wrapper.find('.pi-bookmark-fill').exists()).toBe(true)
 
     await wrapper.find('.bookmark-btn').trigger('click')
     await nextTick()
 
     const store = useBookmarksStore()
     expect(store.isBookmarked('study-a', 'chapter-1')).toBe(false)
-    expect(wrapper.text()).toContain('📑')
+    expect(wrapper.find('.pi-bookmark').exists()).toBe(true)
   })
 
   it('clicking a different chapter replaces the previous bookmark', async () => {
@@ -132,8 +132,8 @@ describe('BookmarkButton', () => {
     expect(store.get('study-a')?.sectionId).toBe('chapter-2')
 
     await wrapperA.vm.$nextTick()
-    expect(wrapperA.text()).toContain('📑')
-    expect(wrapperB.text()).toContain('🔖')
+    expect(wrapperA.find('.pi-bookmark').exists()).toBe(true)
+    expect(wrapperB.find('.pi-bookmark-fill').exists()).toBe(true)
   })
 
   it('has correct accessibility attributes when unbookmarked', () => {

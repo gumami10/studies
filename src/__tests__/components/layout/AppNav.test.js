@@ -10,7 +10,7 @@ const routes = [
   { path: '/metrics', name: 'metrics', component: { template: '<div>Metrics</div>' } },
   { path: '/tae', name: 'tae', component: { template: '<div>TAE</div>' } },
   { path: '/code-review', name: 'code-review', component: { template: '<div>CodeReview</div>' } },
-  { path: '/starred', name: 'starred', component: { template: '<div>Starred</div>' } }
+  { path: '/starred', name: 'starred', component: { template: '<div>Starred</div>' } },
 ]
 
 describe('AppNav', () => {

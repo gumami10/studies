@@ -9,9 +9,12 @@ describe('GlossaryList', () => {
         block: {
           type: 'glossary',
           terms: [{ text: 'TDD' }, { text: 'BDD' }],
-          definitions: [{ text: 'Test-Driven Development' }, { text: 'Behavior-Driven Development' }]
-        }
-      }
+          definitions: [
+            { text: 'Test-Driven Development' },
+            { text: 'Behavior-Driven Development' },
+          ],
+        },
+      },
     })
     expect(wrapper.find('dl.glossary').exists()).toBe(true)
     expect(wrapper.findAll('dt')).toHaveLength(2)
@@ -26,9 +29,9 @@ describe('GlossaryList', () => {
         block: {
           type: 'glossary',
           terms: [{ text: 'TDD' }, { text: 'BDD' }],
-          definitions: [{ text: 'Test-Driven Development' }]
-        }
-      }
+          definitions: [{ text: 'Test-Driven Development' }],
+        },
+      },
     })
     expect(wrapper.findAll('dt')).toHaveLength(2)
     expect(wrapper.findAll('dd')).toHaveLength(1)
@@ -36,7 +39,7 @@ describe('GlossaryList', () => {
 
   it('renders empty list', () => {
     const wrapper = mount(GlossaryList, {
-      props: { block: { type: 'glossary', terms: [], definitions: [] } }
+      props: { block: { type: 'glossary', terms: [], definitions: [] } },
     })
     expect(wrapper.find('dl').exists()).toBe(true)
     expect(wrapper.findAll('dt')).toHaveLength(0)

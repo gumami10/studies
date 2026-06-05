@@ -7,8 +7,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/chapters', component: { template: '<div>chapters</div>' } },
-    { path: '/metrics', component: { template: '<div>metrics</div>' } }
-  ]
+    { path: '/metrics', component: { template: '<div>metrics</div>' } },
+  ],
 })
 
 describe('ChapterCard', () => {
@@ -18,7 +18,7 @@ describe('ChapterCard', () => {
 
     const wrapper = mount(ChapterCard, {
       props: { to: '/chapters', title: 'Chapters', description: 'Desc' },
-      global: { plugins: [router] }
+      global: { plugins: [router] },
     })
     expect(wrapper.find('.chapter-card').exists()).toBe(true)
     expect(wrapper.find('h2').text()).toBe('Chapters')
@@ -31,9 +31,9 @@ describe('ChapterCard', () => {
 
     const wrapper = mount(ChapterCard, {
       props: { to: '/metrics', title: 'Metrics' },
-      global: { plugins: [router] }
+      global: { plugins: [router] },
     })
     expect(wrapper.find('h2').text()).toBe('Metrics')
-    expect(wrapper.find('p').text()).toBe('')
+    expect(wrapper.find('p').exists()).toBe(false)
   })
 })

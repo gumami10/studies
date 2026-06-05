@@ -8,7 +8,7 @@ function createWrapper() {
     setup() {
       return useScroll()
     },
-    template: '<div />'
+    template: '<div />',
   })
   return mount(Comp, { attachTo: document.body })
 }

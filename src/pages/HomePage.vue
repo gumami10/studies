@@ -1,7 +1,14 @@
 <template>
   <header class="landing-hero">
-    <h1>QA Hero</h1>
-    <p class="landing-subtitle">Interactive study guide for ISTQB Advanced Level certifications</p>
+    <div class="landing-hero-row">
+      <div class="landing-hero-text">
+        <h1>QA Hero</h1>
+        <p class="landing-subtitle">
+          Interactive study guide for ISTQB Advanced Level certifications
+        </p>
+      </div>
+      <SettingsButton />
+    </div>
   </header>
 
   <main>
@@ -19,7 +26,22 @@
 
 <script setup lang="ts">
 import ChapterCard from '@/components/ui/ChapterCard.vue'
+import SettingsButton from '@/components/ui/SettingsButton.vue'
 import { useContentCatalog } from '@/composables/useContentCatalog'
 
 const { list } = useContentCatalog()
 </script>
+
+<style scoped>
+.landing-hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.landing-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+</style>

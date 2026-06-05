@@ -26,7 +26,9 @@ describe('sanitizeHtml', () => {
   })
 
   it('removes form-related tags', () => {
-    const result = sanitizeHtml('<form><input><button>click</button><select><textarea></textarea></select></form>')
+    const result = sanitizeHtml(
+      '<form><input><button>click</button><select><textarea></textarea></select></form>',
+    )
     expect(result).not.toContain('form')
     expect(result).not.toContain('input')
     expect(result).not.toContain('button')
@@ -35,7 +37,9 @@ describe('sanitizeHtml', () => {
   })
 
   it('removes link, meta, base, applet tags', () => {
-    let result = sanitizeHtml('<link rel="stylesheet"><meta charset="utf-8"><base href="/"><applet code="x"></applet>')
+    let result = sanitizeHtml(
+      '<link rel="stylesheet"><meta charset="utf-8"><base href="/"><applet code="x"></applet>',
+    )
     expect(result).not.toContain('link')
     expect(result).not.toContain('meta')
     expect(result).not.toContain('base')

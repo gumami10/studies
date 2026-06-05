@@ -3,25 +3,25 @@ import { mount } from '@vue/test-utils'
 import KeyBox from '@/components/content/KeyBox.vue'
 
 describe('KeyBox', () => {
-  it('renders a key-box div', () => {
+  it('renders a key-box', () => {
     const wrapper = mount(KeyBox, {
-      props: { block: { type: 'key-box', heading: 'Key Point', content: [] } }
+      props: { block: { type: 'key-box', heading: 'Key Point', content: [] } },
     })
     expect(wrapper.find('.key-box').exists()).toBe(true)
   })
 
   it('renders heading when provided', () => {
     const wrapper = mount(KeyBox, {
-      props: { block: { type: 'key-box', heading: 'Key Point', content: [] } }
+      props: { block: { type: 'key-box', heading: 'Key Point', content: [] } },
     })
-    expect(wrapper.find('h4').text()).toBe('Key Point')
+    expect(wrapper.find('.key-box-heading').text()).toBe('Key Point')
   })
 
   it('renders without heading', () => {
     const wrapper = mount(KeyBox, {
-      props: { block: { type: 'key-box', heading: undefined, content: [] } }
+      props: { block: { type: 'key-box', heading: undefined, content: [] } },
     })
-    expect(wrapper.find('h4').exists()).toBe(false)
+    expect(wrapper.find('.key-box-heading').exists()).toBe(false)
   })
 
   it('renders content blocks', () => {
@@ -32,10 +32,10 @@ describe('KeyBox', () => {
           heading: 'Note',
           content: [
             { type: 'paragraph', html: 'Content paragraph' },
-            { type: 'list', listType: 'ul', items: [{ html: 'Item' }] }
-          ]
-        }
-      }
+            { type: 'list', listType: 'ul', items: [{ html: 'Item' }] },
+          ],
+        },
+      },
     })
     expect(wrapper.find('p').text()).toBe('Content paragraph')
     expect(wrapper.find('li').text()).toBe('Item')
@@ -47,11 +47,11 @@ describe('KeyBox', () => {
         block: {
           type: 'key-box',
           heading: 'Note: <em>Important</em>',
-          content: []
-        }
-      }
+          content: [],
+        },
+      },
     })
-    expect(wrapper.find('h4').html()).toContain('<em>Important</em>')
+    expect(wrapper.find('.key-box-heading').html()).toContain('<em>Important</em>')
   })
 
   it('falls back to div for unknown block type', () => {
@@ -59,9 +59,9 @@ describe('KeyBox', () => {
       props: {
         block: {
           type: 'key-box',
-          content: [{ type: 'unknown', html: 'test' }]
-        }
-      }
+          content: [{ type: 'unknown', html: 'test' }],
+        },
+      },
     })
     expect(wrapper.find('.key-box').exists()).toBe(true)
   })

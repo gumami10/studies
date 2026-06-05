@@ -1,7 +1,12 @@
 <template>
-  <header>
-    <h1>Starred Sections</h1>
-    <p class="subtitle">Your saved study highlights from all chapters</p>
+  <header class="page-header">
+    <div class="page-header-row">
+      <div class="page-header-text">
+        <h1>Starred Sections</h1>
+        <p class="subtitle">Your saved study highlights from all chapters</p>
+      </div>
+      <SettingsButton />
+    </div>
     <AppNav />
   </header>
 
@@ -23,6 +28,7 @@
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { useStarredStore } from '@/stores/starred'
 import AppNav from '@/components/layout/AppNav.vue'
+import SettingsButton from '@/components/ui/SettingsButton.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 

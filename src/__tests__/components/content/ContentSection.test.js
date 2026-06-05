@@ -4,7 +4,7 @@ import { setActivePinia, createPinia } from 'pinia'
 import ContentSection from '@/components/content/ContentSection.vue'
 
 vi.mock('vue-router', () => ({
-  useRoute: () => ({ name: 'chapters' })
+  useRoute: () => ({ name: 'chapters' }),
 }))
 
 const pinia = createPinia()
@@ -14,7 +14,7 @@ describe('ContentSection', () => {
   it('renders a section with correct id', () => {
     const wrapper = mount(ContentSection, {
       props: { block: { id: 'sec-1', content: [] } },
-      global: { plugins: [pinia] }
+      global: { plugins: [pinia] },
     })
     expect(wrapper.find('section#sec-1').exists()).toBe(true)
   })
@@ -26,38 +26,29 @@ describe('ContentSection', () => {
           id: 'sec-1',
           content: [
             { type: 'h2', text: 'Title' },
-            { type: 'paragraph', html: '<p>Body text</p>' }
-          ]
-        }
+            { type: 'paragraph', html: '<p>Body text</p>' },
+          ],
+        },
       },
-      global: { plugins: [pinia] }
+      global: { plugins: [pinia] },
     })
     expect(wrapper.find('h2').text()).toBe('Title')
   })
 
-  it('extracts title from first heading block', () => {
+  it('does not render a StarButton (moved to chapter-level action group)', () => {
     const wrapper = mount(ContentSection, {
       props: {
         block: {
           id: 'sec-1',
           content: [
             { type: 'h3', text: 'Section Title' },
-            { type: 'paragraph', html: 'content' }
-          ]
-        }
+            { type: 'paragraph', html: 'content' },
+          ],
+        },
       },
-      global: { plugins: [pinia] }
+      global: { plugins: [pinia] },
     })
-    expect(wrapper.find('.star-btn').exists()).toBe(true)
-  })
-
-  it('renders StarButton', () => {
-    const wrapper = mount(ContentSection, {
-      props: {
-        block: { id: 's1', content: [{ type: 'h2', text: 'Hi' }] }
-      },
-      global: { plugins: [pinia] }
-    })
-    expect(wrapper.findComponent({ name: 'StarButton' }).exists()).toBe(true)
+    expect(wrapper.find('.star-btn').exists()).toBe(false)
+    expect(wrapper.findComponent({ name: 'StarButton' }).exists()).toBe(false)
   })
 })

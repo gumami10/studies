@@ -27,7 +27,9 @@ describe('storageGet', () => {
   it('returns fallback when localStorage.getItem throws', () => {
     const original = globalThis.localStorage
     vi.stubGlobal('localStorage', {
-      getItem: () => { throw new Error('quota') }
+      getItem: () => {
+        throw new Error('quota')
+      },
     })
     expect(storageGet('any', 'safe')).toBe('safe')
     vi.stubGlobal('localStorage', original)
@@ -52,7 +54,9 @@ describe('storageSet', () => {
   it('returns false when setItem throws', () => {
     const original = globalThis.localStorage
     vi.stubGlobal('localStorage', {
-      setItem: () => { throw new Error('quota') }
+      setItem: () => {
+        throw new Error('quota')
+      },
     })
     expect(storageSet('any', 'v')).toBe(false)
     vi.stubGlobal('localStorage', original)
@@ -71,8 +75,10 @@ describe('storageAvailable', () => {
   it('returns false when setItem throws', () => {
     const original = globalThis.localStorage
     vi.stubGlobal('localStorage', {
-      setItem: () => { throw new Error('quota') },
-      removeItem: () => {}
+      setItem: () => {
+        throw new Error('quota')
+      },
+      removeItem: () => {},
     })
     expect(storageAvailable()).toBe(false)
     vi.stubGlobal('localStorage', original)
@@ -82,7 +88,9 @@ describe('storageAvailable', () => {
     const original = globalThis.localStorage
     vi.stubGlobal('localStorage', {
       setItem: () => {},
-      removeItem: () => { throw new Error('nope') }
+      removeItem: () => {
+        throw new Error('nope')
+      },
     })
     expect(storageAvailable()).toBe(false)
     vi.stubGlobal('localStorage', original)

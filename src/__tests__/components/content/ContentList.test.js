@@ -9,9 +9,9 @@ describe('ContentList', () => {
         block: {
           type: 'list',
           listType: 'ul',
-          items: [{ html: 'Item 1' }, { html: 'Item 2' }, { html: 'Item 3' }]
-        }
-      }
+          items: [{ html: 'Item 1' }, { html: 'Item 2' }, { html: 'Item 3' }],
+        },
+      },
     })
     expect(wrapper.find('ul').exists()).toBe(true)
     expect(wrapper.findAll('li')).toHaveLength(3)
@@ -24,9 +24,9 @@ describe('ContentList', () => {
         block: {
           type: 'list',
           listType: 'ol',
-          items: [{ html: 'First' }, { html: 'Second' }]
-        }
-      }
+          items: [{ html: 'First' }, { html: 'Second' }],
+        },
+      },
     })
     expect(wrapper.find('ol').exists()).toBe(true)
     expect(wrapper.findAll('li')).toHaveLength(2)
@@ -38,9 +38,9 @@ describe('ContentList', () => {
         block: {
           type: 'list',
           listType: 'check',
-          items: [{ html: 'Done' }]
-        }
-      }
+          items: [{ html: 'Done' }],
+        },
+      },
     })
     expect(wrapper.find('ul.check').exists()).toBe(true)
   })
@@ -51,9 +51,9 @@ describe('ContentList', () => {
         block: {
           type: 'list',
           listType: 'ul',
-          items: [{ html: 'Spanned', span: '2' }]
-        }
-      }
+          items: [{ html: 'Spanned', span: '2' }],
+        },
+      },
     })
     expect(wrapper.find('li').attributes('colspan')).toBe('2')
   })
@@ -64,9 +64,9 @@ describe('ContentList', () => {
         block: {
           type: 'list',
           listType: 'ul',
-          items: [{ html: '<strong>Bold</strong> item' }]
-        }
-      }
+          items: [{ html: '<strong>Bold</strong> item' }],
+        },
+      },
     })
     expect(wrapper.find('li').html()).toContain('<strong>Bold</strong>')
   })

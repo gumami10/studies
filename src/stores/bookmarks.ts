@@ -12,24 +12,40 @@ export interface Bookmark {
 export type BookmarkMap = Record<string, Bookmark>
 
 const STORAGE_KEY = 'ctal_at_bookmarks'
+const AUTO_BOOKMARKS_KEY = 'ctal_at_auto_bookmarks'
 
 export const useBookmarksStore = defineStore('bookmarks', () => {
   const items = ref<BookmarkMap>({})
+  const autoItems = ref<BookmarkMap>({})
 
   function load() {
     items.value = storageGet<BookmarkMap>(STORAGE_KEY, {}) ?? {}
+    autoItems.value = storageGet<BookmarkMap>(AUTO_BOOKMARKS_KEY, {}) ?? {}
   }
 
   function persist() {
     storageSet(STORAGE_KEY, items.value)
   }
 
+  function autoPersist() {
+    storageSet(AUTO_BOOKMARKS_KEY, autoItems.value)
+  }
+
   function get(knowledgeId: string): Bookmark | undefined {
     return items.value[knowledgeId]
   }
 
+  function autoGet(knowledgeId: string): Bookmark | undefined {
+    return autoItems.value[knowledgeId]
+  }
+
   function isBookmarked(knowledgeId: string, sectionId: string): boolean {
     const b = items.value[knowledgeId]
+    return !!b && b.sectionId === sectionId
+  }
+
+  function isAutoBookmarked(knowledgeId: string, sectionId: string): boolean {
+    const b = autoItems.value[knowledgeId]
     return !!b && b.sectionId === sectionId
   }
 
@@ -43,10 +59,27 @@ export const useBookmarksStore = defineStore('bookmarks', () => {
     persist()
   }
 
+  function setAuto(knowledgeId: string, sectionId: string, title: string) {
+    autoItems.value[knowledgeId] = {
+      knowledgeId,
+      sectionId,
+      title,
+      timestamp: Date.now(),
+    }
+    autoPersist()
+  }
+
   function clear(knowledgeId: string) {
     if (items.value[knowledgeId]) {
       delete items.value[knowledgeId]
       persist()
+    }
+  }
+
+  function clearAuto(knowledgeId: string) {
+    if (autoItems.value[knowledgeId]) {
+      delete autoItems.value[knowledgeId]
+      autoPersist()
     }
   }
 
@@ -60,5 +93,19 @@ export const useBookmarksStore = defineStore('bookmarks', () => {
 
   const count = computed(() => Object.keys(items.value).length)
 
-  return { items, load, get, isBookmarked, set, clear, toggle, count }
+  return {
+    items,
+    autoItems,
+    load,
+    get,
+    autoGet,
+    isBookmarked,
+    isAutoBookmarked,
+    set,
+    setAuto,
+    clear,
+    clearAuto,
+    toggle,
+    count,
+  }
 })
