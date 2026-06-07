@@ -3,7 +3,7 @@ import { nextTick } from 'vue'
 import catalog from '../../data/manifest.js'
 import type { KnowledgeCatalog } from '@/types'
 import { storageGet } from '@/utils/storage'
-import { centerScrollTopForElement } from '@/utils/scrollPosition'
+import { scrollToTopForElement } from '@/utils/scrollPosition'
 
 interface BookmarkEntry {
   sectionId?: string
@@ -46,9 +46,31 @@ const baseRoutes: RouteRecordRaw[] = [
 
 function scrollToId(id: string): Promise<{ top: number; behavior: ScrollBehavior }> {
   return nextTick().then(() => {
-    const el = document.getElementById(id)
-    return { top: el ? centerScrollTopForElement(el) : 0, behavior: 'smooth' as const }
+    return new Promise<{ top: number; behavior: ScrollBehavior }>((resolve) => {
+      setTimeout(() => {
+        const el = document.getElementById(id)
+        resolve({ top: el ? scrollToTopForElement(el) : 0, behavior: 'auto' as const })
+      }, 50)
+    })
   })
+}
+
+function findLatestBookmark(knowledgeId: string, raw: unknown): BookmarkEntry | undefined {
+  if (!raw) return undefined
+  if (Array.isArray(raw)) {
+    let latest: BookmarkEntry | undefined
+    for (const b of raw as BookmarkEntry[]) {
+      if (b.knowledgeId === knowledgeId && b.sectionId) {
+        if (!latest || (b.timestamp ?? 0) > (latest.timestamp ?? 0)) latest = b
+      }
+    }
+    return latest
+  }
+  if (typeof raw === 'object') {
+    const entry = (raw as Record<string, BookmarkEntry>)[knowledgeId]
+    return entry?.sectionId ? entry : undefined
+  }
+  return undefined
 }
 
 export function buildRouter(c: KnowledgeCatalog): Router {
@@ -62,8 +84,8 @@ export function buildRouter(c: KnowledgeCatalog): Router {
       }
       const knowledgeId = to.meta.knowledgeId as string | undefined
       if (knowledgeId) {
-        const bookmarks = storageGet<Record<string, BookmarkEntry>>(BOOKMARKS_STORAGE_KEY, {}) ?? {}
-        const bookmark = bookmarks[knowledgeId]
+        const bookmarksRaw = storageGet(BOOKMARKS_STORAGE_KEY, null)
+        const bookmark = findLatestBookmark(knowledgeId, bookmarksRaw)
         if (bookmark?.sectionId) return scrollToId(bookmark.sectionId)
 
         const autoBookmarks =

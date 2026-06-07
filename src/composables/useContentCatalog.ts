@@ -27,5 +27,8 @@ export function useContentCatalog() {
     getChapterData(id: string): ChapterData | undefined {
       return chapterData[id]
     },
+    getLabel(knowledgeId: string): string {
+      return catalog[knowledgeId]?.navLabel ?? ''
+    },
   }
 }

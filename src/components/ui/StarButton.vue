@@ -1,62 +1,37 @@
 <template>
   <Button
     class="star-btn"
-    :class="{ starred }"
+    :class="{ starred: isPlaced }"
     type="button"
-    :title="starred ? 'Unstar this section' : 'Star this section'"
-    :aria-label="starred ? 'Unstar this section' : 'Star this section'"
-    :icon="starred ? 'pi pi-star-fill' : 'pi pi-star'"
+    :title="isPlaced ? 'Unstar this section' : 'Star this section'"
+    :aria-label="isPlaced ? 'Unstar this section' : 'Star this section'"
+    :icon="isPlaced ? 'pi pi-star-fill' : 'pi pi-star'"
     severity="secondary"
     text
     rounded
     size="small"
-    @click="toggle"
+    @click="onToggle"
   />
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import Button from 'primevue/button'
-import { useStarredStore } from '@/stores/starred'
+import { usePlacemarkToggle } from '@/composables/usePlacemarkToggle'
 
 const props = defineProps({
   sectionId: { type: String, required: true },
   sectionTitle: { type: String, default: 'Untitled' },
+  knowledgeId: { type: String, required: true },
 })
 
-const store = useStarredStore()
-const route = useRoute()
-const starred = ref(false)
-
-watch(
+const { isPlaced, toggle } = usePlacemarkToggle(
   () => props.sectionId,
-  (id) => {
-    store.load()
-    starred.value = store.isStarred(id)
-  },
-  { immediate: true },
+  () => props.sectionTitle,
+  () => props.knowledgeId,
 )
 
-function toggle() {
-  const section = document.getElementById(props.sectionId)
-  let html = ''
-  if (section && !store.isStarred(props.sectionId)) {
-    const clone = section.cloneNode(true) as HTMLElement
-    const btn = clone.querySelector('.star-btn')
-    if (btn) btn.remove()
-    html = clone.outerHTML
-  }
-
-  const source =
-    route.name === 'chapters'
-      ? 'CTAL-AT'
-      : route.name === 'metrics'
-        ? 'Quality Metrics'
-        : document.title
-
-  store.toggle(props.sectionId, props.sectionTitle, source, html)
-  starred.value = store.isStarred(props.sectionId)
+function onToggle() {
+  toggle(['.star-btn'])
 }
 </script>
 

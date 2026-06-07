@@ -36,7 +36,7 @@ describe('TableOfContents', () => {
     expect(wrapper.find('span').text()).toBe('Coming Soon')
   })
 
-  it('scrolls element to the viewport center on link click', async () => {
+  it('scrolls element to the top of the viewport on link click', async () => {
     const el = document.createElement('div')
     el.id = 'sec-1'
     el.getBoundingClientRect = () => ({
@@ -61,17 +61,14 @@ describe('TableOfContents', () => {
     })
     await wrapper.find('a').trigger('click')
 
-    const expectedTop = Math.max(
-      0,
-      200 + window.scrollY - window.innerHeight / 2 + 400 / 2,
-    )
+    const expectedTop = Math.max(0, 200 + window.scrollY - 24)
     expect(scrollSpy).toHaveBeenCalledWith({ top: expectedTop, behavior: 'smooth' })
 
     scrollSpy.mockRestore()
     document.body.removeChild(el)
   })
 
-  it('scrolls a chapter link to the chapter heading center', async () => {
+  it('scrolls a chapter link to the top of the chapter element', async () => {
     const chapter = document.createElement('article')
     chapter.id = 'ch1'
     chapter.className = 'chapter'
@@ -113,10 +110,7 @@ describe('TableOfContents', () => {
     })
     await wrapper.find('a').trigger('click')
 
-    const expectedTop = Math.max(
-      0,
-      260 + window.scrollY - window.innerHeight / 2 + 40 / 2,
-    )
+    const expectedTop = Math.max(0, 200 + window.scrollY - 24)
     expect(scrollSpy).toHaveBeenCalledWith({ top: expectedTop, behavior: 'smooth' })
 
     scrollSpy.mockRestore()

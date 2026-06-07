@@ -24,11 +24,10 @@
             :section-id="chapter.id"
             :section-title="chapter.title || chapter.id"
           />
-          <StarButton :section-id="activeSectionId" :section-title="activeSectionTitle" />
         </div>
         <BadgeList :block="chapter.meta" />
         <h2 v-if="chapter.title">{{ chapter.title }}</h2>
-        <ContentRenderer :blocks="chapter.content" />
+        <ContentRenderer :blocks="chapter.content" :knowledge-id="knowledgeId" />
       </article>
     </template>
   </main>
@@ -47,10 +46,9 @@
 import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHighlightsStore } from '@/stores/highlights'
-import { useBookmarksStore } from '@/stores/bookmarks'
+import { usePlacemarksStore } from '@/stores/placemarks'
 import { useHighlightToolbar } from '@/composables/useHighlightToolbar'
 import { useContentCatalog } from '@/composables/useContentCatalog'
-import { useSectionTracker } from '@/composables/useSectionTracker'
 import { useChapterTracker } from '@/composables/useChapterTracker'
 import { useSettingsStore } from '@/stores/settings'
 import type { ChapterData, KnowledgeManifest } from '@/types'
@@ -60,18 +58,15 @@ import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'
 import HighlightToolbar from '@/components/ui/HighlightToolbar.vue'
 import BookmarkButton from '@/components/ui/BookmarkButton.vue'
-import StarButton from '@/components/ui/StarButton.vue'
 import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 import SettingsButton from '@/components/ui/SettingsButton.vue'
 
 const route = useRoute()
 const store = useHighlightsStore()
-const bookmarks = useBookmarksStore()
+const placemarks = usePlacemarksStore()
 const settings = useSettingsStore()
 const { findById, getChapterData } = useContentCatalog()
-const { currentSectionId: activeSectionId, currentSectionTitle: activeSectionTitle } =
-  useSectionTracker()
 const { currentChapterId } = useChapterTracker()
 const {
   show: toolbarShow,
@@ -97,7 +92,7 @@ const data = computed<ChapterData>(() => {
 function init() {
   store.setKey(manifest.value.highlightKey)
   settings.load()
-  bookmarks.load()
+  placemarks.load()
   nextTick(() => {
     restoreHighlights()
   })
@@ -108,8 +103,10 @@ watch(() => route.name, init)
 
 watch(currentChapterId, (chapterId) => {
   if (!chapterId || !settings.autoBookmark) return
+  // Do not auto-bookmark if a manual bookmark already exists for this study
+  if (placemarks.getLatestBookmark(knowledgeId.value)) return
   const chapter = data.value.chapters.find((c) => c.id === chapterId)
   if (!chapter) return
-  bookmarks.setAuto(knowledgeId.value, chapterId, chapter.title || chapterId)
+  placemarks.setAutoBookmark(knowledgeId.value, chapterId, chapter.title || chapterId)
 })
 </script>

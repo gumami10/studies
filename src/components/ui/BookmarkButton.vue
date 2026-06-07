@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import Button from 'primevue/button'
-import { useBookmarksStore } from '@/stores/bookmarks'
+import { usePlacemarksStore } from '@/stores/placemarks'
 
 const props = defineProps({
   knowledgeId: { type: String, required: true },
@@ -26,7 +26,7 @@ const props = defineProps({
   sectionTitle: { type: String, default: 'Untitled' },
 })
 
-const store = useBookmarksStore()
+const store = usePlacemarksStore()
 
 onMounted(() => {
   store.load()
@@ -51,7 +51,7 @@ const titleText = computed(() => {
 })
 
 function onToggle() {
-  store.toggle(props.knowledgeId, props.sectionId, props.sectionTitle)
+  store.toggleBookmark(props.knowledgeId, props.sectionId, props.sectionTitle)
 }
 </script>
 

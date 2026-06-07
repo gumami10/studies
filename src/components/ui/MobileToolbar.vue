@@ -23,11 +23,11 @@
         />
         <Button
           class="mobile-star-btn"
-          :class="{ starred: isStarred }"
+          :class="{ starred: isPlaced }"
           type="button"
-          :title="isStarred ? 'Unstar this section' : 'Star this section'"
-          :aria-label="isStarred ? 'Unstar this section' : 'Star this section'"
-          :icon="isStarred ? 'pi pi-star-fill' : 'pi pi-star'"
+          :title="isPlaced ? 'Unstar this section' : 'Star this section'"
+          :aria-label="isPlaced ? 'Unstar this section' : 'Star this section'"
+          :icon="isPlaced ? 'pi pi-star-fill' : 'pi pi-star'"
           severity="secondary"
           text
           rounded
@@ -44,18 +44,24 @@ import { useRoute } from 'vue-router'
 import Toolbar from 'primevue/toolbar'
 import Button from 'primevue/button'
 import { useSectionTracker } from '@/composables/useSectionTracker'
-import { useStarredStore } from '@/stores/starred'
+import { usePlacemarkToggle } from '@/composables/usePlacemarkToggle'
 
 const props = defineProps<{
   highlightSelection: (color: string) => boolean
 }>()
 
 const route = useRoute()
-const starredStore = useStarredStore()
 const { currentSectionId, currentSectionTitle } = useSectionTracker()
 
+const knowledgeId = () => (route.meta.knowledgeId as string) ?? ''
+
+const { isPlaced, toggle: togglePlacemark } = usePlacemarkToggle(
+  () => currentSectionId.value,
+  () => currentSectionTitle.value || 'Untitled',
+  knowledgeId,
+)
+
 const highlightMode = ref(false)
-const isStarred = ref(false)
 const displayTitle = ref('')
 const titleAnimating = ref(false)
 
@@ -71,52 +77,8 @@ watch(currentSectionTitle, (newTitle) => {
   }, 200)
 })
 
-watch(
-  currentSectionId,
-  (id) => {
-    if (id) {
-      starredStore.load()
-      isStarred.value = starredStore.isStarred(id)
-    }
-  },
-  { immediate: true },
-)
-
-function getSource(): string {
-  return route.name === 'chapters'
-    ? 'CTAL-AT'
-    : route.name === 'metrics'
-      ? 'Quality Metrics'
-      : route.name === 'tae'
-        ? 'CTAL-TAE'
-        : route.name === 'ta'
-          ? 'CTAL-TA'
-          : route.name === 'code-review'
-            ? 'Code Review'
-            : route.name === 'agile-testing'
-              ? 'Agile Testing'
-              : route.name === 'more-agile-testing'
-                ? 'More Agile Testing'
-                : document.title
-}
-
 function toggleStar() {
-  const id = currentSectionId.value
-  if (!id) return
-
-  const section = document.getElementById(id)
-  let html = ''
-  if (section && !starredStore.isStarred(id)) {
-    const clone = section.cloneNode(true) as HTMLElement
-    const btn = clone.querySelector('.star-btn')
-    if (btn) btn.remove()
-    const mobileBtn = clone.querySelector('.mobile-star-btn')
-    if (mobileBtn) mobileBtn.remove()
-    html = clone.outerHTML
-  }
-
-  starredStore.toggle(id, currentSectionTitle.value || 'Untitled', getSource(), html)
-  isStarred.value = starredStore.isStarred(id)
+  togglePlacemark(['.star-btn', '.mobile-star-btn'])
 }
 
 function handleSelectionEnd() {
@@ -127,7 +89,6 @@ function handleSelectionEnd() {
 }
 
 onMounted(() => {
-  starredStore.load()
   displayTitle.value = currentSectionTitle.value
   document.addEventListener('mouseup', handleSelectionEnd)
   document.addEventListener('touchend', handleSelectionEnd)

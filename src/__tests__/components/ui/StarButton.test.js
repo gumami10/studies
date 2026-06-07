@@ -3,11 +3,15 @@ import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import { nextTick } from 'vue'
 import StarButton from '@/components/ui/StarButton.vue'
-import { useStarredStore } from '@/stores/starred'
+import { usePlacemarksStore } from '@/stores/placemarks'
 
-vi.mock('vue-router', () => ({
-  useRoute: () => ({
-    name: 'chapters',
+vi.mock('@/composables/useContentCatalog', () => ({
+  useContentCatalog: () => ({
+    getLabel: (id) => (id === 'chapters' ? 'CTAL-AT' : id),
+    findById: () => undefined,
+    getChapterData: () => undefined,
+    list: [],
+    byId: {},
   }),
 }))
 
@@ -20,7 +24,7 @@ describe('StarButton', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const wrapper = mount(StarButton, {
-      props: { sectionId: 'test-section', sectionTitle: 'Test Section' },
+      props: { sectionId: 'test-section', sectionTitle: 'Test Section', knowledgeId: 'chapters' },
       global: { plugins: [pinia] },
     })
     await nextTick()
@@ -30,19 +34,27 @@ describe('StarButton', () => {
 
   it('shows starred icon when section is already starred', async () => {
     const data = {
-      'test-section': { id: 'test-section', title: 'Test', source: 'X', html: '<p>x</p>' },
+      'test-section': {
+        id: 'test-section',
+        knowledgeId: 'chapters',
+        sectionId: 'test-section',
+        title: 'Test',
+        source: 'CTAL-AT',
+        html: '<p>x</p>',
+        timestamp: 1,
+      },
     }
-    localStorage.setItem('ctal_at_starred', JSON.stringify(data))
+    localStorage.setItem('ctal_at_placemarks', JSON.stringify(data))
 
     const pinia = createPinia()
     setActivePinia(pinia)
     const wrapper = mount(StarButton, {
-      props: { sectionId: 'test-section', sectionTitle: 'Test Section' },
+      props: { sectionId: 'test-section', sectionTitle: 'Test Section', knowledgeId: 'chapters' },
       global: { plugins: [pinia] },
     })
     await nextTick()
 
-    const store = useStarredStore()
+    const store = usePlacemarksStore()
     expect(store.isStarred('test-section')).toBe(true)
     expect(wrapper.find('.pi-star-fill').exists()).toBe(true)
     expect(wrapper.find('.starred').exists()).toBe(true)
@@ -52,7 +64,7 @@ describe('StarButton', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const wrapper = mount(StarButton, {
-      props: { sectionId: 'test-section', sectionTitle: 'Test Section' },
+      props: { sectionId: 'test-section', sectionTitle: 'Test Section', knowledgeId: 'chapters' },
       global: { plugins: [pinia] },
     })
     await nextTick()
@@ -71,7 +83,7 @@ describe('StarButton', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const wrapper = mount(StarButton, {
-      props: { sectionId: 'test-section', sectionTitle: 'Test Section' },
+      props: { sectionId: 'test-section', sectionTitle: 'Test Section', knowledgeId: 'chapters' },
       global: { plugins: [pinia] },
     })
     expect(wrapper.find('.star-btn').attributes('title')).toBe('Star this section')

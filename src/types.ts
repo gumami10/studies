@@ -38,6 +38,18 @@ export interface KnowledgeManifest {
   footerAttribution: FooterAttribution
 }
 
+export interface Placemark {
+  id: string
+  knowledgeId: string
+  sectionId: string
+  title: string
+  source: string
+  html?: string
+  timestamp: number
+}
+
+export type PlacemarkMap = Record<string, Placemark>
+
 export type KnowledgeCatalog = Record<string, KnowledgeManifest>
 
 export type ChapterModuleMap = Record<string, ChapterData>

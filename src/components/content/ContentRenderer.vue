@@ -1,6 +1,6 @@
 <template>
   <template v-for="(block, i) in blocks" :key="i">
-    <component :is="resolveComponent(block.type)" :block="block" />
+    <component :is="resolveComponent(block.type)" :block="block" :knowledge-id="knowledgeId" />
   </template>
 </template>
 
@@ -17,7 +17,7 @@ import CompareCards from './CompareCards.vue'
 import GlossaryList from './GlossaryList.vue'
 import BadgeList from './BadgeList.vue'
 
-defineProps<{ blocks: ContentBlock[] }>()
+defineProps<{ blocks: ContentBlock[]; knowledgeId?: string }>()
 
 const componentMap: Record<string, Component> = {
   section: ContentSection,

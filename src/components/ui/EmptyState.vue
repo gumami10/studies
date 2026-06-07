@@ -1,12 +1,23 @@
 <template>
   <div class="empty-state">
     <div class="empty-state-icon">
-      <i class="pi pi-star"></i>
+      <i :class="icon"></i>
     </div>
-    <h3>No starred sections yet</h3>
-    <p>Click the star icon next to any section while studying to save it here.</p>
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
   </div>
 </template>
+
+<script setup lang="ts">
+defineProps({
+  icon: { type: String, default: 'pi pi-star' },
+  title: { type: String, default: 'No starred sections yet' },
+  description: {
+    type: String,
+    default: 'Click the star icon next to any section while studying to save it here.',
+  },
+})
+</script>
 
 <style scoped>
 .empty-state {

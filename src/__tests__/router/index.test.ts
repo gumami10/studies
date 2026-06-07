@@ -68,8 +68,7 @@ describe('buildRouter', () => {
     localStorage.clear()
     document.body.innerHTML = ''
     router = buildRouter(fixtureCatalog)
-    router.push('/')
-    await router.isReady()
+    await router.push('/')
   })
 
   afterEach(() => {
@@ -118,12 +117,10 @@ describe('buildRouter', () => {
     expect(router.currentRoute.value.hash).toBe('')
   })
 
-  it('scrollBehavior centers the bookmarked section when a bookmark exists for the knowledge', async () => {
+  it('scrollBehavior scrolls to the top of the bookmarked section when a bookmark exists for the knowledge', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
-      JSON.stringify({
-        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
-      }),
+      JSON.stringify([{ knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 }]),
     )
     const el = document.createElement('section')
     el.id = 'ch3'
@@ -148,18 +145,16 @@ describe('buildRouter', () => {
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
     const result = await router.options.scrollBehavior?.(to, from, null)
-    const expectedTop = Math.max(0, 200 + window.scrollY - window.innerHeight / 2 + 200)
-    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+    const expectedTop = Math.max(0, 200 + window.scrollY - 24)
+    expect(result).toEqual({ top: expectedTop, behavior: 'auto' })
 
     document.body.removeChild(el)
   })
 
-  it('scrollBehavior centers the chapter heading instead of the full chapter card', async () => {
+  it('scrollBehavior scrolls to the top of the chapter element, not the heading inside it', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
-      JSON.stringify({
-        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
-      }),
+      JSON.stringify([{ knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 }]),
     )
     const chapter = document.createElement('article')
     chapter.id = 'ch3'
@@ -202,14 +197,14 @@ describe('buildRouter', () => {
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
     const result = await router.options.scrollBehavior?.(to, from, null)
-    const expectedTop = Math.max(0, 260 + window.scrollY - window.innerHeight / 2 + 20)
-    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+    const expectedTop = Math.max(0, 200 + window.scrollY - 24)
+    expect(result).toEqual({ top: expectedTop, behavior: 'auto' })
 
     document.body.removeChild(chapter)
   })
 
   it('scrollBehavior falls back to top when the bookmark has no sectionId', async () => {
-    localStorage.setItem('ctal_at_bookmarks', JSON.stringify({ alpha: { knowledgeId: 'alpha' } }))
+    localStorage.setItem('ctal_at_bookmarks', JSON.stringify([{ knowledgeId: 'alpha' }]))
     const to = {
       hash: '',
       meta: { knowledgeId: 'alpha' },
@@ -261,8 +256,8 @@ describe('buildRouter', () => {
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
     const result = await router.options.scrollBehavior?.(to, from, null)
-    const expectedTop = Math.max(0, 300 + window.scrollY - window.innerHeight / 2 + 100)
-    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+    const expectedTop = Math.max(0, 300 + window.scrollY - 24)
+    expect(result).toEqual({ top: expectedTop, behavior: 'auto' })
 
     document.body.removeChild(el)
   })
@@ -270,7 +265,7 @@ describe('buildRouter', () => {
   it('scrollBehavior falls back to top for routes with no knowledgeId', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
-      JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
+      JSON.stringify([{ knowledgeId: 'alpha', sectionId: 'ch3' }]),
     )
     const to = {
       hash: '',
@@ -284,7 +279,7 @@ describe('buildRouter', () => {
   it('scrollBehavior prefers a hash over a bookmark', async () => {
     localStorage.setItem(
       'ctal_at_bookmarks',
-      JSON.stringify({ alpha: { knowledgeId: 'alpha', sectionId: 'ch3' } }),
+      JSON.stringify([{ knowledgeId: 'alpha', sectionId: 'ch3' }]),
     )
     const el = document.createElement('section')
     el.id = 'ch9'
@@ -309,8 +304,8 @@ describe('buildRouter', () => {
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
     const result = await router.options.scrollBehavior?.(to, from, null)
-    const expectedTop = Math.max(0, 100 + window.scrollY - window.innerHeight / 2 + 100)
-    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+    const expectedTop = Math.max(0, 100 + window.scrollY - 24)
+    expect(result).toEqual({ top: expectedTop, behavior: 'auto' })
 
     document.body.removeChild(el)
   })
@@ -319,9 +314,7 @@ describe('buildRouter', () => {
     localStorage.clear()
     localStorage.setItem(
       'ctal_at_bookmarks',
-      JSON.stringify({
-        alpha: { knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 },
-      }),
+      JSON.stringify([{ knowledgeId: 'alpha', sectionId: 'ch3', title: 'Ch 3', timestamp: 1 }]),
     )
     localStorage.setItem(
       'ctal_at_auto_bookmarks',
@@ -352,8 +345,8 @@ describe('buildRouter', () => {
     } as unknown as Parameters<NonNullable<Router['options']['scrollBehavior']>>[0]
     const from = {} as Parameters<NonNullable<Router['options']['scrollBehavior']>>[1]
     const result = await router.options.scrollBehavior?.(to, from, null)
-    const expectedTop = Math.max(0, 200 + window.scrollY - window.innerHeight / 2 + 200)
-    expect(result).toEqual({ top: expectedTop, behavior: 'smooth' })
+    const expectedTop = Math.max(0, 200 + window.scrollY - 24)
+    expect(result).toEqual({ top: expectedTop, behavior: 'auto' })
 
     document.body.removeChild(el3)
   })

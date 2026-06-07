@@ -21,3 +21,9 @@ export function centerScrollTopForElement(el: HTMLElement): number {
 
   return Math.max(0, rect.top + window.scrollY - window.innerHeight / 2 + targetHeight / 2)
 }
+
+export function scrollToTopForElement(el: HTMLElement): number {
+  const rect = el.getBoundingClientRect()
+  const offset = 24
+  return Math.max(0, rect.top + window.scrollY - offset)
+}
