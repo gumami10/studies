@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>QA Hero</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"
+    />
+    <script>
+      ;(function () {
+        var l = window.location
+        var redirect = l.pathname.replace(/[^/]*$/, function (m) {
+          return 'index.html?p=' + encodeURIComponent(m)
+        })
+        if (l.search) redirect += l.search
+        if (l.hash) redirect += l.hash
+        l.replace(redirect)
+      })()
+    </script>
+  </head>
+  <body>
+    <noscript>JavaScript is required to view this site.</noscript>
+  </body>
+</html>

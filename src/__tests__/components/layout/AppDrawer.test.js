@@ -31,6 +31,15 @@ const ROUTES = [
   { path: '/settings', name: 'settings', component: { template: '<div>Settings</div>' } },
   { path: '/keller-prayer', name: 'keller-prayer', component: { template: '<div>Prayer</div>' } },
   { path: '/tae', name: 'tae', component: { template: '<div>TAE</div>' } },
+  { path: '/ta', name: 'ta', component: { template: '<div>TA</div>' } },
+  { path: '/metrics', name: 'metrics', component: { template: '<div>Metrics</div>' } },
+  { path: '/agile-testing', name: 'agile-testing', component: { template: '<div>AT</div>' } },
+  { path: '/code-review', name: 'code-review', component: { template: '<div>CR</div>' } },
+  {
+    path: '/more-agile-testing',
+    name: 'more-agile-testing',
+    component: { template: '<div>MAT</div>' },
+  },
 ]
 
 function setup(opts) {

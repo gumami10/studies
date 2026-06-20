@@ -1,4 +1,12 @@
-import { createRouter, createWebHashHistory, type RouteRecordRaw, type Router } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+  createMemoryHistory,
+  type RouterHistory,
+  type RouteRecordRaw,
+  type Router,
+} from 'vue-router'
 import { nextTick } from 'vue'
 import catalog from '../../data/manifest.js'
 import type { KnowledgeCatalog } from '@/types'
@@ -73,9 +81,16 @@ function findLatestBookmark(knowledgeId: string, raw: unknown): BookmarkEntry | 
   return undefined
 }
 
+function resolveHistory(): RouterHistory {
+  if (typeof window === 'undefined') return createMemoryHistory()
+  const fromMeta = (import.meta.env.VITE_ROUTER_MODE as string | undefined) || 'history'
+  if (fromMeta === 'hash') return createWebHashHistory()
+  return createWebHistory(import.meta.env.BASE_URL)
+}
+
 export function buildRouter(c: KnowledgeCatalog): Router {
   return createRouter({
-    history: createWebHashHistory(),
+    history: resolveHistory(),
     routes: [...baseRoutes, ...buildKnowledgeRoutes(c)],
     scrollBehavior(to) {
       if (to.hash) {

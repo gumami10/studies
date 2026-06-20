@@ -59,6 +59,7 @@ import BookmarkButton from '@/components/ui/BookmarkButton.vue'
 import MobileToolbar from '@/components/ui/MobileToolbar.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 import SettingsButton from '@/components/ui/SettingsButton.vue'
+import { useSeo } from '@/composables/useSeo'
 
 const route = useRoute()
 const store = useHighlightsStore()
@@ -95,6 +96,23 @@ function init() {
     restoreHighlights()
   })
 }
+
+useSeo(() => ({
+  title: `${manifest.value.title} — QA Hero`,
+  description: manifest.value.subtitle || manifest.value.homeDescription,
+  path: manifest.value.path,
+  ogType: 'article',
+  ogImage: '/og/robot-1200x630.jpg',
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: manifest.value.title,
+    description: manifest.value.subtitle || manifest.value.homeDescription,
+    educationalLevel: 'Advanced',
+    learningResourceType: 'Study Guide',
+    inLanguage: 'en',
+  },
+}))
 
 onMounted(init)
 watch(() => route.name, init)

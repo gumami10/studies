@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { storageGet, storageSet, storageAvailable } from '@/utils/storage'
 
 describe('storageGet', () => {
@@ -37,8 +37,15 @@ describe('storageGet', () => {
 })
 
 describe('storageSet', () => {
+  let errorSpy
+
   beforeEach(() => {
     localStorage.clear()
+    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    errorSpy.mockRestore()
   })
 
   it('stores a value as JSON and returns true', () => {

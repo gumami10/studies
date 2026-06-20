@@ -28,8 +28,24 @@
 import ChapterCard from '@/components/ui/ChapterCard.vue'
 import SettingsButton from '@/components/ui/SettingsButton.vue'
 import { useContentCatalog } from '@/composables/useContentCatalog'
+import { useSeo } from '@/composables/useSeo'
 
 const { list } = useContentCatalog()
+
+useSeo(() => ({
+  title: 'QA Hero — Study Guide for ISTQB CTAL Certifications',
+  description:
+    'Interactive study guide covering ISTQB CTAL-AT, CTAL-TAE, CTAL-TA, quality metrics, and code review research. Highlight, star, and review key concepts.',
+  path: '/',
+  ogType: 'website',
+  ogImage: '/og/robot-1200x630.jpg',
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'QA Hero',
+    url: 'https://example.com/studies/',
+  },
+}))
 </script>
 
 <style scoped>

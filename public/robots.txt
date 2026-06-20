@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /studies
+
+Sitemap: https://qa-hero.example.org/studies/sitemap.xml

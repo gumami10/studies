@@ -6,6 +6,7 @@ import ChapterCard from '@/components/ui/ChapterCard.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    { path: '/', component: { template: '<div>home</div>' } },
     { path: '/chapters', component: { template: '<div>chapters</div>' } },
     { path: '/metrics', component: { template: '<div>metrics</div>' } },
   ],

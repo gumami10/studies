@@ -5,6 +5,7 @@ import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 import App from './App.vue'
 import router from './router'
+import '@fontsource-variable/inter/wght.css'
 import 'primeicons/primeicons.css'
 import './styles/main.css'
 
@@ -39,4 +40,18 @@ app.use(PrimeVue, {
   },
   ripple: true,
 })
+
+function applyResolvedTheme() {
+  if (typeof window === 'undefined') return
+  const stored = window.localStorage.getItem('ctal_at_theme')
+  const prefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches
+  const dark = stored ? stored === 'dark' : !prefersLight
+  document.documentElement.classList.toggle('app-dark', dark)
+}
+
+applyResolvedTheme()
+window
+  .matchMedia?.('(prefers-color-scheme: light)')
+  .addEventListener?.('change', applyResolvedTheme)
+
 app.mount('#app')
