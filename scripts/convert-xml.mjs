@@ -16,6 +16,7 @@ const MANIFEST_FIELDS = [
   'homeOrder',
   'highlightKey',
   'footerAttribution',
+  'category',
 ]
 
 const MANIFEST_TAG_TO_KEY = {
@@ -30,9 +31,11 @@ const MANIFEST_TAG_TO_KEY = {
   'home-order': 'homeOrder',
   'highlight-key': 'highlightKey',
   'footer-attribution': 'footerAttribution',
+  category: 'category',
 }
 
 const FOOTER_ATTRIBUTIONS = new Set(['istqb', 'crispin-gregory', 'none'])
+const CATEGORIES = new Set(['personal', 'qa'])
 
 export function parseXml(xml) {
   const tagRegex = /<(\/?)(\w[\w-]*)((?:\s+[^>]*?)?)\s*(\/?)>/g
@@ -259,6 +262,12 @@ export function extractManifest(root) {
   if (!FOOTER_ATTRIBUTIONS.has(result.footerAttribution)) {
     throw new Error(
       `<footer-attribution> must be one of ${[...FOOTER_ATTRIBUTIONS].join(', ')}, got '${result.footerAttribution}'`,
+    )
+  }
+
+  if (!CATEGORIES.has(result.category)) {
+    throw new Error(
+      `<category> must be one of ${[...CATEGORIES].join(', ')}, got '${result.category}'`,
     )
   }
 

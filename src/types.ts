@@ -23,6 +23,7 @@ export interface ChapterData {
 export type ComponentMap = Record<string, Component>
 
 export type FooterAttribution = 'istqb' | 'crispin-gregory' | 'none'
+export type KnowledgeCategory = 'personal' | 'qa'
 
 export interface KnowledgeManifest {
   id: string
@@ -36,6 +37,7 @@ export interface KnowledgeManifest {
   homeOrder: number
   highlightKey: string
   footerAttribution: FooterAttribution
+  category: KnowledgeCategory
 }
 
 export interface Placemark {

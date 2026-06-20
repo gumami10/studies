@@ -12,6 +12,7 @@
     <home-order>5</home-order>
     <highlight-key>code-review-highlights</highlight-key>
     <footer-attribution>none</footer-attribution>
+    <category>qa</category>
   </manifest>
 <chapters>
     <chapter id="cr-executive-summary">

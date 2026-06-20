@@ -27,7 +27,7 @@ knowledge/xml/*.xml  →  scripts/convert-xml.mjs  →  data/*.js  →  ContentP
 - **convert-xml.mjs** parses XML and emits `{ chapters, toc, footerText }`.
 - **ContentPage.vue** is a generic renderer driven by route `meta.data`.
 - **HomePage.vue** shows `ChapterCard` entries for each page.
-- **AppNav.vue** lists cross-navigation links between pages.
+- **AppDrawer.vue** lists cross-navigation links between pages in a left-side drawer.
 
 ## Workflow: Adding a New Study Guide Page
 
@@ -89,11 +89,7 @@ import slugData from '../../data/<slug>.js'
 
 ### Step 5: Add Navigation Link
 
-In `src/components/layout/AppNav.vue`, add to the `chapters` array:
-
-```ts
-{ to: '/<slug>', label: 'Short Label' },
-```
+Nav is now auto-derived from the manifest. `AppDrawer.vue` reads the manifest, groups by `<category>` (Personal / QA), and shows each knowledge as a link. No code change needed — Step 1's manifest entry is enough.
 
 ### Step 6: Add Home Page Card
 
@@ -454,9 +450,9 @@ When the user provides source material to convert:
 9. [ ] Add `<footer-text>` citing the source
 10. [ ] Register in `scripts/convert-xml.mjs`
 11. [ ] Run `npm run convert`
-12. [ ] Add route in `src/router/index.ts`
-13. [ ] Add nav link in `src/components/layout/AppNav.vue`
-14. [ ] Add home card in `src/pages/HomePage.vue`
+12. [ ] Add route in `src/router/index.ts` (auto-derived from manifest)
+13. [ ] Add nav link in `src/components/layout/AppDrawer.vue` (auto-derived from manifest)
+14. [ ] Add home card in `src/pages/HomePage.vue` (auto-derived from manifest)
 15. [ ] Run `npm test && npm run typecheck && npm run lint:check`
 16. [ ] Run `npm run dev` and visually verify
 

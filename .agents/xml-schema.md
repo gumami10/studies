@@ -35,10 +35,11 @@ The `scripts/convert-xml.mjs` parser transforms these files into JS data modules
   <subtitle>Advanced Level Agile Tester (v2.0) — Chapter-by-Chapter Review</subtitle>
   <toc-title>Syllabus Chapters</toc-title>
   <home-description>Test Strategy, People &amp; Teams, Test Management, Shift Left, Techniques, Automation</home-description>
-  <home-order>1</home-order>
-  <highlight-key>ctal-at-highlights-ch1</highlight-key>
-  <footer-attribution>istqb</footer-attribution>
-</manifest>
+    <home-order>1</home-order>
+    <highlight-key>ctal-at-highlights-ch1</highlight-key>
+    <footer-attribution>istqb</footer-attribution>
+    <category>qa</category>
+  </manifest>
 ```
 
 | Child                  | Required | Description                                                                                                             |
@@ -54,6 +55,7 @@ The `scripts/convert-xml.mjs` parser transforms these files into JS data modules
 | `<home-order>`         | Yes      | Numeric sort key for nav and home card order (ascending).                                                               |
 | `<highlight-key>`      | Yes      | localStorage key under which per-knowledge highlights are stored.                                                       |
 | `<footer-attribution>` | Yes      | One of `istqb`, `crispin-gregory`, `none`. Drives the AppFooter rendering.                                              |
+| `<category>`           | Yes      | One of `personal`, `qa`. Drives the AppDrawer subsection grouping (e.g. personal study vs. professional QA content).    |
 
 The convert script fails loudly if any required field is missing, empty, or invalid. There are no defaults — every field is explicit.
 
@@ -216,6 +218,7 @@ Allowed inline tags: `<strong>`, `<em>`, `<b>`, `<i>`, `<code>`, `<span>`, `<br>
     <home-order>99</home-order>
     <highlight-key>minimal-highlights</highlight-key>
     <footer-attribution>none</footer-attribution>
+    <category>qa</category>
   </manifest>
   <chapters>
     <chapter id="ch-min">

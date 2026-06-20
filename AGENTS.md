@@ -68,7 +68,7 @@ src/
     storage.ts        # localStorage wrappers (get/set/available)
     sanitize.ts       # HTML sanitization (DOMParser-based)
   components/
-    layout/           # AppHeader, AppFooter, AppNav (reads from useContentCatalog)
+    layout/           # AppDrawer (left nav, mobile-aware, reads from useContentCatalog), AppFooter
     content/          # ContentRenderer (dynamic component map), ContentSection
                       # ContentParagraph, ContentHeading, ContentList,
                       # DataTable, KeyBox, CompareCards, GlossaryList, BadgeList

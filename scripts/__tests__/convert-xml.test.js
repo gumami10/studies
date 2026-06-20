@@ -26,6 +26,7 @@ const validManifest = `
     <home-order>1</home-order>
     <highlight-key>test-highlights</highlight-key>
     <footer-attribution>none</footer-attribution>
+    <category>qa</category>
   </manifest>`
 
 describe('parseXml', () => {
@@ -257,6 +258,7 @@ describe('extractManifest', () => {
       homeOrder: 1,
       highlightKey: 'test-highlights',
       footerAttribution: 'none',
+      category: 'qa',
     })
   })
 
@@ -326,6 +328,7 @@ describe('extractManifest', () => {
           <home-description>X</home-description><home-order>1</home-order>
           <highlight-key>x-highlights</highlight-key>
           <footer-attribution>banana</footer-attribution>
+          <category>qa</category>
         </manifest>
       </syllabus>
     `)
@@ -341,10 +344,27 @@ describe('extractManifest', () => {
           <home-description>X</home-description><home-order>abc</home-order>
           <highlight-key>x-highlights</highlight-key>
           <footer-attribution>none</footer-attribution>
+          <category>qa</category>
         </manifest>
       </syllabus>
     `)
     expect(() => extractManifest(root)).toThrow('<home-order> must be a number')
+  })
+
+  it('throws on an unknown category', () => {
+    const root = parseXml(`
+      <syllabus>
+        <manifest>
+          <id>x</id><path>/x</path><name>x</name><nav-label>X</nav-label>
+          <title>X</title><subtitle>X</subtitle><toc-title>X</toc-title>
+          <home-description>X</home-description><home-order>1</home-order>
+          <highlight-key>x-highlights</highlight-key>
+          <footer-attribution>none</footer-attribution>
+          <category>banana</category>
+        </manifest>
+      </syllabus>
+    `)
+    expect(() => extractManifest(root)).toThrow('<category> must be one of')
   })
 
   it('throws on a duplicate field', () => {

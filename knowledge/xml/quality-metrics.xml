@@ -12,6 +12,7 @@
     <home-order>2</home-order>
     <highlight-key>ctal-at-highlights-metrics</highlight-key>
     <footer-attribution>none</footer-attribution>
+    <category>qa</category>
   </manifest>
 <chapters>
     <chapter id="quality-metrics">

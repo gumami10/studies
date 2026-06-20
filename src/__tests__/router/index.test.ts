@@ -16,6 +16,7 @@ const fixtureCatalog: KnowledgeCatalog = {
     homeOrder: 2,
     highlightKey: 'alpha-highlights',
     footerAttribution: 'istqb',
+    category: 'qa',
   },
   beta: {
     id: 'beta',
@@ -29,6 +30,7 @@ const fixtureCatalog: KnowledgeCatalog = {
     homeOrder: 1,
     highlightKey: 'beta-highlights',
     footerAttribution: 'none',
+    category: 'qa',
   },
 }
 

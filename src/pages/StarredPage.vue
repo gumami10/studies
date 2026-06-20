@@ -7,7 +7,6 @@
       </div>
       <SettingsButton />
     </div>
-    <AppNav />
   </header>
 
   <main>
@@ -138,7 +137,6 @@ import { useContentCatalog } from '@/composables/useContentCatalog'
 import type { Placemark } from '@/types'
 import Drawer from 'primevue/drawer'
 import Button from 'primevue/button'
-import AppNav from '@/components/layout/AppNav.vue'
 import SettingsButton from '@/components/ui/SettingsButton.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'

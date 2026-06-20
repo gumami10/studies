@@ -12,6 +12,7 @@
     <home-order>1</home-order>
     <highlight-key>ctal-at-highlights-ch1</highlight-key>
     <footer-attribution>istqb</footer-attribution>
+    <category>qa</category>
   </manifest>
 <chapters>
     <chapter id="ch1">

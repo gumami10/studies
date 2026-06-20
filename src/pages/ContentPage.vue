@@ -7,7 +7,6 @@
       </div>
       <SettingsButton />
     </div>
-    <AppNav />
   </header>
 
   <div class="toc">
@@ -52,7 +51,6 @@ import { useContentCatalog } from '@/composables/useContentCatalog'
 import { useChapterTracker } from '@/composables/useChapterTracker'
 import { useSettingsStore } from '@/stores/settings'
 import type { ChapterData, KnowledgeManifest } from '@/types'
-import AppNav from '@/components/layout/AppNav.vue'
 import TableOfContents from '@/components/toc/TableOfContents.vue'
 import ContentRenderer from '@/components/content/ContentRenderer.vue'
 import BadgeList from '@/components/content/BadgeList.vue'

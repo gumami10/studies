@@ -7,7 +7,6 @@
       </div>
       <SettingsButton />
     </div>
-    <AppNav />
   </header>
 
   <main class="settings-page">
@@ -38,7 +37,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import ToggleButton from 'primevue/togglebutton'
-import AppNav from '@/components/layout/AppNav.vue'
 import SettingsButton from '@/components/ui/SettingsButton.vue'
 import ToTopButton from '@/components/ui/ToTopButton.vue'
 import { useSettingsStore } from '@/stores/settings'

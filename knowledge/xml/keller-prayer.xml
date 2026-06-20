@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syllabus>
+  <manifest>
+    <id>keller-prayer</id>
+    <path>/keller-prayer</path>
+    <name>keller-prayer</name>
+    <nav-label>Prayer</nav-label>
+    <title>Prayer: Awe and Intimacy with God</title>
+    <subtitle>A Study Digest of Timothy Keller's Book on Prayer</subtitle>
+    <toc-title>Study Sections</toc-title>
+    <home-description>Awe, intimacy, and struggle in Christian prayer — a digest of Keller's Prayer</home-description>
+    <home-order>8</home-order>
+    <highlight-key>keller-prayer-highlights</highlight-key>
+    <footer-attribution>none</footer-attribution>
+    <category>personal</category>
+  </manifest>
+
+  <chapters>
+    <chapter id="kp-introduction">
+      <meta>
+        <badge>Book Digest</badge>
+        <badge>Theology &amp; Practice</badge>
+      </meta>
+      <title>Introduction: Why Write a Book on Prayer?</title>
+      <key-box>
+        <heading>Core Thesis</heading>
+        <paragraph>Prayer is both <strong>conversation</strong> and <strong>encounter</strong> with God. It is awe and intimacy, struggle and reality. The journey of prayer is "finding our way through duty to delight."</paragraph>
+      </key-box>
+      <section id="kp-intro-problem">
+        <h2>The Two Views of Prayer</h2>
+        <paragraph>Keller observes that modern writing on prayer tends toward one of two extremes:</paragraph>
+        <compare>
+          <card type="pos">
+            <heading>Communion-Centered Prayer</heading>
+            <list type="ul">
+              <item>Emphasizes experiencing God's love and oneness with him</item>
+              <item>Promises peace, rest, and continual awareness of the divine presence</item>
+              <item>Risks becoming inward, wordless, and self-focused</item>
+            </list>
+          </card>
+          <card type="neg">
+            <heading>Kingdom-Centered Prayer</heading>
+            <list type="ul">
+              <item>Sees prayer as calling on God to advance his kingdom</item>
+              <item>Expects struggle and even the sense of God's absence</item>
+              <item>Risks reducing prayer to fervent supplication without delight in God</item>
+            </list>
+          </card>
+        </compare>
+      </section>
+      <section id="kp-intro-psalms">
+        <h2>The Psalms Hold Both Together</h2>
+        <paragraph>The Psalter — the Bible's own prayer book — contains both adoring communion (Psalms 27, 63, 84, 131, 146–150) and desperate cries for help (Psalms 10, 13, 39, 42–43, 88). Keller argues we should not choose between these experiences. True prayer holds them together.</paragraph>
+        <key-box>
+          <heading>Key Takeaway</heading>
+          <paragraph>To glorify God and enjoy him forever are not two ends but one. We cannot truly honor God as Lord if we do not also enjoy him supremely.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="kp-part1">
+      <meta>
+        <badge>Part 1</badge>
+        <badge>Desiring Prayer</badge>
+      </meta>
+      <title>Part 1: Desiring Prayer</title>
+      <section id="kp-ch1">
+        <h2>1. The Necessity of Prayer</h2>
+        <paragraph>Keller came to prayer through necessity: 9/11, his wife's illness, and his own cancer diagnosis. His wife's illustration — prayer as a life-saving medicine taken every night — convinced him that without prayer "we're not going to make it."</paragraph>
+        <list type="check">
+          <item><strong>Self-knowledge:</strong> Prayer is the only entryway into genuine self-knowledge because before God we cannot hide.</item>
+          <item><strong>Reordered loves:</strong> Prayer is the main way God changes the fundamental structure of our hearts.</item>
+          <item><strong>"Intelligent mysticism":</strong> True faith involves both the mind's convictions and the heart's affections.</item>
+        </list>
+        <key-box>
+          <heading>Key Quote</heading>
+          <paragraph>"Prayer is simply the key to everything we need to do and be in life. We must learn to pray. We have to."</paragraph>
+        </key-box>
+      </section>
+      <section id="kp-ch2">
+        <h2>2. The Greatness of Prayer</h2>
+        <paragraph>Paul's prayers for his friends contain no appeals for changed circumstances; they ask above all that believers "know him better" (Eph 1:17). This knowledge is not merely intellectual but a transformation of the whole person.</paragraph>
+        <table>
+          <row><cell>Aspect</cell><cell>What Prayer Does</cell></row>
+          <row><cell><strong>Supremacy</strong></cell><cell>Makes communion with God the highest good, more important than any circumstance</cell></row>
+          <row><cell><strong>Integrity</strong></cell><cell>Private prayer is the infallible test of whether our public faith is real</cell></row>
+          <row><cell><strong>Difficulty</strong></cell><cell>Prayer is hard because it confronts us with spiritual poverty and God's absence</cell></row>
+          <row><cell><strong>Centrality</strong></cell><cell>Wherever God is, prayer is; it pervades the entire Bible</cell></row>
+          <row><cell><strong>Richness</strong></cell><cell>George Herbert's poem shows prayer as banquet, pilgrimage, tune, refuge, and more</cell></row>
+        </table>
+        <key-box>
+          <heading>George Herbert on Prayer</heading>
+          <paragraph>Prayer is "Gods breath in man returning to his birth," "the soul in paraphrase, heart in pilgrimage," "Heaven in ordinarie," "the land of spices," and finally "something understood."</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="kp-part2">
+      <meta>
+        <badge>Part 2</badge>
+        <badge>Understanding Prayer</badge>
+      </meta>
+      <title>Part 2: Understanding Prayer</title>
+      <section id="kp-ch3">
+        <h2>3. What Is Prayer?</h2>
+        <paragraph>Prayer is a near-universal human phenomenon, yet not all prayer is the same. Keller distinguishes between mystical prayer (inward, wordless, aiming at absorption into God) and prophetic prayer (verbal, relational, grounded in God's Word and grace). The biblical pattern is prophetic — personal conversation with a transcendent God — while still including profound encounter.</paragraph>
+        <key-box>
+          <heading>Definition</heading>
+          <paragraph>Prayer is <strong>a personal, communicative response to the knowledge of God</strong>. In its fullest Christian form, it is continuing a conversation that God has started through his Word and his grace, which eventually becomes a full encounter with him.</paragraph>
+        </key-box>
+      </section>
+      <section id="kp-ch4">
+        <h2>4. Conversing with God</h2>
+        <paragraph>Because God is triune — a community of persons — language and love are intrinsic to his being. Christian prayer is not an escape into wordless consciousness but fellowship with a personal God who speaks. God's words are his active presence; to trust his Word is to trust him.</paragraph>
+        <list type="check">
+          <item><strong>Immersion in Scripture:</strong> We learn to pray by being spoken to by God first.</item>
+          <item><strong>Varied response:</strong> The Psalms teach every grammar of prayer — wonder, complaint, argument, appeal, confession, praise.</item>
+          <item><strong>Untethered prayer:</strong> Without the Bible, we create a God who does not exist and merely talk to ourselves.</item>
+        </list>
+        <key-box>
+          <heading>Edmund Clowney</heading>
+          <paragraph>"The Bible does not present an art of prayer; it presents the God of prayer."</paragraph>
+        </key-box>
+      </section>
+      <section id="kp-ch5">
+        <h2>5. Encountering God</h2>
+        <paragraph>Christian prayer is addressed to a triune God. We pray to the Father, through the Son, by the Spirit. Each person of the Trinity does a distinct work: the Father adopts us, the Son mediates access, and the Spirit assures us of God's fatherly love and intercedes within us.</paragraph>
+        <key-box>
+          <heading>The Cost of Prayer</heading>
+          <paragraph>Jesus lost his relationship with the Father on the cross so that we could have a relationship with God as Father. "Jesus was forgotten so that we could be remembered forever."</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+
+    <chapter id="kp-part3">
+      <meta>
+        <badge>Part 3</badge>
+        <badge>Learning Prayer</badge>
+      </meta>
+      <title>Part 3: Learning Prayer</title>
+      <section id="kp-ch6">
+        <h2>6. Letters on Prayer</h2>
+        <paragraph>Keller draws on three master teachers: Augustine, Martin Luther, and John Calvin.</paragraph>
+        <table>
+          <row><cell>Teacher</cell><cell>Core Contribution</cell></row>
+          <row><cell><strong>Augustine</strong></cell><cell>First see your disordered loves and desolation apart from Christ; then pray for a happy life centered on God</cell></row>
+          <row><cell><strong>Luther</strong></cell><cell>Pray twice daily; meditate on Scripture by turning it into instruction, thanksgiving, confession, and petition; then paraphrase the Lord's Prayer</cell></row>
+          <row><cell><strong>Calvin</strong></cell><cell>Four rules for prayer: joyful fear, spiritual insufficiency, submissive trust, confident hope</cell></row>
+        </table>
+      </section>
+      <section id="kp-ch7">
+        <h2>7. Rules for Prayer</h2>
+        <paragraph>Calvin's rules are not ways to earn God's favor but ways to align our prayers with grace. His "fifth rule" is the rule of grace: no one prays perfectly, yet all who come in Jesus' name are heard.</paragraph>
+        <list type="ul">
+          <item><strong>Joyful fear:</strong> Awe before God's majesty, not terror of punishment</item>
+          <item><strong>Spiritual insufficiency:</strong> Ruthless honesty about our need and sin</item>
+          <item><strong>Submissive trust:</strong> "Thy will be done"</item>
+          <item><strong>Confident hope:</strong> Bold asking because God is our Father</item>
+          <item><strong>Grace:</strong> Christ is the only basis for access</item>
+        </list>
+      </section>
+      <section id="kp-ch8">
+        <h2>8. The Prayer of Prayers</h2>
+        <paragraph>The Lord's Prayer is Jesus' master class. Its structure teaches that prayer begins with God (hallowed be thy name, thy kingdom come, thy will be done) and only then turns to our needs (daily bread, forgiveness, deliverance).</paragraph>
+        <key-box>
+          <heading>The Petitions Summarized</heading>
+          <list type="ul">
+            <item><strong>Hallowed be thy name:</strong> Glorify yourself in us and in the world</item>
+            <item><strong>Thy kingdom come:</strong> Extend your rule over every part of life</item>
+            <item><strong>Thy will be done:</strong> Grant grace to accept and obey your wise will</item>
+            <item><strong>Daily bread:</strong> Provide necessities and a just social order</item>
+            <item><strong>Forgive us:</strong> Pardon us as we forgive others</item>
+            <item><strong>Lead us not into temptation:</strong> Protect us from entering into sin</item>
+            <item><strong>Deliver us from evil:</strong> Rescue us from the evil one and his works</item>
+          </list>
+        </key-box>
+      </section>
+      <section id="kp-ch9">
+        <h2>9. The Touchstones of Prayer</h2>
+        <paragraph>Keller distills the teaching of Augustine, Luther, and Calvin into twelve touchstones grouped into what prayer is, what it requires, what it gives, and where it takes us.</paragraph>
+        <table>
+          <row><cell>Cluster</cell><cell>Touchstones</cell></row>
+          <row><cell><strong>What prayer is</strong></cell><cell>Work (duty and discipline); Word (conversing with God); Balance (praise, confession, thanks, petition)</cell></row>
+          <row><cell><strong>What prayer requires</strong></cell><cell>Grace (in Jesus' name); Fear (loving awe); Helplessness (accepting dependence)</cell></row>
+          <row><cell><strong>What prayer gives</strong></cell><cell>Perspective (reorientation); Strength (union with God); Spiritual reality (sense of presence)</cell></row>
+          <row><cell><strong>Where prayer takes us</strong></cell><cell>Self-knowledge (honesty); Trust (restful yet hopeful); Surrender (whole-life love for God)</cell></row>
+        </table>
+      </section>
+    </chapter>
+
+    <chapter id="kp-part4">
+      <meta>
+        <badge>Part 4</badge>
+        <badge>Deepening Prayer</badge>
+      </meta>
+      <title>Part 4: Deepening Prayer</title>
+      <section id="kp-ch10">
+        <h2>10. As Conversation: Meditating on His Word</h2>
+        <paragraph>Meditation is the bridge between Bible study and prayer. Psalm 1, the doorway to the Psalter, is itself a meditation on meditation. The one who meditates is like a tree planted by streams of water — stable, fruitful, and blessed.</paragraph>
+        <key-box>
+          <heading>John Owen's Three Stages of Meditation</heading>
+          <list type="ol">
+            <item><strong>Fix the mind:</strong> Understand the text; ask what it teaches about God, humanity, Christ, and life</item>
+            <item><strong>Incline the heart:</strong> Work the truth into your affections, relationships, and actions</item>
+            <item><strong>Enjoy or cry out:</strong> Savor God's presence if given, or plead for help if dry</item>
+          </list>
+        </key-box>
+        <paragraph>Biblical meditation is rational and heart-directed, not the emptying of the mind. It centers on the incarnate Word, Jesus Christ, who makes the law a delight rather than a curse.</paragraph>
+      </section>
+      <section id="kp-ch11">
+        <h2>11. As Encounter: Seeking His Face</h2>
+        <paragraph>Many Christians are "rich in Christ but living poor" — they have every spiritual blessing in principle but have not experienced it. Paul's prayer in Ephesians 3 asks that we be given power to grasp the dimensions of Christ's love.</paragraph>
+        <key-box>
+          <heading>The Dimensions of Christ's Love</heading>
+          <list type="ul">
+            <item><strong>Wide:</strong> It enfolds even the worst sinners</item>
+            <item><strong>Long:</strong> It began before time and will never end</item>
+            <item><strong>Deep:</strong> It went down to the forsakenness of the cross</item>
+            <item><strong>High:</strong> It will raise us to share in God's glory</item>
+          </list>
+        </key-box>
+        <paragraph>To "seek God's face" is to ask the Spirit to make his presence real to our hearts. John Owen insists that beholding the glory of Christ by faith now is preparation for seeing him by sight in eternity.</paragraph>
+      </section>
+    </chapter>
+
+    <chapter id="kp-part5">
+      <meta>
+        <badge>Part 5</badge>
+        <badge>Doing Prayer</badge>
+      </meta>
+      <title>Part 5: Doing Prayer</title>
+      <section id="kp-ch12">
+        <h2>12. Awe: Praising His Glory</h2>
+        <paragraph>Praise is the "alpha prayer" because it comes first in the Lord's Prayer and motivates confession and petition. C. S. Lewis discovered that praise completes enjoyment; to praise God is to enter reality.</paragraph>
+        <key-box>
+          <heading>Why We Struggle with Praise</heading>
+          <paragraph>Human sin is fundamentally ingratitude — the illusion that we are self-sufficient. Cosmic ingratitude takes credit for gifts and refuses to acknowledge dependence on God. Praise heals this by reordering our loves.</paragraph>
+        </key-box>
+      </section>
+      <section id="kp-ch13">
+        <h2>13. Intimacy: Finding His Grace</h2>
+        <paragraph>God's forgiveness is both free and infinitely costly. At the cross, God satisfied his justice so he could extend mercy. This transforms repentance from self-punishment into grateful realignment with God.</paragraph>
+        <list type="check">
+          <item><strong>Legalistic repentance</strong> tries to atone for sin through suffering and sorrow</item>
+          <item><strong>Gospel repentance</strong> admits sin and forsakes it because Jesus has already borne the cost</item>
+          <item><strong>Mortification of sin</strong> weakens sin by loading it with gospel truths until it becomes hateful</item>
+        </list>
+      </section>
+      <section id="kp-ch14">
+        <h2>14. Struggle: Asking His Help</h2>
+        <paragraph>Petitionary prayer is "strenuous petition" — asking God to change the world while also submitting to his wisdom. The Westminster Shorter Catechism defines prayer as offering our desires to God for things agreeable to his will, in Christ's name, with confession and thanksgiving.</paragraph>
+        <key-box>
+          <heading>Jesus' Unanswered Prayer</heading>
+          <paragraph>Jesus was the only person who deserved to have every prayer answered, yet his prayer in Gethsemane was turned down and he was forsaken on the cross. He received the silence we deserve so that our prayers could be heard.</paragraph>
+        </key-box>
+        <paragraph>Petition includes ordinary asking, lament and complaint, and patient waiting on God. The Psalms give us permission to bring every emotion honestly before God.</paragraph>
+      </section>
+      <section id="kp-ch15">
+        <h2>15. Practice: Daily Prayer</h2>
+        <paragraph>Daily prayer has biblical roots (Daniel's three times a day) and was reshaped by the Protestant Reformers to be accessible to ordinary people. Keller recommends a pattern that moves beyond both rationalistic Quiet Times and medieval mystical techniques.</paragraph>
+        <key-box>
+          <heading>A Pattern for Daily Prayer</heading>
+          <list type="ol">
+            <li><strong>Evocation:</strong> Recollect who God is and who you are in Christ</li>
+            <li><strong>Meditation:</strong> Read and reflect on Scripture</li>
+            <li><strong>Word prayer:</strong> Turn the text into praise, confession, and petition</li>
+            <li><strong>Free prayer:</strong> Pour out your heart with balanced adoration, confession, thanks, and supplication</li>
+            <li><strong>Contemplation:</strong> Savor God's presence or cry out for help</li>
+          </list>
+        </key-box>
+        <paragraph>The Psalms are the church's prayer book. Praying them — verbatim, paraphrased, or responsively — teaches us the grammar of prayer and keeps our prayer biblical.</paragraph>
+      </section>
+    </chapter>
+
+    <chapter id="kp-key-terms">
+      <meta>
+        <badge>Reference</badge>
+        <badge>Glossary</badge>
+      </meta>
+      <title>Key Terms</title>
+      <section id="kp-glossary">
+        <h2>Glossary</h2>
+        <glossary>
+          <term>Abba</term>
+          <definition>An Aramaic word for "Father" used by Jesus and taught to his disciples; expresses intimate, childlike confidence in God.</definition>
+          <term>Adoration</term>
+          <definition>Praise directed to God for who he is in himself; the alpha and omega of prayer.</definition>
+          <term>Apophatic prayer</term>
+          <definition>A form of contemplation that seeks to go beyond words and thoughts to a direct, non-cognitive awareness of God; Keller cautions that biblical prayer is verbal and relational.</definition>
+          <term>Beatific vision</term>
+          <definition>The direct sight of God's glory; believers have a foretaste now by faith and will see fully in eternity.</definition>
+          <term>Centering Prayer</term>
+          <definition>A modern contemplative practice derived from The Cloud of Unknowing; Keller questions its suppression of biblical language and thought.</definition>
+          <term>Confession</term>
+          <definition>The admission and forsaking of sin before God, made free and joyful by the gospel.</definition>
+          <term>Contemplation</term>
+          <definition>In Keller's usage, a time of savoring God's presence or truth; it follows meditation and is grounded in Scripture.</definition>
+          <term>Daily Office</term>
+          <definition>The historic practice of set times of prayer and Scripture reading; Cranmer's Morning and Evening Prayer is a Protestant form.</definition>
+          <term>Divinitatis sensum</term>
+          <definition>John Calvin's term for the innate sense of deity planted in all human beings, explaining the near-universality of prayer.</definition>
+          <term>Fear of God</term>
+          <definition>For the believer, not terror of punishment but joyful awe before God's majesty and a longing not to grieve him.</definition>
+          <term>In Jesus' name</term>
+          <definition>Not a magic formula but prayer consciously grounded in Christ's person and saving work, not our own merit.</definition>
+          <term>Intelligent mysticism</term>
+          <definition>John Murray's phrase for an encounter with God that engages both mind and heart.</definition>
+          <term>Lament</term>
+          <definition>A form of petition that complains to God honestly about suffering, injustice, or spiritual darkness.</definition>
+          <term>Lectio continua</term>
+          <definition>Consecutive reading through books of the Bible as part of daily devotion.</definition>
+          <term>Lectio divina</term>
+          <definition>A traditional four-step way of reading Scripture (read, meditate, pray, contemplate); Keller appreciates its goal but insists on sound interpretation first.</definition>
+          <term>Mediation</term>
+          <definition>Christ's work as the bridge between God and humanity, making access to the Father possible.</definition>
+          <term>Meditation</term>
+          <definition>Reflecting on Scripture to understand it, incline the heart, and prepare for prayer.</definition>
+          <term>Mortification</term>
+          <definition>John Owen's term for the lifelong work of killing sin by weakening its motivational roots through gospel truth.</definition>
+          <term>Petition</term>
+          <definition>Asking God for things for ourselves, others, and the world.</definition>
+          <term>Prophetic prayer</term>
+          <definition>Friedrich Heiler's term for verbal, relational prayer to a transcendent personal God; Keller identifies this as the biblical pattern.</definition>
+          <term>Reordered loves</term>
+          <definition>Augustine's idea that the Christian life is about putting God first and loving all other things in their proper order.</definition>
+          <term>Thanksgiving</term>
+          <definition>Praise for what God has done; a subcategory of praise that combats ingratitude.</definition>
+          <term>Touchstones</term>
+          <definition>Tests by which we judge the genuineness and health of our prayers.</definition>
+        </glossary>
+      </section>
+    </chapter>
+
+    <chapter id="kp-reflection">
+      <meta>
+        <badge>Application</badge>
+        <badge>Reflection</badge>
+      </meta>
+      <title>Reflection Questions</title>
+      <section id="kp-questions">
+        <h2>For Personal or Group Study</h2>
+        <list type="check">
+          <item>Do I tend to treat prayer more as communion or as kingdom-advancement? How can I hold both together?</item>
+          <item>What circumstances have made prayer feel necessary to me? What makes it feel optional?</item>
+          <item>Is my private prayer life consistent with my public Christian identity?</item>
+          <item>How well do I know God through his Word before I try to speak to him in prayer?</item>
+          <item>Do I approach God as a Father because of Jesus, or do I still try to earn his attention?</item>
+          <item>What "disordered loves" most distort my prayers?</item>
+          <item>When I meditate on Scripture, do I move from understanding to affection to action?</item>
+          <item>Have I experienced God's love as a reality, or only as a doctrine?</item>
+          <item>What role do praise, confession, and petition each have in my daily prayer?</item>
+          <item>Am I "rowing" even when I do not feel like "sailing"?</item>
+        </list>
+        <key-box>
+          <heading>Final Invitation</heading>
+          <paragraph>"Why are we settling for water when we could have wine?" Prayer is the banquet of the church, the place where earth and heaven meet. Through Christ we may taste now the fellowship that will be fully ours at the great feast to come.</paragraph>
+        </key-box>
+      </section>
+    </chapter>
+  </chapters>
+
+  <toc>
+    <item id="kp-introduction">Introduction: Why This Book?</item>
+    <item id="kp-part1">Part 1: Desiring Prayer</item>
+    <item id="kp-ch1">1. The Necessity of Prayer</item>
+    <item id="kp-ch2">2. The Greatness of Prayer</item>
+    <item id="kp-part2">Part 2: Understanding Prayer</item>
+    <item id="kp-ch3">3. What Is Prayer?</item>
+            <item id="kp-ch4">4. Conversing with God</item>
+    <item id="kp-ch5">5. Encountering God</item>
+    <item id="kp-part3">Part 3: Learning Prayer</item>
+    <item id="kp-ch6">6. Letters on Prayer</item>
+    <item id="kp-ch7">7. Rules for Prayer</item>
+    <item id="kp-ch8">8. The Prayer of Prayers</item>
+    <item id="kp-ch9">9. The Touchstones of Prayer</item>
+    <item id="kp-part4">Part 4: Deepening Prayer</item>
+    <item id="kp-ch10">10. Meditating on His Word</item>
+    <item id="kp-ch11">11. Seeking His Face</item>
+    <item id="kp-part5">Part 5: Doing Prayer</item>
+    <item id="kp-ch12">12. Awe: Praising His Glory</item>
+    <item id="kp-ch13">13. Intimacy: Finding His Grace</item>
+    <item id="kp-ch14">14. Struggle: Asking His Help</item>
+    <item id="kp-ch15">15. Practice: Daily Prayer</item>
+    <item id="kp-key-terms">Key Terms</item>
+    <item id="kp-reflection">Reflection Questions</item>
+  </toc>
+
+  <footer-text>A study digest of Timothy Keller, Prayer: Experiencing Awe and Intimacy with God (Hodder &amp; Stoughton, 2014). For personal study and review.</footer-text>
+</syllabus>

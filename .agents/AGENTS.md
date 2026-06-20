@@ -10,7 +10,7 @@
 1.  **Create or update XML** in the `knowledge/xml/` folder following the schema defined in `xml-schema.md`.
 2.  Run `npm run convert` to regenerate the JS data modules in `data/`.
 3.  If a new page is needed, add a route in `src/router/index.js` using `ContentPage` with meta: `{ title, subtitle, tocTitle, highlightKey, data }`. No new Vue component needed.
-4.  Update `src/components/layout/AppNav.vue` and `src/pages/HomePage.vue` if required.
+4.  Update `src/pages/HomePage.vue` if the home grid needs adjusting. The AppDrawer picks up new knowledge automatically via the manifest.
 5.  Run `npm test` before committing.
 
 ## Quick Reference
