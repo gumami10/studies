@@ -55,3 +55,24 @@ export type PlacemarkMap = Record<string, Placemark>
 export type KnowledgeCatalog = Record<string, KnowledgeManifest>
 
 export type ChapterModuleMap = Record<string, ChapterData>
+
+export type SearchTier = 'chapter' | 'section' | 'content'
+
+export interface SearchResult {
+  id: string
+  knowledgeId: string
+  knowledgePath: string
+  knowledgeTitle: string
+  chapterId: string
+  chapterTitle: string
+  sectionId: string | null
+  sectionTitle: string | null
+  tier: SearchTier
+  snippet: string
+  score: number
+}
+
+export interface ChapterWithManifest {
+  manifest: KnowledgeManifest
+  data: ChapterData
+}

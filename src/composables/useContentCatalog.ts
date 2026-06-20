@@ -1,5 +1,5 @@
 import catalog from '../../data/manifest.js'
-import type { ChapterData, ChapterModuleMap, KnowledgeManifest } from '@/types'
+import type { ChapterData, ChapterModuleMap, ChapterWithManifest, KnowledgeManifest } from '@/types'
 
 const chapterModules = import.meta.glob<{ default: ChapterData }>(
   ['../../data/*.js', '!**/manifest.js'],
@@ -29,6 +29,14 @@ export function useContentCatalog() {
     },
     getLabel(knowledgeId: string): string {
       return catalog[knowledgeId]?.navLabel ?? ''
+    },
+    getAllChapters(): ChapterWithManifest[] {
+      const out: ChapterWithManifest[] = []
+      for (const manifest of sortedList) {
+        const data = chapterData[manifest.id]
+        if (data) out.push({ manifest, data })
+      }
+      return out
     },
   }
 }

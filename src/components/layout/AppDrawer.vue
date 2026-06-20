@@ -36,6 +36,10 @@
     </header>
 
     <nav v-if="!isCollapsed" class="drawer-nav" aria-label="Primary">
+      <div class="drawer-search">
+        <SearchBar placeholder="Search guide…" />
+      </div>
+
       <ul class="drawer-list drawer-utilities">
         <li v-for="link in utilityLinks" :key="link.to">
           <router-link
@@ -86,6 +90,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 import { useContentCatalog } from '@/composables/useContentCatalog'
+import SearchBar from '@/components/ui/SearchBar.vue'
 import type { KnowledgeCategory } from '@/types'
 
 interface NavLink {
@@ -206,7 +211,7 @@ onBeforeUnmount(() => {
 .drawer {
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 300px;
   flex-shrink: 0;
   background: var(--p-surface-900);
   border-right: 1px solid var(--p-surface-800);
@@ -279,6 +284,12 @@ onBeforeUnmount(() => {
 }
 
 .drawer-utilities {
+  margin-bottom: 0.5rem;
+}
+
+.drawer-search {
+  padding: 0.25rem 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--p-surface-800);
   margin-bottom: 0.5rem;
 }
 
