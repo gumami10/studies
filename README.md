@@ -24,25 +24,25 @@ Built as a Vue 3 single-page application to make studying interactive — highli
 
 ```bash
 # Start dev server
-npm run dev
+pnpm dev
 
 # Build for production
-npm run build
+pnpm build
 
 # Preview production build
-npm run preview
+pnpm preview
 
 # Convert XML knowledge files to JS data modules
-npm run convert
+pnpm convert
 
 # Run tests
-npm test
+pnpm test
 
 # Run tests in watch mode
-npm run test:watch
+pnpm test:watch
 
 # Run tests with coverage
-npm run test:coverage
+pnpm test:coverage
 ```
 
 ## Content Workflow
@@ -50,7 +50,7 @@ npm run test:coverage
 All study content lives in `knowledge/xml/` and is converted to `data/*.js` modules:
 
 1. Edit or add XML files in `knowledge/xml/`
-2. Run `npm run convert` to regenerate data files
+2. Run `pnpm convert` to regenerate data files
 3. Commit both XML and generated JS files
 
 ## Project Structure

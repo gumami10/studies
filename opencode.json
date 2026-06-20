@@ -7,11 +7,11 @@
   "command": {
     "convert": {
       "description": "Regenerate JS data modules from XML sources",
-      "template": "Run `npm run convert` to regenerate all data/*.js files from knowledge/xml/*.xml. If any errors occur, diagnose and fix them."
+      "template": "Run `pnpm convert` to regenerate all data/*.js files from knowledge/xml/*.xml. If any errors occur, diagnose and fix them."
     },
     "verify": {
       "description": "Run full verification pipeline: convert, test, typecheck, lint",
-      "template": "Run the full verification pipeline in sequence:\n1. `npm run convert`\n2. `npm test`\n3. `npm run typecheck`\n4. `npm run lint:check`\n\nIf any step fails, stop and report the error. Do not proceed to the next step until the current one passes."
+      "template": "Run the full verification pipeline in sequence:\n1. `pnpm convert`\n2. `pnpm test`\n3. `pnpm typecheck`\n4. `pnpm lint:check`\n\nIf any step fails, stop and report the error. Do not proceed to the next step until the current one passes."
     }
   },
   "formatter": false

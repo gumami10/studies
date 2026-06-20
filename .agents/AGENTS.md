@@ -8,14 +8,14 @@
 ## How to Add New Knowledge / Content
 
 1.  **Create or update XML** in the `knowledge/xml/` folder following the schema defined in `xml-schema.md`.
-2.  Run `npm run convert` to regenerate the JS data modules in `data/`.
+2.  Run `pnpm convert` to regenerate the JS data modules in `data/`.
 3.  If a new page is needed, add a route in `src/router/index.js` using `ContentPage` with meta: `{ title, subtitle, tocTitle, highlightKey, data }`. No new Vue component needed.
 4.  Update `src/pages/HomePage.vue` if the home grid needs adjusting. The AppDrawer picks up new knowledge automatically via the manifest.
-5.  Run `npm test` before committing.
+5.  Run `pnpm test` before committing.
 
 ## Quick Reference
 
 - `knowledge/xml/` = source of truth for all content.
 - `data/` = generated from XML, git-tracked.
-- `npm run convert` = XML → JS.
-- `npm test` = vitest suite.
+- `pnpm convert` = XML → JS.
+- `pnpm test` = vitest suite.

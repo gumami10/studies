@@ -52,7 +52,7 @@ Also add a `console.log` line for it.
 ### Step 3: Run Conversion
 
 ```bash
-npm run convert
+pnpm convert
 ```
 
 This generates `data/<slug>.js`.
@@ -102,11 +102,11 @@ In `src/pages/HomePage.vue`, add a `ChapterCard` inside the `.chapter-grid`:
 ### Step 7: Verify
 
 ```bash
-npm run convert
-npm test
-npm run typecheck
-npm run lint:check
-npm run dev   # visually check the new page
+pnpm convert
+pnpm test
+pnpm typecheck
+pnpm lint:check
+pnpm dev   # visually check the new page
 ```
 
 ---
@@ -449,12 +449,12 @@ When the user provides source material to convert:
 8. [ ] Build `<toc>` matching the section structure
 9. [ ] Add `<footer-text>` citing the source
 10. [ ] Register in `scripts/convert-xml.mjs`
-11. [ ] Run `npm run convert`
+11. [ ] Run `pnpm convert`
 12. [ ] Add route in `src/router/index.ts` (auto-derived from manifest)
 13. [ ] Add nav link in `src/components/layout/AppDrawer.vue` (auto-derived from manifest)
 14. [ ] Add home card in `src/pages/HomePage.vue` (auto-derived from manifest)
-15. [ ] Run `npm test && npm run typecheck && npm run lint:check`
-16. [ ] Run `npm run dev` and visually verify
+15. [ ] Run `pnpm test && pnpm typecheck && pnpm lint:check`
+16. [ ] Run `pnpm dev` and visually verify
 
 ---
 

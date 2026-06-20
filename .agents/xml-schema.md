@@ -247,8 +247,8 @@ Allowed inline tags: `<strong>`, `<em>`, `<b>`, `<i>`, `<code>`, `<span>`, `<br>
 
 1.  Read existing XML files in `knowledge/xml/` to understand content patterns.
 2.  Add / edit XML following this schema (including the `<manifest>` block).
-3.  Run `npm run convert`.
-4.  Verify with `npm test`.
+3.  Run `pnpm convert`.
+4.  Verify with `pnpm test`.
 5.  Do **not** manually edit files in `data/` — they are generated.
 
 ## Adding a New Knowledge Module
@@ -257,7 +257,7 @@ To add a new knowledge module (e.g. a new study guide):
 
 1.  Create `knowledge/xml/<id>.xml` with the full schema, including the `<manifest>` block.
     The XML filename should match `<id>` so the generated data file is `data/<id>.js`.
-2.  Run `npm run convert`. The convert script reads every XML in `knowledge/xml/`, writes
+2.  Run `pnpm convert`. The convert script reads every XML in `knowledge/xml/`, writes
     a matching `data/<id>.js`, and writes a single `data/manifest.js` aggregating all
     `<manifest>` entries.
 3.  Done. The router, nav, and home page derive from the manifest — no other file

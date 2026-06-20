@@ -19,18 +19,18 @@ Vue 3 SPA with Vite build system. Study guide for ISTQB CTAL-AT certification.
 
 ## Commands
 
-- `npm run dev` — Start Vite dev server (HMR)
-- `npm run build` — Production build to `dist/`
-- `npm run preview` — Preview production build
-- `npm run convert` — Regenerate data files from `knowledge/xml/*.xml` → `data/*.js`
-- `npm test` — Run vitest test suite
-- `npm run test:watch` — Run vitest in watch mode
-- `npm run test:coverage` — Run vitest with coverage report
-- `npm run lint` — Run ESLint with auto-fix
-- `npm run lint:check` — Run ESLint (check only, no fixes)
-- `npm run typecheck` — Run vue-tsc type checking (no emit)
-- `npm run format` — Format all files with Prettier
-- `npm run format:check` — Check formatting without writing
+- `pnpm dev` — Start Vite dev server (HMR)
+- `pnpm build` — Production build to `dist/`
+- `pnpm preview` — Preview production build
+- `pnpm convert` — Regenerate data files from `knowledge/xml/*.xml` → `data/*.js`
+- `pnpm test` — Run vitest test suite
+- `pnpm test:watch` — Run vitest in watch mode
+- `pnpm test:coverage` — Run vitest with coverage report
+- `pnpm lint` — Run ESLint with auto-fix
+- `pnpm lint:check` — Run ESLint (check only, no fixes)
+- `pnpm typecheck` — Run vue-tsc type checking (no emit)
+- `pnpm format` — Format all files with Prettier
+- `pnpm format:check` — Check formatting without writing
 
 ## Project Structure
 
@@ -89,7 +89,7 @@ src/
    The XML must include a `<manifest>` block with all 11 required fields
    (id, path, name, navLabel, title, subtitle, tocTitle, homeDescription, homeOrder,
    highlightKey, footerAttribution). The convert script fails loudly if any are missing.
-2. Run `npm run convert`. The script reads every XML, writes `data/<id>.js` per chapter
+2. Run `pnpm convert`. The script reads every XML, writes `data/<id>.js` per chapter
    set, and writes a single aggregated `data/manifest.js` (and `data/manifest.d.ts`).
 3. Done. The router, nav, home page, and footer all derive from the manifest.
 
@@ -99,11 +99,11 @@ also no longer need per-knowledge edits. The only file per knowledge is the XML.
 ## Agent Notes
 
 - **DO NOT write new HTML files** unless the user explicitly asks for them. The project is a Vue SPA; new pages are Vue components in `src/pages/`, not `.html` files.
-- **All new content must be authored as XML** in `knowledge/xml/` following the schema in `.agents/xml-schema.md`. Run `npm run convert` after XML changes.
-- Tests use vitest + @vue/test-utils + happy-dom. Run `npm test` before committing changes.
+- **All new content must be authored as XML** in `knowledge/xml/` following the schema in `.agents/xml-schema.md`. Run `pnpm convert` after XML changes.
+- Tests use vitest + @vue/test-utils + happy-dom. Run `pnpm test` before committing changes.
 - Test files live in `src/__tests__/` and `scripts/__tests__/` matching the source structure.
-- `data/` is git-tracked (generated from XML). Run `npm run convert` after XML changes and commit both.
+- `data/` is git-tracked (generated from XML). Run `pnpm convert` after XML changes and commit both.
 - `dist/` is gitignored (build output).
 - All source files are TypeScript (`.ts`). Vue SFCs use `<script setup lang="ts">`.
-- Run `npm run typecheck` and `npm run lint:check` after code changes to ensure type safety and code quality.
+- Run `pnpm typecheck` and `pnpm lint:check` after code changes to ensure type safety and code quality.
 - Pre-commit hooks (Husky + lint-staged) run ESLint, Prettier, typecheck, and tests automatically.

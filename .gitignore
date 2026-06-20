@@ -3,3 +3,4 @@ dist/
 data/
 .venv
 coverage/
+package-lock.json
