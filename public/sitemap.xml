@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://qa-hero.example.org/studies/</loc>
+    <loc>https://example.com/studies/</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/starred</loc>
+    <loc>https://example.com/studies/starred</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/settings</loc>
+    <loc>https://example.com/studies/settings</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/chapters</loc>
+    <loc>https://example.com/studies/chapters</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/metrics</loc>
+    <loc>https://example.com/studies/metrics</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/tae</loc>
+    <loc>https://example.com/studies/tae</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/ta</loc>
+    <loc>https://example.com/studies/ta</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/code-review</loc>
+    <loc>https://example.com/studies/code-review</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/agile-testing</loc>
+    <loc>https://example.com/studies/agile-testing</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/more-agile-testing</loc>
+    <loc>https://example.com/studies/more-agile-testing</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://qa-hero.example.org/studies/keller-prayer</loc>
+    <loc>https://example.com/studies/keller-prayer</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
