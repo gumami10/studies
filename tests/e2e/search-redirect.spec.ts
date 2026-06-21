@@ -7,11 +7,7 @@ test.describe('Search bar', () => {
     const search = new SearchBarPage(page)
     const content = new ContentPage(page)
 
-    // Arrange — start on the home page so the drawer (and its search bar) is mounted.
-    // Use './' so the URL resolves to baseURL exactly (works for both local
-    // `http://localhost:4173/studies/` and prod `https://.../studies/`).
-    // Plain '/' would resolve to the origin root and 404 on GitHub Pages.
-    await page.goto('./')
+    await page.goto('/')
     await expect(page.locator('.landing-hero h1')).toHaveText('QA Hero')
 
     // Act — open the search bar, type a query that matches a chapter title, click the first result.
