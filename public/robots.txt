@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /studies
 
-Sitemap: https://gumami10.github.io/studies/sitemap.xml
+Sitemap: https://qa-hero.example.org/studies/sitemap.xml

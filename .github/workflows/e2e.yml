@@ -73,3 +73,99 @@ jobs:
           path: test-results
           retention-days: 14
           if-no-files-found: ignore
+
+  heal:
+    name: Self-heal E2E failures
+    needs: e2e
+    if: github.repository == 'gumami10/studies' && needs.e2e.result == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.6.0
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Reproduce E2E locally, capture failures
+        id: local-e2e
+        continue-on-error: true
+        run: |
+          set +e
+          pnpm e2e --reporter=list 2>&1 | tee e2e-failures.log
+          code=${PIPESTATUS[0]}
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+
+      - name: Skip heal if local E2E passes
+        if: steps.local-e2e.outputs.exit == '0'
+        run: |
+          rm -f e2e-failures.log
+          echo "Local E2E passed — failure was deployment-specific, not a test issue. Nothing to heal."
+
+      - name: Build heal prompt
+        if: steps.local-e2e.outputs.exit != '0'
+        run: |
+          {
+            echo "HEAL_PROMPT<<'EOF'"
+            cat scripts/heal-e2e-prompt.md
+            echo ""
+            echo "Full failure log: ./e2e-failures.log — read it first."
+            echo ""
+            echo "Mode: CI workflow. Run only once. Do not loop, watch, or set up recurring retries."
+            echo "After fixing, create a branch named heal/e2e-$(git rev-parse --short HEAD), commit ONLY changes under tests/e2e/**, push the branch, and open a PR titled 'fix: self-heal E2E test failures'."
+            echo "PR body must include:"
+            echo "- ## Confidence: NN% — one line explaining this confidence level (e.g., 85% — fix targets one brittle selector, reproduced locally, no other tests affected)"
+            echo "- ## Failures healed — table with columns: test | classification | fix"
+            echo "- ## Production bugs found — list any (leave those tests failing with a note)"
+            echo "- ## Verification — paste the final pnpm e2e and pnpm test results"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Heal via opencode
+        if: steps.local-e2e.outputs.exit != '0'
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: opencode-go/deepseek-v4-flash
+          use_github_token: true
+          prompt: ${{ env.HEAL_PROMPT }}
+
+      - name: Upload E2E failure log
+        if: always() && steps.local-e2e.outputs.exit != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-failures-log
+          path: e2e-failures.log
+          retention-days: 14
+          if-no-files-found: ignore

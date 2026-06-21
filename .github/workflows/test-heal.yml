@@ -1,0 +1,107 @@
+name: test-heal
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'provider/model to use for healing'
+        required: false
+        default: 'opencode-go/deepseek-v4-flash'
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: test-heal
+  cancel-in-progress: false
+
+jobs:
+  heal:
+    name: Self-heal failing tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.repository == 'gumami10/studies'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.6.0
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests, capture failures
+        id: test
+        continue-on-error: true
+        run: |
+          set +e
+          pnpm test --reporter=default 2>&1 | tee test-failures.log
+          code=${PIPESTATUS[0]}
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+
+      - name: Skip heal if tests green
+        if: steps.test.outputs.exit == '0'
+        run: |
+          rm -f test-failures.log
+          echo "Tests green — nothing to heal."
+
+      - name: Build heal prompt
+        if: steps.test.outputs.exit != '0'
+        run: |
+          {
+            echo "HEAL_PROMPT<<'EOF'"
+            cat scripts/heal-prompt.md
+            echo ""
+            echo "Full failure log: ./test-failures.log — read it first."
+            echo ""
+            echo "Mode: CI workflow. After fixing, create a branch named heal/tests-$(git rev-parse --short HEAD), commit ONLY the test-file changes, push the branch, and open a PR titled 'fix: self-heal failing tests'."
+            echo "PR body must include:"
+            echo "- ## Failures healed — table with columns: test | classification | fix"
+            echo "- ## Production bugs found — list any (leave those tests failing with a comment)"
+            echo "- ## Verification — paste the final pnpm test, pnpm typecheck, and pnpm lint:check results"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Heal via opencode
+        if: steps.test.outputs.exit != '0'
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: ${{ inputs.model || 'opencode-go/deepseek-v4-flash' }}
+          use_github_token: true
+          prompt: ${{ env.HEAL_PROMPT }}
+
+      - name: Upload failure log
+        if: always() && steps.test.outputs.exit != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-failures-log
+          path: test-failures.log
+          retention-days: 14
+          if-no-files-found: ignore
