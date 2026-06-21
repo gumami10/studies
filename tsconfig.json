@@ -17,6 +17,14 @@
     },
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "src/env.d.ts", "vite.config.ts", "data/**/*.d.ts"],
-  "exclude": ["node_modules", "dist", "data/**/*.js"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/env.d.ts",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "tests/**/*.ts",
+    "data/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", "data/**/*.js", "test-results", "playwright-report"]
 }
