@@ -2,6 +2,12 @@ name: E2E Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      baseUrl:
+        description: 'Base URL to run E2E tests against'
+        required: true
+        default: 'https://gumami10.github.io/studies/'
+        type: string
 
 permissions:
   contents: read
@@ -25,13 +31,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install pnpm
-        run: corepack prepare pnpm@11.6.0 --activate
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.6.0
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -41,7 +53,7 @@ jobs:
 
       - name: Run E2E tests
         env:
-          PLAYWRIGHT_BASE_URL: https://gumami10.github.io/studies/
+          PLAYWRIGHT_BASE_URL: ${{ inputs.baseUrl }}
         run: pnpm e2e
 
       - name: Upload Playwright report
