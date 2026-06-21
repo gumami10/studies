@@ -8,7 +8,10 @@ test.describe('Search bar', () => {
     const content = new ContentPage(page)
 
     // Arrange — start on the home page so the drawer (and its search bar) is mounted.
-    await page.goto('/')
+    // Use './' so the URL resolves to baseURL exactly (works for both local
+    // `http://localhost:4173/studies/` and prod `https://.../studies/`).
+    // Plain '/' would resolve to the origin root and 404 on GitHub Pages.
+    await page.goto('./')
     await expect(page.locator('.landing-hero h1')).toHaveText('QA Hero')
 
     // Act — open the search bar, type a query that matches a chapter title, click the first result.
@@ -32,7 +35,7 @@ test.describe('Search bar', () => {
     const content = new ContentPage(page)
 
     // Arrange
-    await page.goto('/')
+    await page.goto('./')
     await search.open()
 
     // Act — type, let results settle, press Enter to activate the highlighted option.
