@@ -77,7 +77,7 @@ jobs:
   heal:
     name: Self-heal E2E failures
     needs: e2e
-    if: github.repository == 'gumami10/studies' && needs.e2e.result == 'failure'
+    if: failure() && github.repository == 'gumami10/studies'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

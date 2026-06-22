@@ -14,5 +14,16 @@
       "template": "Run the full verification pipeline in sequence:\n1. `pnpm convert`\n2. `pnpm test`\n3. `pnpm typecheck`\n4. `pnpm lint:check`\n\nIf any step fails, stop and report the error. Do not proceed to the next step until the current one passes."
     }
   },
+  "mcp": {
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": true,
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {file:~/.secrets/github-mcp-pat}"
+      }
+    }
+  },
   "formatter": false
 }

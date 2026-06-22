@@ -16,7 +16,6 @@
     "test:affected": "vitest run --changed",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "heal": "node scripts/heal-tests.mjs",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "typecheck": "vue-tsc --noEmit",
