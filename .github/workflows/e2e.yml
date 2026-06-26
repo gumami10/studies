@@ -150,12 +150,19 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_ENV"
 
+      - name: Stub local secret file so opencode config validates
+        if: steps.local-e2e.outputs.exit != '0'
+        run: |
+          mkdir -p ~/.secrets
+          echo "stub" > ~/.secrets/github-mcp-pat
+
       - name: Heal via opencode
         if: steps.local-e2e.outputs.exit != '0'
         uses: anomalyco/opencode/github@latest
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENCODE_CONFIG_CONTENT: '{"mcp":{"github":{"enabled":false}}}'
         with:
           model: opencode-go/deepseek-v4-flash
           use_github_token: true
