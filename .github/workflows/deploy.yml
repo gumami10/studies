@@ -3,7 +3,24 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
+    paths:
+      - 'src/**'
+      - 'data/**'
+      - 'knowledge/xml/**'
+      - 'public/**'
+      - 'index.html'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'vite.config.ts'
+      - 'tsconfig.json'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy even if no relevant paths changed (manual run only)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -41,6 +58,7 @@ jobs:
 
   deploy:
     needs: build
+    if: ${{ github.event_name == 'push' || inputs.force_deploy == true }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages

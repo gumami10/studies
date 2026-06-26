@@ -135,7 +135,7 @@ jobs:
         if: steps.local-e2e.outputs.exit != '0'
         run: |
           {
-            echo "HEAL_PROMPT<<'EOF'"
+            echo "HEAL_PROMPT<<EOF"
             cat scripts/heal-e2e-prompt.md
             echo ""
             echo "Full failure log: ./e2e-failures.log — read it first."
