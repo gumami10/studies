@@ -8,7 +8,7 @@ test.describe('Search bar', () => {
     const content = new ContentPage(page)
 
     await page.goto('./')
-    await expect(page.locator('.landing-hero h3')).toHaveText('QA Herasdkoo')
+    await expect(page.locator('.landing-hero h1')).toHaveText('QA Hero')
 
     // Act — open the search bar, type a query that matches a chapter title, click the first result.
     await search.open()
